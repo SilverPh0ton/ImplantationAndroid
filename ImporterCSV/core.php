@@ -2,6 +2,7 @@
 include_once 'BL/ExcelImporter.php';
 include_once 'BL/BookImporter.php';
 include_once 'DBObject/OldDB.php';
+include_once 'DBObject/NewDB.php';
 
 if(isset($_POST["submit"]))
 {
@@ -9,6 +10,7 @@ if(isset($_POST["submit"]))
     $excelImporter = new ExcelImporter();
     $bookImporter = new BookImporter();
     $oldDB = new OldDB();
+    $newDB = new NewDB();
 
     //Calls
     $extracts = $excelImporter->import($_FILES['file']['name']);
