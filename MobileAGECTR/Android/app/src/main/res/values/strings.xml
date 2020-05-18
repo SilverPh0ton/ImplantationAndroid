@@ -1,0 +1,186 @@
+<resources>
+    <string name="app_name">Livre AGECTR</string>
+    <string name="nav_header_title">Admin Admin</string>
+    <string name="nav_header_subtitle">admin.admin@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="activity_title_edit_book">Modification de livre</string>
+    <string name="activity_title_add_book">Ajout de livre</string>
+    <string name="activity_title_result">Résultat de recherche</string>
+
+    <string name="menu_group">Profil</string>
+    <string name="menu_research">Recherche</string>
+    <string name="menu_info">Mes informations</string>
+    <string name="menu_reservation">Mes réservations</string>
+    <string name="menu_my_book">Mes livres</string>
+    <string name="menu_about">À propos</string>
+    <string name="menu_my_history">Mon historique</string>
+    <string name="menu_group_result">Résultat de recherche</string>
+
+    <string name="action_search">Rechercher</string>
+    <string name="action_create_account">Créer un compte</string>
+    <string name="action_save">Sauvegarder</string>
+    <string name="action_disconnect">Déconnexion</string>
+    <string name="action_connect">Connexion</string>
+    <string name="action_change_info">Modifier des informations</string>
+    <string name="action_change_password">Modifier le mot de passe</string>
+    <string name="action_back_to_search">◄-- Retour à la recherche</string>
+    <string name="action_back">◄-- Retour</string>
+    <string name="action_archive">Archiver</string>
+
+    <string name="label_first_name">Nom</string>
+    <string name="label_last_name">Prénom</string>
+    <string name="label_mail">Adresse courriel</string>
+    <string name="label_matricule_and_mail">Matricule ou adresse courriel</string>
+    <string name="label_phone">Numéro de téléphone cellulaire</string>
+    <string name="label_password">Mot de passe</string>
+    <string name="label_matricule">Matricule étudiant</string>
+    <string name="label_book_title">Titre</string>
+    <string name="label_date_expiration">Date d\'expiration: </string>
+    <string name="label_author">Auteur</string>
+    <string name="label_edition">Édition</string>
+    <string name="label_publisher">Éditeur</string>
+    <string name="label_price">Prix</string>
+    <string name="label_bar_code">Code-barre</string>
+    <string name="label_terms_and_conditions">Conditions générales d\'utilisation</string>
+    <string name="label_history_state">État</string>
+    <string name="label_keep_signed_in">Me garder connecté</string>
+    <string name="label_first_name_required">Nom *</string>
+    <string name="label_last_name_required">Prénom *</string>
+    <string name="label_mail_required">Adresse courriel *</string>
+    <string name="label_password_required">Mot de passe *</string>
+    <string name="label_password_New_required">Nouveau Mot de passe *</string>
+    <string name="label_password_confirm_required">Confirmer Mot de passe *</string>
+    <string name="label_actual_password_required">Mot de passe actuel *</string>
+    <string name="label_book_title_required">Titre *</string>
+    <string name="label_price_required">Prix *</string>
+    <string name="label_bar_code_required">Code-barre *</string>
+    <string name="label_is_annotated">Annotations</string>
+    <string name="label_refused_reason">Raison de refus</string>
+    <string name="label_no_result_history">Aucun élément à afficher dans l\'historique</string>
+    <string name="label_no_result_reservation">Aucun livre réservé</string>
+    <string name="label_no_result_my_books">Aucun livre à vendre</string>
+    <string name="label_no_result_group_result">Aucun résultat de recherche</string>
+    <string name="label_no_connection">Problème de connexion</string>
+
+
+    <string name="About_title_service">Les services de l\'AGECTR</string>
+    <string name="About_title_hours">Heures d\'ouvertures de l\'AGECTR</string>
+    <string name="About_title_room">Nos locaux</string>
+    <string name="alert_title_pick_img">Ajouter ou sélectionner une photo</string>
+    <string name="alert_title_reset_password">Réinitialiser mon mot de passe</string>
+
+    <string name="About_content_service1">-Subventions</string>
+    <string name="About_content_service2">-Livres usagés</string>
+    <string name="About_content_service3">-Journal La Gifle</string>
+    <string name="About_content_service4">-Projets étudiants</string>
+    <string name="About_content_service5">-Comité Pouce vert - Environnement</string>
+    <string name="About_content_service6">-Photocopies / impressions</string>
+    <string name="About_content_service7">-Défense pédagogique</string>
+    <string name="About_content_service8">-Activités étudiantes</string>
+    <string name="About_content_hours">Du lundi au vendredi: 8h à 15h30</string>
+    <string name="About_content_room">HA-1160 et HA-1152</string>
+
+    <string name="alert_title_create_account">Création de compte</string>
+    <string name="alert_title_login">Connexion</string>
+    <string name="alert_title_barcode_prompt">Scanner le code-barre</string>
+    <string name="alert_title_book_detail">Details du livre</string>
+    <string name="alert_title_change_info">Modification mes informations</string>
+    <string name="alert_title_change_password">Modification du mot de passe</string>
+    <string name="alert_title_terms_and_conditions">Conditions générales d\'utilisation</string>
+    <string name="alert_title_leave">Quitter</string>
+    <string name="alert_title_disconect">Déconnexion</string>
+    <string name="alert_title_avatar">Choix d\'avatar</string>
+    <string name="alert_title_action">Actions</string>
+    <string name="alert_title_confirm_give">Confirmer le don</string>
+    <string name="alert_title_confirm_remove">Confirmer le retrait</string>
+    <string name="alert_title_confirm_delete">Confirmer la suppression</string>
+
+    <string name="alert_text_confirm_give">Êtes-vous sûr de vouloir donner ce livre à l\'AGECTR?</string>
+    <string name="alert_text_confirm_remove">Êtes-vous sûr de vouloir retirer ce livre de la vente?</string>
+    <string name="alert_text_confirm_delete">Êtes-vous sûr de vouloir supprimer?</string>
+    <string name="alert_text_terms_and_conditions">
+        Par le présent contrat, je m’engage à respecter les règlements de la consigne de livres usagés.
+        \n Ainsi :
+        \n\n-  Je consens à respecter la date limite pour la remise de l’argent et le renouvèlement de mes livres et à ne pas revenir contre l’AGECTR inc. si je ne respecte pas la date (contrat d’un an);
+        \n\n-  Je consens que l’AGECTR inc. conserve mes livres et/ou l’argent provenant de la vente de ces derniers si je ne respecte pas la date limite pour récupérer mes biens;
+        \n\n-  Je prends note que si les livres ne sont pas vendus, je peux toujours renouveler le contrat directement au bureau de l’AGECTR ou par l’application mobile avant la date limite;
+        \n\n<b>-   L’AGECTR inc. se dégage de toute responsabilité en ce qui a trait au vol ou aux pertes de volumes.  Elle fera cependant tout ce qui est en son pouvoir afin d’éviter de telles situations. </b>
+    </string>
+    <string name="alert_text_leave">Êtes-vous sûr de vouloir quitter? </string>
+    <string name="alert_text_save_before_leave">Êtes-vous sûr de vouloir quitter? \nVos changements seront perdus.</string>
+    <string name="alert_text_disconect">Êtes-vous sûr de vouloir vous déconnecter ?</string>
+
+    <string name="alert_button_yes">Oui</string>
+    <string name="alert_button_no">Non</string>
+    <string name="alert_button_save">Sauvegarder</string>
+    <string name="alert_button_validate">Valider</string>
+    <string name="alert_button_cancel">Annuler</string>
+    <string name="alert_button_connect">Connexion</string>
+    <string name="alert_button_photo">Appareil photo</string>
+    <string name="alert_button_gallery">Galerie</string>
+    <string name="alert_button_reserve">Réserver</string>
+    <string name="alert_button_unreserve">Abandonner la réservation</string>
+    <string name="alert_button_accept">Accepter</string>
+    <string name="alert_button_refuse">Refuser</string>
+    <string name="alert_button_edit_view">Afficher / Modifier</string>
+    <string name="alert_button_renew">Renouveler</string>
+    <string name="alert_button_give">Donner à l\'AGECTR</string>
+    <string name="alert_button_remove">Retirer de la vente</string>
+    <string name="alert_button_delete">Supprimer</string>
+    <string name="alert_button_reset_password"><u>Réinitialiser mon mot de passe</u></string>
+    <string name="alert_button_reset">Réinitialiser</string>
+
+    <string name="error_invalid_login">Adresse courriel ou mot de passe invalide</string>
+
+    <string name="toast_msg_valid_barcode">Les champs ont été remplis automatiquement. vous n\'avez pas à les modifier</string>
+    <string name="toast_msg_invalid_barcode1">Le code-barre doit être entre 10 et 12 chiffres</string>
+    <string name="toast_msg_invalid_barcode2">Le code-barre n\'a pas été trouvé. Veuillez rentrer les informations</string>
+    <string name="toast_msg_invalid_barcode3">Veuillez rentrer un code-barre</string>
+    <string name="toast_msg_need_to_accept_condition">Vous devez accpeter les conditions générales d\'utilisation</string>
+    <string name="toast_msg_need_to_enter_email">Vous devez entrer un email</string>
+    <string name="toast_msg_need_to_enter_password">Vous devez entrer un mot de passe</string>
+    <string name="toast_msg_need_to_enter_firstName">Vous devez entrer un prénom</string>
+    <string name="toast_msg_need_to_enter_lastName">Vous devez entrer un nom de famille</string>
+    <string name="toast_msg_need_to_enter_title">Vous devez entrer un titre</string>
+    <string name="toast_msg_need_to_enter_price">Vous devez entrer un prix</string>
+    <string name="toast_msg_need_to_enter_valid_password">Vous devez entrer un mot de passe contenant au moins une minuscule, une majuscule et un caractère spécial et au moins 8 acaractères</string>
+    <string name="toast_msg_permissions_refused">Permission refusée</string>
+    <string name="toast_msg_edit_successful">La modification a été sauvegardée avec succès</string>
+    <string name="toast_msg_add_successful">La concession a été ajouté avec succès</string>
+    <string name="toast_msg_add_failed">La concession n\'a pas pu être ajouté</string>
+    <string name="toast_msg_reserve_successful">Réservation effectuée avec succès</string>
+    <string name="toast_msg_reserve_failed">Un problème est survenu lors de la réservation</string>
+    <string name="toast_msg_change_info_successful">Information personnelle modifiée avec succès</string>
+    <string name="toast_msg_change_info_failed">Un problème est survenu lors de la modification de vos informations personnelles</string>
+    <string name="toast_msg_change_password_successful">Mot de passe modifié avec succès</string>
+    <string name="toast_msg_unreserve_successful">Réservation annulée avec succès!</string>
+    <string name="toast_msg_unreserve_failed">Un problème est survenu lors de l\'annulation de la réservation</string>
+    <string name="toast_msg_need_to_enter_matching_old_password">Vous devez entrer votre ancien mot de passe</string>
+    <string name="toast_msg_need_to_enter_matching_new_password">Vous devez mettre des mots de passe identiques</string>
+    <string name="toast_msg_deny_cegep_email">Vous ne pouvez pas mettre votre email du cégep</string>
+    <string name="toast_msg_deny_phone_number">Veuillez mettre un téléphone valide</string>
+    <string name="toast_msg_max_reservation">Vous avez atteint le nombre maximum de réservations</string>
+    <string name="toast_msg_price_to_high">Le prix est trop élevé</string>
+    <string name="toast_msg_price_to_low">Le prix est trop bas</string>
+    <string name="toast_msg_renew_successful">Concession renouvelé avec succès</string>
+    <string name="toast_msg_password_reset_successful">Un courrier vous sera envoyé avec un mot de passe temporaire</string>
+    <string name="toast_msg_password_reset_failed">Un problème est survenue à l\'envoie du courrier de recuperation</string>
+    <string name="toast_msg_query_to_short">Vous devez enter au moins deux caractères</string>
+    <string name="toast_msg_archive_concession_successful">Cette concession a été archivé avec succès</string>
+
+    <string name="state_accept">Disponible</string>
+    <string name="state_denied">Refuser</string>
+    <string name="state_pending">Validation</string>
+    <string name="state_removed">Retirer</string>
+    <string name="state_sold">Vendu</string>
+    <string name="state_given">Dons</string>
+    <string name="state_to_renew">Renouveler</string>
+    <string name="state_update">Modification</string>
+
+    <string name="phone_hint">(###)-### ####</string>
+    <string name="yes_display">Oui</string>
+    <string name="no_display">Non</string>
+    <string name="query_hint">Rechercher...</string>
+
+</resources>

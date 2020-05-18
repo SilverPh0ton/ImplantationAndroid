@@ -1,0 +1,13 @@
+GET_DETAILSEARCH:GET_DETAILSEARCH:{"avatar":1,"email":"qwe@qwe.qwe","firstName":"qweqwe","idUser":0,"lastName":"qweqweqwe","matricule":"","password":"Qwerty123!","phoneNumber":""}ADD_USER : succes
+erreur_fetch_my_concession : PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table '420617ri_equipe-4.reception' doesn't exist in \\TECHINFOTR.QC.CA\PARTAGES\FTP\Cours\420617RI\Equipe_4\AGECTR\MobileAGECTR\ServerSide\functions\fetch_my_concession.php:72
+Stack trace:
+#0 \\TECHINFOTR.QC.CA\PARTAGES\FTP\Cours\420617RI\Equipe_4\AGECTR\MobileAGECTR\ServerSide\functions\fetch_my_concession.php(72): PDOStatement->execute()
+#1 {main}
+erreur_fetch_my_concession : PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table '420617ri_equipe-4.reception' doesn't exist in \\TECHINFOTR.QC.CA\PARTAGES\FTP\Cours\420617RI\Equipe_4\AGECTR\MobileAGECTR\ServerSide\functions\fetch_my_concession.php:72
+Stack trace:
+#0 \\TECHINFOTR.QC.CA\PARTAGES\FTP\Cours\420617RI\Equipe_4\AGECTR\MobileAGECTR\ServerSide\functions\fetch_my_concession.php(72): PDOStatement->execute()
+#1 {main}
+{"book":{"author":"Lewis Carroll","barcode":"1231231231","edition":"KidPEdition","idBook":3063,"publisher":"","title":"Alice au pays des merveilles"},"customerPrice":20.0,"expireDate":"","idConcession":0,"idCustomer":3575,"isAnnotated":false,"refuseReason":"","reservedExpireDate":"","sellingPrice":0.0,"state":"validation"}erreur_add_concession : PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table '420617ri_equipe-4.reception' doesn't exist in \\TECHINFOTR.QC.CA\PARTAGES\FTP\Cours\420617RI\Equipe_4\AGECTR\MobileAGECTR\ServerSide\functions\add_concession.php:112
+Stack trace:
+#0 \\TECHINFOTR.QC.CA\PARTAGES\FTP\Cours\420617RI\Equipe_4\AGECTR\MobileAGECTR\ServerSide\functions\add_concession.php(112): PDOStatement->execute()
+#1 {main}

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_book_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_title"
+        android:padding="8dp"
+        android:text="@string/alert_title_book_detail"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextLight"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:id="@+id/dialog_book_detail_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="20"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/dialog_book_detail_imageView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/book_default" />
+
+            <TableLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_book_detail_imageView">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail__label6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="2"
+                        android:layout_weight="1"
+                        android:text="@string/label_book_title"
+                        android:textColor="@color/colorTextDark" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail_tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="2"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="20sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail__label4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_span="2"
+                        android:layout_weight="1"
+                        android:text="@string/label_author"
+                        android:textColor="@color/colorTextDark" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail_tv_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_span="2"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="20sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail__label3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/label_edition"
+                        android:textColor="@color/colorTextDark" />
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail_label1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/label_publisher"
+                        android:textColor="@color/colorTextDark" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail_tv_edition"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail_tv_publisher"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail_label2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_span="1"
+                        android:layout_weight="1"
+                        android:text="@string/label_price"
+                        android:textColor="@color/colorTextDark" />
+
+                    <TextView
+                        android:id="@+id/activity_book_detail_label7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/label_is_annotated"
+                        android:textColor="@color/colorTextDark" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail_tv_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_span="1"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/dialog_book_detail_tv_annotated"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_span="1"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="20sp" />
+
+
+                </TableRow>
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/dialog_book_detail_reserver"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_round"
+        android:text="@string/alert_button_reserve"
+        android:textColor="@color/colorTextLight" />
+
+    <Button
+        android:id="@+id/dialog_book_detail_bt_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_round"
+        android:text="@string/alert_button_cancel"
+        android:textColor="@color/colorTextLight" />
+
+</LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryLight">#D5D5D5</color>
+    <color name="colorPrimary">#919191</color>
+    <color name="colorPrimaryDark">#616161</color>
+    <color name="colorPrimaryDarker">#353535</color>
+
+    <color name="colorPrimaryFade">#99B8B8B8</color>
+
+    <color name="colorAccentLight">#4984B4</color>
+    <color name="colorAccent">#255E8B</color>
+    <color name="colorAccentDark">#153F68</color>
+    <color name="colorAccentDarker">#0C2C4B</color>
+
+    <color name="colorTextLight">#FFFFFF</color>
+    <color name="colorTextDark">#000000</color>
+
+    <color name="colorStateSold">#00C853</color>
+    <color name="colorStateDenied">#FF5722</color>
+    <color name="colorStatePending">#FF9800</color>
+    <color name="colorStateAccept">#0091EA</color>
+    <color name="colorStateRemoved">#535353</color>
+    <color name="colorStateGiven">#9C27B0</color>
+    <color name="colorStateToRenew">#FF0000</color>
+</resources>

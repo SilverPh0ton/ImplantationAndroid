@@ -1,0 +1,15 @@
+com.cegeptr.projetagectr
+com.cegeptr.projetagectr.logic
+com.cegeptr.projetagectr.logic.Entity
+com.cegeptr.projetagectr.ui
+com.cegeptr.projetagectr.ui.addBook
+com.cegeptr.projetagectr.ui.connectionHeader
+com.cegeptr.projetagectr.ui.editBook
+com.cegeptr.projetagectr.ui.groupResult
+com.cegeptr.projetagectr.ui.history
+com.cegeptr.projetagectr.ui.info
+com.cegeptr.projetagectr.ui.my_book
+com.cegeptr.projetagectr.ui.reservation
+com.cegeptr.projetagectr.ui.result
+com.cegeptr.projetagectr.ui.search
+com.cegeptr.projetagectr.ui.userInfoHeader

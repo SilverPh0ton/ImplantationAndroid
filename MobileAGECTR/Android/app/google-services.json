@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1062861780792",
+    "firebase_url": "https://projetmobileagectr.firebaseio.com",
+    "project_id": "projetmobileagectr",
+    "storage_bucket": "projetmobileagectr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062861780792:android:b926cbd9984f20cac133cd",
+        "android_client_info": {
+          "package_name": "com.cegeptr.projetagectr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062861780792-h8jvuolc93dndv02boprpoeetgp80lhu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJyOBjOFCLjv63MYTC032GJ92saexrJI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062861780792-h8jvuolc93dndv02boprpoeetgp80lhu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

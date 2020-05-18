@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_search"
+                android:icon="@drawable/ic_search_white_24dp"
+                android:title="@string/menu_research" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="@string/menu_about" />
+
+
+        <item
+            android:id="@+id/nav_profil"
+            android:title="@string/menu_group">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_info"
+                        android:icon="@drawable/ic_account_circle_black_24dp"
+                        android:title="@string/menu_info" />
+                    <item
+                        android:id="@+id/nav_reservation"
+                        android:icon="@drawable/ic_playlist_add_check_black_24dp"
+                        android:title="@string/menu_reservation" />
+                    <item
+                        android:id="@+id/nav_my_book"
+                        android:icon="@drawable/ic_library_books_black_24dp"
+                        android:title="@string/menu_my_book" />
+                    <item
+                        android:id="@+id/nav_my_history"
+                        android:icon="@drawable/ic_history_black_24dp"
+                        android:title="@string/menu_my_history" />
+                    <item
+                        android:id="@+id/empty"
+                        android:title="" />
+                </group>
+            </menu>
+        </item>
+    </group>
+</menu>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_book_detail_reservation_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/dialog_title"
+        android:padding="8dp"
+        android:text="@string/alert_title_book_detail"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextLight"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/dialog_book_detail_reservation_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="2"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/book_default" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_label6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_book_title"
+                    android:textColor="@color/colorTextDark" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_label4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_author"
+                    android:textColor="@color/colorTextDark" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_tv_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_label3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_edition"
+                    android:textColor="@color/colorTextDark" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_tv_edition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_label1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_publisher"
+                    android:textColor="@color/colorTextDark" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_tv_publisher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_label2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_price"
+                    android:textColor="@color/colorTextDark" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/activity_book_detail_reservation_label7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_is_annotated"
+                    android:textColor="@color/colorTextDark" />
+
+                <TextView
+                    android:id="@+id/dialog_book_detail_reservation_tv_annotated"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_book_detail_reservation_linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialog_book_detail_reservation_unreserver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_round"
+            android:text="@string/alert_button_unreserve"
+            android:textColor="@color/colorTextLight" />
+
+        <Button
+            android:id="@+id/dialog_book_detail_reservation_bt_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_round"
+            android:text="@string/alert_button_cancel"
+            android:textColor="@color/colorTextLight" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_background">
+
+    <Button
+        android:id="@+id/dialog_barcode_bt_scan"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_scan_24dp"
+        android:textColor="@color/colorTextLight"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_barcode_bt_cancel"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_barcode_et_code" />
+
+    <TextView
+        android:id="@+id/dialog_barcode_label1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/label_bar_code"
+        android:textColor="@color/colorTextDark"
+        app:layout_constraintEnd_toEndOf="@+id/dialog_barcode_et_code"
+        app:layout_constraintStart_toStartOf="@+id/dialog_barcode_et_code"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_barcode_title" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1.4"
+        app:layout_constraintEnd_toStartOf="@+id/dialog_barcode_et_code"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_barcode_title"
+        app:srcCompat="@drawable/bar_code_exemple" />
+
+    <EditText
+        android:id="@+id/dialog_barcode_et_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="AUTOFILL_HINT_EMAIL_ADDRESS"
+        android:ems="10"
+        android:enabled="true"
+        android:inputType="number"
+        android:maxLength="13"
+        android:textColor="@color/colorTextDark"
+        app:layout_constraintEnd_toEndOf="@+id/dialog_barcode_bt_scan"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_barcode_label1" />
+
+    <Button
+        android:id="@+id/dialog_barcode_bt_validate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_round"
+        android:text="@string/alert_button_validate"
+        android:textColor="@color/colorTextLight"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_barcode_bt_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/dialog_barcode_bt_scan"
+        app:layout_constraintStart_toStartOf="@+id/dialog_barcode_et_code"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_barcode_et_code" />
+
+    <Button
+        android:id="@+id/dialog_barcode_bt_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_round"
+        android:text="@string/alert_button_cancel"
+        android:textColor="@color/colorTextLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/dialog_barcode_et_code" />
+
+    <TextView
+        android:id="@+id/dialog_barcode_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_title"
+        android:padding="8dp"
+        android:text="@string/alert_title_barcode_prompt"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextLight"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
