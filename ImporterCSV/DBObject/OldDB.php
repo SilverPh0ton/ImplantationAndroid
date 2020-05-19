@@ -58,7 +58,7 @@ class OldDB extends OldConfigDB
     public function getBooksFromIds($bookIds)
     {
         $books = array();
-        foreach ($bookids as $bookId)
+        foreach ($bookIds as $bookId)
         {
             array_push($books, $this->getBookFromId($bookId));
         }
@@ -76,6 +76,7 @@ class OldDB extends OldConfigDB
                 if ($stmt->execute()) {
                     if ($stmt->rowCount() == 1) {
                         if ($row = $stmt->fetch()) {
+                            $urlPhoto = null;
                             $book = new Book(
                                 $row['id'],
                                 $row['title'],
@@ -83,7 +84,7 @@ class OldDB extends OldConfigDB
                                 $row['publisher'],
                                 $row['edition'],
                                 $row['barcode'],
-                                $row['urlPhoto'],
+                                $urlPhoto
                             );
                             unset($stmt);
 

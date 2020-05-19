@@ -12,19 +12,32 @@ class Book
     public $urlPhoto;
 
     /**
+     * Book constructor.
+     * @param $idBook
+     * @param $title
+     * @param $author
+     * @param $publisher
+     * @param $edition
+     * @param $barcode
+     * @param $urlPhoto
+     */
+    public function __construct($idBook, $title, $author, $publisher, $edition, $barcode, $urlPhoto)
+    {
+        $this->idBook = $idBook;
+        $this->title = $title;
+        $this->author = $author;
+        $this->publisher = $publisher;
+        $this->edition = $edition;
+        $this->barcode = $barcode;
+        $this->urlPhoto = $urlPhoto;
+    }
+
+    /**
      * @return mixed
      */
     public function getIdBook()
     {
         return $this->idBook;
-    }
-
-    /**
-     * @param mixed $idBook
-     */
-    public function setIdBook($idBook)
-    {
-        $this->idBook = $idBook;
     }
 
     /**
@@ -36,27 +49,11 @@ class Book
     }
 
     /**
-     * @param mixed $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
      * @return mixed
      */
     public function getAuthor()
     {
         return $this->author;
-    }
-
-    /**
-     * @param mixed $author
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
     }
 
     /**
@@ -68,27 +65,11 @@ class Book
     }
 
     /**
-     * @param mixed $publisher
-     */
-    public function setPublisher($publisher)
-    {
-        $this->publisher = $publisher;
-    }
-
-    /**
      * @return mixed
      */
     public function getEdition()
     {
         return $this->edition;
-    }
-
-    /**
-     * @param mixed $edition
-     */
-    public function setEdition($edition)
-    {
-        $this->edition = $edition;
     }
 
     /**
@@ -100,30 +81,11 @@ class Book
     }
 
     /**
-     * @param mixed $barcode
-     */
-    public function setBarcode($barcode)
-    {
-        $this->barcode = $barcode;
-    }
-
-    /**
      * @return mixed
      */
     public function getUrlPhoto()
     {
         return $this->urlPhoto;
     }
-
-    /**
-     * @param mixed $urlPhoto
-     */
-    public function setUrlPhoto($urlPhoto)
-    {
-        $this->urlPhoto = $urlPhoto;
-    }
-
-
-
 
 }

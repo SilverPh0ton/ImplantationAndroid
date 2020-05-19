@@ -6,14 +6,13 @@ include_once("BL/BookImporter.php");
 //Déclaration des variables.
 $bookImporter = new BookImporter();
 $booksIdentifiers = array();
-$books = array();
 
-$book1 = new BookIdentifier(20, "9788437624871");
+$book1 = new BookIdentifier(20, "9788437624871"); //vrai donnée 9788437624877
 $book2 = new BookIdentifier(35, "9782253260141");
 
 array_push($booksIdentifiers, $book1);
 array_push($booksIdentifiers, $book2);
 
-$books = $bookImporter->importBooks($booksIdentifiers);
+$bookImporterResponses = $bookImporter->importBooks($booksIdentifiers);
 
-print_r($books);
+print_r($bookImporterResponses);

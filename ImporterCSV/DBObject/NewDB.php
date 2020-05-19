@@ -68,4 +68,37 @@ class NewDB extends NewConfigDB
         }
         return false;
     }
+
+    public function deleteAll() {
+        $this->deleteAllConcessions();
+        $this->deleteAllUsers();
+        $this->deleteAllBooks();
+    }
+
+    private function deleteAllBooks()
+    {
+        $sql = "DELETE FROM book";
+
+        if ($stmt = $this->conn->prepare($sql)) {
+            $stmt->execute();
+        }
+    }
+
+    private function deleteAllConcessions()
+    {
+        $sql = "DELETE FROM concession";
+
+        if ($stmt = $this->conn->prepare($sql)) {
+            $stmt->execute();
+        }
+    }
+
+    private function deleteAllUsers()
+    {
+        $sql = "DELETE FROM customer";
+
+        if ($stmt = $this->conn->prepare($sql)) {
+            $stmt->execute();
+        }
+    }
 }

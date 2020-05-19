@@ -16,6 +16,7 @@ if(isset($_POST["submit"]))
     $newDB = new NewDB();
 
     //Calls
+    $newDB->deleteAll();
     $extracts = $excelImporter->import($_FILES['file']['name']);
 
     $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
@@ -38,10 +39,6 @@ if(isset($_POST["submit"]))
 
     //SAVE CONCESSION WITH OLD INFO + ID'S
 
-        foreach($unfoundBooks as $book)
-        {
-            echo $book->getIdBook();
-        }
 }
 catch(Exception $e)
 {

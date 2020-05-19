@@ -51,15 +51,15 @@ class BookImporter
         if (isset($responseBook["errorMessage"])) {
             $bookImporterResponses->addUnfoundId($idBook);
         } else {
-            $book = new Book();
-
-            $book->setIdBook($idBook);
-            $book->setAuthor($this->concatAuthors($responseBook["book"]["authors"]));
-            $book->setBarcode($responseBook["book"]["isbn13"]);
-            $book->setEdition(null);
-            $book->setPublisher($responseBook["book"]["publisher"]);
-            $book->setTitle($responseBook["book"]["title"]);
-            $book->setUrlPhoto($responseBook["book"]["image"]);
+            $book = new Book(
+                $idBook,
+                $this->concatAuthors($responseBook["book"]["authors"]),
+                $responseBook["book"]["isbn13"],
+                null,
+                $responseBook["book"]["publisher"],
+                $responseBook["book"]["title"],
+                $responseBook["book"]["image"]
+            );
 
             $bookImporterResponses->addBook($book);
         }
