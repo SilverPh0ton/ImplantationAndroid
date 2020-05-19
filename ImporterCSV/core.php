@@ -31,7 +31,7 @@ if (isset($_POST["submit"])) {
         //SAVE CONCESSION WITH OLD INFO + ID'S
         if ($unfoundBooks > 0) {
             ?>
-            <h3>Livres non trouvés sur l'API et utilisant les vieilles données</h3>
+            <h3>Livres importés utilisant les vieilles données</h3>
             <table id="books">
                 <tr>
                     <td>idBook</td>
