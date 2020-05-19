@@ -1,6 +1,7 @@
 <?php
 include_once 'OldConfigDB.php';
 include_once 'Entities/BookIdentifier.php';
+include_once 'Entities/Book.php';
 
 class OldDB extends OldConfigDB
 {
@@ -47,6 +48,47 @@ class OldDB extends OldConfigDB
                             $row['barcode']
                         );
                         return $bookIdentifier;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public function getBooksFromIds($bookIds)
+    {
+        $books = array();
+        foreach ($bookids as $bookId)
+        {
+            array_push($books, $this->getBookFromId($bookId));
+        }
+        return $books;
+    }
+
+    private function getBookFromId($idBook)
+    {
+        if (isset($idBook)) {
+            $sql = "SELECT * FROM book WHERE id = :idBook";
+
+            if ($stmt = $this->conn->prepare($sql)) {
+                $stmt->bindParam(":idBook", $idBook, PDO::PARAM_INT);
+
+                if ($stmt->execute()) {
+                    if ($stmt->rowCount() == 1) {
+                        if ($row = $stmt->fetch()) {
+                            $book = new Book(
+                                $row['id'],
+                                $row['title'],
+                                $row['author'],
+                                $row['publisher'],
+                                $row['edition'],
+                                $row['barcode'],
+                                $row['urlPhoto'],
+                            );
+                            unset($stmt);
+
+                            return $book;
+                        }
                     }
                 }
             }

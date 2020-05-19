@@ -27,6 +27,9 @@ if(isset($_POST["submit"]))
     //TODO Manage the url given to download it in our repository and database (with id)
     $newDB->createBooks($bookImporterResponses->getBooks());
 
+    //Get the old values of book If not found on the ISBN API
+    $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());
+
     //GET USER INFO FROM OLD BD
     $userIds = $excelImporter->extractUserIdsFromImport($extracts);
 
@@ -35,7 +38,10 @@ if(isset($_POST["submit"]))
 
     //SAVE CONCESSION WITH OLD INFO + ID'S
 
-
+        foreach($unfoundBooks as $book)
+        {
+            echo $book->getIdBook();
+        }
 }
 catch(Exception $e)
 {
