@@ -42,7 +42,7 @@ class NewDB extends NewConfigDB
             if($stmt = $this->conn->prepare($sql))
             {
                 $createdBy = CONST_CREATEDBY_AUTOIMPORT;
-                $section = null;
+                $section = "xxx";
 
                 $idBook = $book->getIdBook();
                 $title = $book->getTitle();
