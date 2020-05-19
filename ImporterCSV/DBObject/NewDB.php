@@ -37,8 +37,8 @@ class NewDB extends NewConfigDB
         if(isset($book))
         {
             //TODO Add the urlPhoto when we have the id (when we manage to download the picture from the url in our repo)
-            $sql = "INSERT INTO book (id,title,author,publisher,barcode, section, createdBy)
-                                VALUES(:id,:title,:author,:publisher,:barcode, :section, :createdBy)";
+            $sql = "INSERT INTO book (id,title,author,publisher,barcode, section, createdBy, edition)
+                                VALUES(:id,:title,:author,:publisher,:barcode, :section, :createdBy, :edition)";
             if($stmt = $this->conn->prepare($sql))
             {
                 $createdBy = CONST_CREATEDBY_AUTOIMPORT;
@@ -50,6 +50,7 @@ class NewDB extends NewConfigDB
                 $publisher = $book->getPublisher();
                 $barcode = $book->getBarcode();
                 $urlPhoto = $book->getUrlPhoto();
+                $edition = $book->getEdition();
 
                 $stmt->bindParam(":id",$idBook , PDO::PARAM_INT);
                 $stmt->bindParam(":title", $title, PDO::PARAM_STR);
@@ -59,6 +60,7 @@ class NewDB extends NewConfigDB
                 //$stmt->bindParam(":urlPhoto", $urlPhoto, PDO::PARAM_INT); --> MUST BE AN INTEGER <---
                 $stmt->bindParam(":section", $section);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
+                $stmt->bindParam(":edition", $edition, PDO::PARAM_STR);
 
                 if($stmt->execute())
                 {
