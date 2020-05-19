@@ -60,7 +60,7 @@ include_once 'core.php';
              <label for="option">Import books from isbn API</label>
              <div id="apiKeySection">
                  <label for="apiKey">API key</label>
-                 <input type="input" id="apiKey">
+                 <input type="input" id="apiKey" name="apiKey">
              </div>
 
              <br />

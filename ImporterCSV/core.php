@@ -6,8 +6,18 @@ include_once 'DBObject/NewDB.php';
 
 if (isset($_POST["submit"])) {
     try {
-
         $useAPI = false;
+        $apiKey = "";
+        if(!empty($_POST['apiKey']))
+        {
+            $useAPI = $_POST['field'];
+            if($useAPI == 'option')
+            {
+                $useAPI = true;
+            }
+
+            $apiKey = $_POST['apiKey'];
+        }
         //Objects init
         $excelImporter = new ExcelImporter();
         $bookImporter = new BookImporter();
@@ -20,7 +30,7 @@ if (isset($_POST["submit"])) {
         //Get ExcelExtracts Entities From Xlsx (idConcession aka ReferenceCode, idBook, idUser)
         $extracts = $excelImporter->import($_FILES['file']['name']);
 
-        $unfoundBooks = importBooks($excelImporter, $extracts, $oldDB, $bookImporter, $newDB, $useAPI);
+        $unfoundBooks = importBooks($excelImporter, $extracts, $oldDB, $bookImporter, $newDB, $useAPI, $apiKey);
 
         //GET USER INFO FROM OLD BD
         $userIds = $excelImporter->extractUserIdsFromImport($extracts);
@@ -77,7 +87,7 @@ if (isset($_POST["submit"])) {
  * @return array
  * @throws Exception
  */
-function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, BookImporter $bookImporter, NewDB $newDB, $useAPI)
+function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, BookImporter $bookImporter, NewDB $newDB, $useAPI, $apiKey)
 {
     //List the bookIds from Extracts
     $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
@@ -95,8 +105,7 @@ function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, Book
         $booksIdentifiers = $oldDB->getBooksIdentifiers($sanitizedBookIds);
 
         //Import From Api the info of the books
-        //bookImporter has a key(restKey) that must be updated if used in the future
-        $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers);
+        $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers, $apiKey);
 
         //Get the old values of book If not found on the ISBN API
         $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());

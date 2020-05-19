@@ -6,7 +6,7 @@ include_once 'Entities/BookImporterResponses.php';
 class BookImporter
 {
     //Déclaration des variables.
-    private $restKey = '44069_1e599bc965ce65638d7bb55bba332462'; //44069_1e599bc965ce65638d7bb55bba332462
+    //44069_1e599bc965ce65638d7bb55bba332462
     private $rest;
 
     //Constructeur
@@ -22,7 +22,7 @@ class BookImporter
     }
 
     //Fonction récupérant les informations d'un livre.
-    public function importBooks ($booksIdentifiers) {
+    public function importBooks ($booksIdentifiers, $apiKey) {
         $bookImporterResponses = new BookImporterResponses();
 
         foreach ($booksIdentifiers as $bookIdentifier) {
@@ -30,7 +30,7 @@ class BookImporter
 
             $headers = array(
                 "Content-Type: application/json",
-                "Authorization: " . $this->restKey
+                "Authorization: " . $apiKey
             );
 
             curl_setopt($this->rest,CURLOPT_URL,$url);
