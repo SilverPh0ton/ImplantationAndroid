@@ -17,6 +17,7 @@ if (isset($_POST["submit"])) {
         //Calls
         $newDB->deleteAll();
         $extracts = $excelImporter->import($_FILES['file']['name']);
+        print_r($extracts);
 
 
         $bookIds = $excelImporter->extractBookIdsFromImport($extracts);

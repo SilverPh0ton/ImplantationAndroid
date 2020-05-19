@@ -43,14 +43,14 @@ class BookImporter
         return $bookImporterResponses;
     }
 
-    public function sanitizeDuplicates($mappedIdentifiers)
+    public function sanitizeDuplicates($mappedIdentifiers, $extracts)
     {
         $sanitizedBookIds = array();
         foreach($mappedIdentifiers as $identifiers)
         {
             if(sizeof($identifiers) > 1)
             {
-                array_push($sanitizedBookIds, max($identifiers));
+               
             }
             else
             {
@@ -59,6 +59,8 @@ class BookImporter
         }
         return $sanitizedBookIds;
     }
+
+
 
     //Fonction convertisant le retour de l'API en JSON, en object de type livre.
     private function JSONconverter($response, $idBook, $bookImporterResponses) {
