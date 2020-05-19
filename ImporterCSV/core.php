@@ -22,10 +22,10 @@ if(isset($_POST["submit"]))
     $booksIdentifiers  = $oldDB->getBooksIdentifers($bookIds);
     //TODO Get rid of duplicates here And redirect on the single unit
     //bookImporter has a key(restKey) that must be update if used in the future
-    $books = $bookImporter->importBooks($booksIdentifiers);
+    $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers);
     //print_r($books);
     //TODO Manage the url given to download it in our repository and database (with id)
-    $newDB->createBooks($books);
+    $newDB->createBooks($bookImporterResponses->getBooks());
 
     //GET USER INFO FROM OLD BD
     $userIds = $excelImporter->extractUserIdsFromImport($extracts);

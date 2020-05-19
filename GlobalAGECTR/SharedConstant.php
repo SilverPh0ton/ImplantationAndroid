@@ -19,3 +19,5 @@ define("CONST_UNPAYED_STATE", "nonpaye");
 define("CONST_GIVEN_STATE","dons");
 
 define("CONST_DAYS_BEFORE_EXPIRED",'+370 day');
+
+define("CONST_FAKE_SECTION", "N/A");

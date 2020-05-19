@@ -1,6 +1,7 @@
 <?php
 //Les includes.
 include_once 'Entities/Book.php';
+include_once 'Entities/BookImporterResponses.php';
 
 class BookImporter
 {
@@ -22,7 +23,7 @@ class BookImporter
 
     //Fonction récupérant les informations d'un livre.
     public function importBooks ($booksIdentifiers) {
-        $books = array();
+        $bookImporterResponses = new BookImporterResponses();
 
         foreach ($booksIdentifiers as $bookIdentifier) {
             $url = "https://api2.isbndb.com/book/" . $bookIdentifier->getIsbn();
@@ -36,28 +37,32 @@ class BookImporter
             curl_setopt($this->rest,CURLOPT_HTTPHEADER,$headers);
             curl_setopt($this->rest,CURLOPT_RETURNTRANSFER, true);
 
-            array_push($books, $this->JSONconverter(curl_exec($this->rest), $bookIdentifier->getIdBook()));
+            $this->JSONconverter(curl_exec($this->rest), $bookIdentifier->getIdBook(), $bookImporterResponses);
         }
 
-        return $books;
+        return $bookImporterResponses;
     }
 
     //Fonction convertisant le retour de l'API en JSON, en object de type livre.
-    private function JSONconverter($response, $idBook) {
-        $book = new Book();
+    private function JSONconverter($response, $idBook, $bookImporterResponses) {
+
         $responseBook = json_decode($response, true);
 
-        //print_r($responseBook);
+        if (isset($responseBook["errorMessage"])) {
+            $bookImporterResponses->addUnfoundId($idBook);
+        } else {
+            $book = new Book();
 
-        $book->setIdBook($idBook);
-        $book->setAuthor($this->concatAuthors($responseBook["book"]["authors"]));
-        $book->setBarcode($responseBook["book"]["isbn13"]);
-        $book->setEdition(null);
-        $book->setPublisher($responseBook["book"]["publisher"]);
-        $book->setTitle($responseBook["book"]["title"]);
-        $book->setUrlPhoto($responseBook["book"]["image"]);
+            $book->setIdBook($idBook);
+            $book->setAuthor($this->concatAuthors($responseBook["book"]["authors"]));
+            $book->setBarcode($responseBook["book"]["isbn13"]);
+            $book->setEdition(null);
+            $book->setPublisher($responseBook["book"]["publisher"]);
+            $book->setTitle($responseBook["book"]["title"]);
+            $book->setUrlPhoto($responseBook["book"]["image"]);
 
-        return $book;
+            $bookImporterResponses->addBook($book);
+        }
     }
 
     //Fonction servant à concaténer les auteurs en un string.
