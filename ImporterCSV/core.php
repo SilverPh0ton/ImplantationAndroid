@@ -4,6 +4,43 @@ include_once 'BL/BookImporter.php';
 include_once 'DBObject/OldDB.php';
 include_once 'DBObject/NewDB.php';
 
+/**
+ * @param ExcelImporter $excelImporter
+ * @param $extracts
+ * @param OldDB $oldDB
+ * @param BookImporter $bookImporter
+ * @param NewDB $newDB
+ * @return array
+ * @throws Exception
+ */
+function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, BookImporter $bookImporter, NewDB $newDB)
+{
+//List the bookIds from Extracts
+    $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
+
+    //Map the duplicate ISBN id together (ex. ['9781923829' => [1,456,1235]])
+    $mappedIdentifiers = $oldDB->getMappedIdentifiers($bookIds);
+
+    //Replace duplicate values with only 1 instance in Extracts
+    $sanitizedBookIds = $bookImporter->sanitizeDuplicates($mappedIdentifiers, $extracts);
+
+    //Get the ISBN of the bookIds (BookIdentifier Entity)
+    $booksIdentifiers = $oldDB->getBooksIdentifiers($sanitizedBookIds);
+
+    //Import From Api the info of the books
+    //bookImporter has a key(restKey) that must be updated if used in the future
+    $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers);
+
+    //Get the old values of book If not found on the ISBN API
+    $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());
+
+    //TODO Manage the url given to download it in our repository and database (with id)
+    //Save books in new Database
+    $newDB->createBooks($bookImporterResponses->getBooks());
+    $newDB->createBooks($unfoundBooks);
+    return $unfoundBooks;
+}
+
 if (isset($_POST["submit"])) {
     try {
 
@@ -14,24 +51,13 @@ if (isset($_POST["submit"])) {
         $oldDB = new OldDB();
         $newDB = new NewDB();
 
-        //Calls
+        //Remove Data from new DB
         $newDB->deleteAll();
+
+        //Get ExcelExtracts Entities From Xlsx (idConcession aka ReferenceCode, idBook, idUser)
         $extracts = $excelImporter->import($_FILES['file']['name']);
 
-        $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
-        $mappedIdentifiers = $oldDB->getMappedIdentifiers($bookIds);
-        $sanitizedBookIds = $bookImporter->sanitizeDuplicates($mappedIdentifiers, $extracts);
-        $booksIdentifiers = $oldDB->getBooksIdentifiers($sanitizedBookIds);
-        
-        //bookImporter has a key(restKey) that must be updated if used in the future
-        $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers);
-
-        //Get the old values of book If not found on the ISBN API
-        $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());
-
-        //TODO Manage the url given to download it in our repository and database (with id)
-        $newDB->createBooks($bookImporterResponses->getBooks());
-        $newDB->createBooks($unfoundBooks);
+        $unfoundBooks = importBooks($excelImporter, $extracts, $oldDB, $bookImporter, $newDB);
 
         //GET USER INFO FROM OLD BD
         $userIds = $excelImporter->extractUserIdsFromImport($extracts);
@@ -72,7 +98,7 @@ if (isset($_POST["submit"])) {
                 ?>
             </table>
             <?php
-        }*/
+        }
     } catch
     (Exception $e) {
         die($e);
