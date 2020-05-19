@@ -38,7 +38,11 @@ if(isset($_POST["submit"]))
     //SAVE USERS IN NEW BD
 
     //SAVE CONCESSION WITH OLD INFO + ID'S
-
+    echo 'Livres non trouvés sur l''API et utilisant les vieilles données';
+    foreach($unfoundBooks as $book)
+    {
+        echo $book->getIdBook();
+    }
 }
 catch(Exception $e)
 {
