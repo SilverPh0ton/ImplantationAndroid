@@ -4,47 +4,10 @@ include_once 'BL/BookImporter.php';
 include_once 'DBObject/OldDB.php';
 include_once 'DBObject/NewDB.php';
 
-/**
- * @param ExcelImporter $excelImporter
- * @param $extracts
- * @param OldDB $oldDB
- * @param BookImporter $bookImporter
- * @param NewDB $newDB
- * @return array
- * @throws Exception
- */
-function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, BookImporter $bookImporter, NewDB $newDB)
-{
-//List the bookIds from Extracts
-    $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
-
-    //Map the duplicate ISBN id together (ex. ['9781923829' => [1,456,1235]])
-    $mappedIdentifiers = $oldDB->getMappedIdentifiers($bookIds);
-
-    //Replace duplicate values with only 1 instance in Extracts
-    $sanitizedBookIds = $bookImporter->sanitizeDuplicates($mappedIdentifiers, $extracts);
-
-    //Get the ISBN of the bookIds (BookIdentifier Entity)
-    $booksIdentifiers = $oldDB->getBooksIdentifiers($sanitizedBookIds);
-
-    //Import From Api the info of the books
-    //bookImporter has a key(restKey) that must be updated if used in the future
-    $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers);
-
-    //Get the old values of book If not found on the ISBN API
-    $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());
-
-    //TODO Manage the url given to download it in our repository and database (with id)
-    //Save books in new Database
-    $newDB->createBooks($bookImporterResponses->getBooks());
-    $newDB->createBooks($unfoundBooks);
-    return $unfoundBooks;
-}
-
 if (isset($_POST["submit"])) {
     try {
 
-
+        $useAPI = false;
         //Objects init
         $excelImporter = new ExcelImporter();
         $bookImporter = new BookImporter();
@@ -57,7 +20,7 @@ if (isset($_POST["submit"])) {
         //Get ExcelExtracts Entities From Xlsx (idConcession aka ReferenceCode, idBook, idUser)
         $extracts = $excelImporter->import($_FILES['file']['name']);
 
-        $unfoundBooks = importBooks($excelImporter, $extracts, $oldDB, $bookImporter, $newDB);
+        $unfoundBooks = importBooks($excelImporter, $extracts, $oldDB, $bookImporter, $newDB, $useAPI);
 
         //GET USER INFO FROM OLD BD
         $userIds = $excelImporter->extractUserIdsFromImport($extracts);
@@ -103,5 +66,50 @@ if (isset($_POST["submit"])) {
     (Exception $e) {
         die($e);
     }
+}
+
+/**
+ * @param ExcelImporter $excelImporter
+ * @param $extracts
+ * @param OldDB $oldDB
+ * @param BookImporter $bookImporter
+ * @param NewDB $newDB
+ * @return array
+ * @throws Exception
+ */
+function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, BookImporter $bookImporter, NewDB $newDB, $useAPI)
+{
+    //List the bookIds from Extracts
+    $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
+
+    //Map the duplicate ISBN id together (ex. ['9781923829' => [1,456,1235]])
+    $mappedIdentifiers = $oldDB->getMappedIdentifiers($bookIds);
+
+    //Replace duplicate values with only 1 instance in Extracts
+    $sanitizedBookIds = $bookImporter->sanitizeDuplicates($mappedIdentifiers, $extracts);
+
+
+    if($useAPI)
+    {
+        //Get the ISBN of the bookIds (BookIdentifier Entity)
+        $booksIdentifiers = $oldDB->getBooksIdentifiers($sanitizedBookIds);
+
+        //Import From Api the info of the books
+        //bookImporter has a key(restKey) that must be updated if used in the future
+        $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers);
+
+        //Get the old values of book If not found on the ISBN API
+        $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());
+
+        //TODO Manage the url given to download it in our repository and database (with id)
+        //Save books in new Database
+        $newDB->createBooks($bookImporterResponses->getBooks());
+        $newDB->createBooks($unfoundBooks);
+        return $unfoundBooks;
+    }
+
+    $books = $oldDB->getBooksFromIds($sanitizedBookIds);
+    $newDB->createBooks($books);
+    return array();
 }
 
