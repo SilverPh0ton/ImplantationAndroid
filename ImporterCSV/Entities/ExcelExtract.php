@@ -38,6 +38,16 @@ class ExcelExtract
     }
 
     /**
+     * @param mixed $idBook
+     */
+    public function setIdBook($idBook)
+    {
+        $this->idBook = $idBook;
+    }
+
+
+
+    /**
      * @return mixed
      */
     public function getIdUser()

@@ -50,7 +50,15 @@ class BookImporter
         {
             if(sizeof($identifiers) > 1)
             {
-               
+                $idKept = max($identifiers);
+                foreach($identifiers as $identifier)
+                {
+                    if($identifier != $idKept)
+                    {
+                        $this->replaceInExtract($extracts, $identifier, $idKept);
+                    }
+                }
+                array_push($sanitizedBookIds, $idKept);
             }
             else
             {
@@ -60,7 +68,16 @@ class BookImporter
         return $sanitizedBookIds;
     }
 
-
+    private function replaceInExtract($extracts, $identifier, $idKept)
+    {
+        foreach($extracts as $extract)
+        {
+            if($extract->getIdBook() == $identifier)
+            {
+                $extract->setIdBook($idKept);
+            }
+        }
+    }
 
     //Fonction convertisant le retour de l'API en JSON, en object de type livre.
     private function JSONconverter($response, $idBook, $bookImporterResponses) {

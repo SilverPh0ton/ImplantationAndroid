@@ -17,14 +17,12 @@ if (isset($_POST["submit"])) {
         //Calls
         $newDB->deleteAll();
         $extracts = $excelImporter->import($_FILES['file']['name']);
-        print_r($extracts);
-
 
         $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
         $mappedIdentifiers = $oldDB->getMappedIdentifiers($bookIds);
-        $sanitizedBookIds = $bookImporter->sanitizeDuplicates($mappedIdentifiers);
+        $sanitizedBookIds = $bookImporter->sanitizeDuplicates($mappedIdentifiers, $extracts);
         $booksIdentifiers = $oldDB->getBooksIdentifiers($sanitizedBookIds);
-        //TODO Redirect the duplicates in extracts
+        
         //bookImporter has a key(restKey) that must be updated if used in the future
         $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers);
 
@@ -74,7 +72,7 @@ if (isset($_POST["submit"])) {
                 ?>
             </table>
             <?php
-        }
+        }*/
     } catch
     (Exception $e) {
         die($e);
