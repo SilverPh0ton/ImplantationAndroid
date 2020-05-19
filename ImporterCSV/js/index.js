@@ -1,8 +1,8 @@
 $(function () {
 
-    $('#apiKey').toggle();
+    $('#apiKeySection').toggle();
 
     $('#option').change(function () {
-        $('#apiKey').toggle();
+        $('#apiKeySection').toggle();
     })
 });

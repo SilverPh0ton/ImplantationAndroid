@@ -41,7 +41,7 @@ include_once 'core.php';
          }
 
 
-         #apiKey {
+         #apiKeySection {
              display: block;
          }
 
@@ -57,8 +57,12 @@ include_once 'core.php';
              <input type="file" name="file" />
              <br />
              <input id="option" type="checkbox" name="field" value="option">
-             <label for="option">Import books from ibsn API</label>
-             <input type="input" id="apiKey">
+             <label for="option">Import books from isbn API</label>
+             <div id="apiKeySection">
+                 <label for="apiKey">API key</label>
+                 <input type="input" id="apiKey">
+             </div>
+
              <br />
              <input type="submit" name="submit" value="Import" class="btn btn-info" />
          </div>
