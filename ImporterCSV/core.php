@@ -108,8 +108,13 @@ function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, Book
         return $unfoundBooks;
     }
 
-    $books = $oldDB->getBooksFromIds($sanitizedBookIds);
+    $bookIds = array();
+    foreach ($sanitizedBookIds as $id)
+    {
+        array_push($bookIds, $id[0]);
+    }
+    $books = $oldDB->getBooksFromIds($bookIds);
     $newDB->createBooks($books);
-    return array();
+    return $books;
 }
 
