@@ -1,5 +1,6 @@
 <?php
 include_once 'NewConfigDB.php';
+include_once '../GlobalAGECTR/SharedConstant.php';
 
 class NewDB extends NewConfigDB
 {
@@ -36,18 +37,27 @@ class NewDB extends NewConfigDB
         if(isset($book))
         {
             //TODO Add the urlPhoto when we have the id (when we manage to download the picture from the url in our repo)
-            $sql = "INSERT INTO book (id,title,author,publisher,barcode,createdBy)
-                                VALUES(:id,:title,:author,:publisher,:barcode,:createdBy)";
+            $sql = "INSERT INTO book (id,title,author,publisher,barcode, section, createdBy)
+                                VALUES(:id,:title,:author,:publisher,:barcode, :section, :createdBy)";
             if($stmt = $this->conn->prepare($sql))
             {
                 $createdBy = CONST_CREATEDBY_AUTOIMPORT;
+                $section = null;
 
-                $stmt->bindParam(":id", $book->getIdBook(), PDO::PARAM_INT);
-                $stmt->bindParam(":title", $book->getTitle(), PDO::PARAM_STR);
-                $stmt->bindParam(":author", $book->getAuthor(), PDO::PARAM_STR);
-                $stmt->bindParam(":publisher", $book->getPublisher(), PDO::PARAM_STR);
-                $stmt->bindParam(":barcode", $book->getBarcode(), PDO::PARAM_STR);
-                //$stmt->bindParam(":urlPhoto", $book->getUrlPhoto(), PDO::PARAM_INT); --> MUST BE AN INTEGER <---
+                $idBook = $book->getIdBook();
+                $title = $book->getTitle();
+                $author = $book->getAuthor();
+                $publisher = $book->getPublisher();
+                $barcode = $book->getBarcode();
+                $urlPhoto = $book->getUrlPhoto();
+
+                $stmt->bindParam(":id",$idBook , PDO::PARAM_INT);
+                $stmt->bindParam(":title", $title, PDO::PARAM_STR);
+                $stmt->bindParam(":author", $author, PDO::PARAM_STR);
+                $stmt->bindParam(":publisher", $publisher, PDO::PARAM_STR);
+                $stmt->bindParam(":barcode", $barcode, PDO::PARAM_STR);
+                //$stmt->bindParam(":urlPhoto", $urlPhoto, PDO::PARAM_INT); --> MUST BE AN INTEGER <---
+                $stmt->bindParam(":section", $section);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
 
                 if($stmt->execute())

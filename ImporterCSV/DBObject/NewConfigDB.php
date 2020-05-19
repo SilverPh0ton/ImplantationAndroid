@@ -15,9 +15,9 @@ class NewConfigDB
     public function __construct()
     {
         $this->DB_SERVER = 'localhost';
-        $this->DB_USERNAME = '1750944';
-        $this->DB_PASSWORD = '1750944';
-        $this->DB_NAME = '420617ri_equipe-4';
+        $this->DB_USERNAME = 'root';
+        $this->DB_PASSWORD = '';
+        $this->DB_NAME = 'newdb';
 
         try{
 

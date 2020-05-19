@@ -19,12 +19,11 @@ if(isset($_POST["submit"]))
     $extracts = $excelImporter->import($_FILES['file']['name']);
 
     $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
-    //TODO Setup OldDb
     $booksIdentifiers  = $oldDB->getBooksIdentifers($bookIds);
     //TODO Get rid of duplicates here And redirect on the single unit
     //bookImporter has a key(restKey) that must be update if used in the future
     $books = $bookImporter->importBooks($booksIdentifiers);
-    //TODO Setup NewDB
+    //print_r($books);
     //TODO Manage the url given to download it in our repository and database (with id)
     $newDB->createBooks($books);
 
