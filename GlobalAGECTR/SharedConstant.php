@@ -1,6 +1,7 @@
 <?php
 define("CONST_CREATEDBY_WEB", "siteweb");
 define("CONST_CREATEDBY_MOBILE", "mobile");
+define("CONST_CREATEDBY_AUTOIMPORT", "autoimport");
 
 define("CONST_CONCESSION_DEFAULT_STATE","validation");
 define("CONST_VALIDATION_STATE","validation");

@@ -6,6 +6,9 @@ include_once 'DBObject/NewDB.php';
 
 if(isset($_POST["submit"]))
 {
+    try{
+
+
     //Objects init
     $excelImporter = new ExcelImporter();
     $bookImporter = new BookImporter();
@@ -16,11 +19,14 @@ if(isset($_POST["submit"]))
     $extracts = $excelImporter->import($_FILES['file']['name']);
 
     $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
-    $booksIdentifiers  = $oldDB->getBooksIdentifers($bookIds);  //TODO SETUP OLD BD
-    //IMPORTER HAS A KEY(restKey) THAT MUST BE UPDATED IF REUSED IN THE FUTURE
+    //TODO Setup OldDb
+    $booksIdentifiers  = $oldDB->getBooksIdentifers($bookIds);
+    //TODO Get rid of duplicates here And redirect on the single unit
+    //bookImporter has a key(restKey) that must be update if used in the future
     $books = $bookImporter->importBooks($booksIdentifiers);
-
-    //SAVE BOOKS IN NEW BD
+    //TODO Setup NewDB
+    //TODO Manage the url given to download it in our repository and database (with id)
+    $newDB->createBooks($books);
 
     //GET USER INFO FROM OLD BD
     $userIds = $excelImporter->extractUserIdsFromImport($extracts);
@@ -31,6 +37,10 @@ if(isset($_POST["submit"]))
     //SAVE CONCESSION WITH OLD INFO + ID'S
 
 
-
+}
+catch(Exception $e)
+{
+    die($e);
+}
 }
 
