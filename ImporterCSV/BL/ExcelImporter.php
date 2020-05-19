@@ -52,19 +52,25 @@ class ExcelImporter
         $userIds = array();
         foreach ($extracts as $extract)
         {
-            array_push($userIds, $extract->getIdUser());
+            if(!in_array($extract->getIdUser(), $userIds))
+            {
+                array_push($userIds, $extract->getIdUser());
+            }
         }
         return $userIds;
     }
 
     public function extractBookIdsFromImport($extracts)
     {
-        $userIds = array();
+        $bookIds = array();
         foreach ($extracts as $extract)
         {
-            array_push($userIds, $extract->getIdBook());
+            if(!in_array($extract->getIdBook(), $bookIds))
+            {
+                array_push($bookIds, $extract->getIdBook());
+            }
         }
-        return $userIds;
+        return $bookIds;
     }
 
 

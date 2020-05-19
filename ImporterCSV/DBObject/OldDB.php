@@ -18,31 +18,47 @@ class OldDB extends OldConfigDB
         parent::__destruct();
     }
 
-    public function getBooksIdentifers($bookIds)
+    public function getMappedIdentifiers($bookIds)
     {
         if (isset($bookIds)) {
-            $booksIdentifiers = array();
-            foreach ($bookIds as $bookId)
-            {
-                array_push($booksIdentifiers, $this->getBookIdentifiers($bookId));
+            $mappedIdentifiers = array();
+            foreach ($bookIds as $bookId) {
+                $bookIdentifier = $this->getBookIdentifiers($bookId);
+                $isbn = $bookIdentifier->getIsbn();
+                if (!array_key_exists($isbn, $mappedIdentifiers))
+                {
+                    $mappedIdentifiers[$isbn] = [$bookIdentifier->getIdBook()];
+                }
+                else
+                {
+                    array_push(
+                        $mappedIdentifiers[$isbn],
+                        $bookIdentifier->getIdBook()
+                    );
+                }
             }
-            return $booksIdentifiers;
         }
-        return null;
+        return $mappedIdentifiers;
+    }
+
+    public function getBooksIdentifiers($bookIds)
+    {
+        $booksIdentifiers = array();
+        foreach ($bookIds as $bookId)
+        {
+            array_push($booksIdentifiers, $this->getBookIdentifiers($bookId));
+        }
+        return $booksIdentifiers;
     }
 
     private function getBookIdentifiers($bookId)
     {
-        if(isset($bookId))
-        {
+        if (isset($bookId)) {
             $sql = "SELECT barcode FROM book WHERE id = :idBook";
-            if($stmt = $this->conn->prepare($sql))
-            {
+            if ($stmt = $this->conn->prepare($sql)) {
                 $stmt->bindParam(":idBook", $bookId, PDO::PARAM_INT);
-                if($stmt->execute())
-                {
-                    if($row = $stmt->fetch())
-                    {
+                if ($stmt->execute()) {
+                    if ($row = $stmt->fetch()) {
                         $bookIdentifier = new BookIdentifier(
                             $bookId,
                             $row['barcode']
@@ -58,8 +74,7 @@ class OldDB extends OldConfigDB
     public function getBooksFromIds($bookIds)
     {
         $books = array();
-        foreach ($bookIds as $bookId)
-        {
+        foreach ($bookIds as $bookId) {
             array_push($books, $this->getBookFromId($bookId));
         }
         return $books;

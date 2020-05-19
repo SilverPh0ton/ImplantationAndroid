@@ -18,13 +18,18 @@ if (isset($_POST["submit"])) {
         $newDB->deleteAll();
         $extracts = $excelImporter->import($_FILES['file']['name']);
 
+
         $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
-        $booksIdentifiers = $oldDB->getBooksIdentifers($bookIds);
-        //TODO Get rid of duplicates here And redirect on the single unit
-        //bookImporter has a key(restKey) that must be update if used in the future
+        $mappedIdentifiers = $oldDB->getMappedIdentifiers($bookIds);
+        $sanitizedBookIds = $bookImporter->sanitizeDuplicates($mappedIdentifiers);
+        $booksIdentifiers = $oldDB->getBooksIdentifiers($sanitizedBookIds);
+        //TODO Redirect the duplicates in extracts
+        //bookImporter has a key(restKey) that must be updated if used in the future
         $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers);
+
         //Get the old values of book If not found on the ISBN API
         $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());
+
         //TODO Manage the url given to download it in our repository and database (with id)
         $newDB->createBooks($bookImporterResponses->getBooks());
         $newDB->createBooks($unfoundBooks);
@@ -68,9 +73,7 @@ if (isset($_POST["submit"])) {
                 ?>
             </table>
             <?php
-        }
-
-
+        }*/
     } catch
     (Exception $e) {
         die($e);
