@@ -47,6 +47,8 @@ class BookImporter
         $book = new Book();
         $responseBook = json_decode($response, true);
 
+        //print_r($responseBook);
+
         $book->setIdBook($idBook);
         $book->setAuthor($this->concatAuthors($responseBook["book"]["authors"]));
         $book->setBarcode($responseBook["book"]["isbn13"]);
@@ -60,21 +62,23 @@ class BookImporter
 
     //Fonction servant à concaténer les auteurs en un string.
     private function concatAuthors($authors) {
-        if (sizeof($authors) > 1) {
-            $concatAuthors = "";
-            $ctr = 0;
+        if (!is_null($authors)) {
+            if (sizeof($authors) > 1) {
+                $concatAuthors = "";
+                $ctr = 0;
 
-            foreach ($authors as $author) {
-                if ($ctr > 0) {
-                    $concatAuthors .= ", " . $author;
-                } else {
-                    $concatAuthors .= $author;
+                foreach ($authors as $author) {
+                    if ($ctr > 0) {
+                        $concatAuthors .= ", " . $author;
+                    } else {
+                        $concatAuthors .= $author;
+                    }
+
+                    $ctr++;
                 }
 
-                $ctr++;
+                return $concatAuthors;
             }
-
-            return $concatAuthors;
         }
 
         return $authors[0];
