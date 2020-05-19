@@ -6,7 +6,7 @@ include_once 'Entities/BookImporterResponses.php';
 class BookImporter
 {
     //Déclaration des variables.
-    private $restKey = '44069_1e599bc965ce65638d7bb55bba332462';
+    private $restKey = '44069_1e599bc965ce65638d7bb55bba332462'; //44069_1e599bc965ce65638d7bb55bba332462
     private $rest;
 
     //Constructeur
