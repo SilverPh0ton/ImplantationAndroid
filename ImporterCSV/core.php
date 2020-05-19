@@ -73,7 +73,7 @@ if (isset($_POST["submit"])) {
                 ?>
             </table>
             <?php
-        }*/
+        }
     } catch
     (Exception $e) {
         die($e);
