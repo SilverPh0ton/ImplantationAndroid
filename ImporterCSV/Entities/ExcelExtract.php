@@ -19,6 +19,7 @@ class ExcelExtract
         $this->idConcession = $idConcession;
         $this->idBook = $idBook;
         $this->idUser = $idUser;
+        $this->validate();
     }
 
     /**
