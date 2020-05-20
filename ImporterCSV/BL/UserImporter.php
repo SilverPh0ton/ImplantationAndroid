@@ -20,8 +20,15 @@ class UserImporter
 
         if (isset($mappedEmails)) {
 
-            foreach ($mappedEmails as $userIds) {
+            $nullEmails = $mappedEmails[''];
+            if(isset($nullEmails))
+            {
+                foreach ($nullEmails as $userId) {
+                    $this->replaceEmailInUsers($userId, $users);
+                }
 
+            }
+            foreach ($mappedEmails as $userIds) {
                 if (sizeof($userIds) > 1) {
 
                     foreach ($userIds as $userId) {

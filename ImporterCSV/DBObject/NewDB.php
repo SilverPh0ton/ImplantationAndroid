@@ -25,10 +25,14 @@ class NewDB extends NewConfigDB
     {
         foreach($books as $book)
         {
-            if(!$this->createBook($book))
+            if(isset($book))
             {
-                throw new Exception("Error while inserting books");
+                if(!$this->createBook($book))
+                {
+                    throw new Exception("Error while inserting books");
+                }
             }
+
         }
     }
 

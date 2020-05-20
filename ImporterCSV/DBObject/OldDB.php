@@ -154,6 +154,7 @@ class OldDB extends OldConfigDB
     {
         $mappedEmails = array();
         if (isset($users)) {
+            $ctr = 0;
             foreach ($users as $user) {
                 $email = $user->getEmail();
                 if (!array_key_exists($email, $mappedEmails))
