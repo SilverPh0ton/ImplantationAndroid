@@ -92,13 +92,11 @@ class ExcelImporter
 
         $sanitizedExtracts = array();
         foreach ($extracts as $extract) {
-
-            if (isset($extract->getIdConcession())) {
+            if (!empty($extract->getIdConcession())) {
                 array_push($sanitizedExtracts, $extract);
             }
 
         }
-
         return $sanitizedExtracts;
 
     }

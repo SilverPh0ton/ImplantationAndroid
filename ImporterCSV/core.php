@@ -36,8 +36,6 @@ if (isset($_POST["submit"])) {
         $sanitizedExtract = $excelImporter->sanitized($extracts);
 
         $unfoundBooks = importBooks($excelImporter, $sanitizedExtract, $oldDB, $bookImporter, $newDB, $useAPI, $apiKey);
-        print_r($sanitizedExtract);
-
         importUsers($excelImporter, $sanitizedExtract, $oldDB, $userImporter, $newDB);
         importConcessions($excelImporter, $sanitizedExtract, $oldDB, $concessionImporter, $newDB);
 
@@ -144,10 +142,10 @@ function importUsers(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, User
 {
     //Get unique userIds from extracts
     $userIds = $excelImporter->extractUserIdsFromImport($extracts);
-    array_pop($userIds);
 
     //Get Users Object from oldDB
     $users = $oldDB->getUsersFromIds($userIds);
+
 
     //Map of an email with each user associated with it
     $mappedEmails = $oldDB->getMappedEmails($users);
@@ -169,8 +167,6 @@ function importUsers(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, User
 function importConcessions(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, ConcessionImporter $concessionImporter, NewDB $newDB)
 {
     $concessionIds = $excelImporter->extractConcessionIdsFromImport($extracts);
-    array_pop($concessionIds);
-
     $concessions = $oldDB->getConcessionByIds($concessionIds);
     $concessionImporter->replaceConcessionBookIdsWithExtractBookIds($concessions, $extracts);
     $newDB->createConcessions($concessions);

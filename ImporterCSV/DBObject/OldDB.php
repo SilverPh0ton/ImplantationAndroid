@@ -5,6 +5,8 @@ include_once 'Entities/Book.php';
 include_once 'Entities/User.php';
 include_once 'Entities/Concession.php';
 
+use Entities\Concession;
+
 class OldDB extends OldConfigDB
 {
     /**
@@ -191,14 +193,13 @@ class OldDB extends OldConfigDB
     {
         if (isset($concessionId)) {
             $sql = "SELECT * FROM concession WHERE id = :idConcession";
-
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bindParam(":idConcession", $concessionId, PDO::PARAM_INT);
+                $stmt->bindParam(":idConcession", $concessionId);
 
                 if ($stmt->execute()) {
-                    if ($stmt->rowCount() == 1) {
                         if ($row = $stmt->fetch()) {
-                            $user = new Concession(
+                            echo json_encode($row);
+                            $concession = new Concession(
                                 $row['id'],
                                 $row['idCustomer'],
                                 $row['idBook'],
@@ -206,11 +207,13 @@ class OldDB extends OldConfigDB
                                 $row['feesPercentage'],
                                 $row['sellingPrice']
                             );
-                            unset($stmt);
 
-                            return $user;
+                            $concession = new Concession(1,1,1,1,1,1);
+
+                            unset($stmt);
+                            echo json_encode($concession);
+                            return $concession;
                         }
-                    }
                 }
             }
         }

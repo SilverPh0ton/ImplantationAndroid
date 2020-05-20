@@ -1,5 +1,5 @@
 <?php
-
+namespace Entities;
 
 class Concession
 {
@@ -85,6 +85,46 @@ class Concession
     public function getSellingPrice()
     {
         return $this->sellingPrice;
+    }
+
+    /**
+     * @param mixed $idConcession
+     */
+    public function setIdConcession($idConcession)
+    {
+        $this->idConcession = $idConcession;
+    }
+
+    /**
+     * @param mixed $idCustomer
+     */
+    public function setIdCustomer($idCustomer)
+    {
+        $this->idCustomer = $idCustomer;
+    }
+
+    /**
+     * @param mixed $customerPrice
+     */
+    public function setCustomerPrice($customerPrice)
+    {
+        $this->customerPrice = $customerPrice;
+    }
+
+    /**
+     * @param mixed $feesPercentage
+     */
+    public function setFeesPercentage($feesPercentage)
+    {
+        $this->feesPercentage = $feesPercentage;
+    }
+
+    /**
+     * @param mixed $sellingPrice
+     */
+    public function setSellingPrice($sellingPrice)
+    {
+        $this->sellingPrice = $sellingPrice;
     }
 
 }
