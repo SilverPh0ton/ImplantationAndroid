@@ -11,10 +11,12 @@ class ConcessionImporter
     {
     }
 
-    public function replaceConcessionBookIdsWithExtractBookIds(array $concessions, $extracts)
+    public function replaceConcessionBookIdsWithExtractBookIds($concessions, $extracts)
     {
         foreach ($concessions as $concession)
         {
+
+            print_r($concession);
             $idConcession = $concession->getIdConcession();
             foreach ($extracts as $extract)
             {

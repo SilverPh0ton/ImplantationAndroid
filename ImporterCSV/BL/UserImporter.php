@@ -18,7 +18,6 @@ class UserImporter
 
     public function sanitizeEmails($mappedEmails, $users) {
 
-        $sanitizeEmails = array();
         if (isset($mappedEmails)) {
 
             foreach ($mappedEmails as $userIds) {
@@ -40,7 +39,7 @@ class UserImporter
         {
             if($user->getId() == $userId)
             {
-                $user->getEmail = $user->getId().CONST_FAKE_EMAIL;
+                $user->setEmail($user->getId().CONST_FAKE_EMAIL);
             }
         }
     }

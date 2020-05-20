@@ -80,6 +80,16 @@ class User
         return $this->email;
     }
 
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+
+
 
 
 
