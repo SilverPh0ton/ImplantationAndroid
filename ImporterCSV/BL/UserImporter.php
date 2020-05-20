@@ -1,5 +1,6 @@
 <?php
 
+include_once '../GlobalAGECTR/SharedConstant.php';
 
 class UserImporter
 {
@@ -15,7 +16,7 @@ class UserImporter
 
     }
 
-    public function sanitizeEmails ($mappedEmails, $users) {
+    public function sanitizeEmails($mappedEmails, $users) {
 
         $sanitizeEmails = array();
         if (isset($mappedEmails)) {
@@ -25,14 +26,22 @@ class UserImporter
                 if (sizeof($userIds) > 1) {
 
                     foreach ($userIds as $userId) {
-
-
-
-
+                        $this->replaceEmailInUsers($userId, $users);
                     }
                 }
             }
         }
 
+    }
+
+    private function replaceEmailInUsers($userId, $users)
+    {
+        foreach ($users as $user)
+        {
+            if($user->getId() == $userId)
+            {
+                $user->getEmail = $user->getId().CONST_FAKE_EMAIL;
+            }
+        }
     }
 }

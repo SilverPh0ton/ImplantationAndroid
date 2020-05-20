@@ -74,5 +74,19 @@ class ExcelImporter
     }
 
 
+    public function extractConcessionIdsFromImport($extracts)
+    {
+        $concessionIds = array();
+        foreach ($extracts as $extract)
+        {
+            if(!in_array($extract->getIdConcession(), $concessionIds))
+            {
+                array_push($concessionIds, $extract->getIdConcession());
+            }
+        }
+        return $concessionIds;
+    }
+
+
 
 }

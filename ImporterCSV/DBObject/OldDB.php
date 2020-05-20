@@ -3,6 +3,7 @@ include_once 'OldConfigDB.php';
 include_once 'Entities/BookIdentifier.php';
 include_once 'Entities/Book.php';
 include_once 'Entities/User.php';
+include_once 'Entities/Concession.php';
 
 class OldDB extends OldConfigDB
 {
@@ -170,6 +171,49 @@ class OldDB extends OldConfigDB
         }
 
         return $mappedEmails;
+    }
+
+    public function getConcessionByIds($concessionIds)
+    {
+        $concessions = array();
+        if(isset($concessionIds))
+        {
+            foreach ($concessionIds as $concessionId)
+            {
+                array_push($concessions, $this->getConcessionById($concessionId));
+            }
+        }
+        return $concessions;
+    }
+
+    private function getConcessionById($concessionId)
+    {
+        if (isset($concessionId)) {
+            $sql = "SELECT * FROM concession WHERE id = :idConcession";
+
+            if ($stmt = $this->conn->prepare($sql)) {
+                $stmt->bindParam(":idConcession", $concessionId, PDO::PARAM_INT);
+
+                if ($stmt->execute()) {
+                    if ($stmt->rowCount() == 1) {
+                        if ($row = $stmt->fetch()) {
+                            $user = new Concession(
+                                $row['id'],
+                                $row['idCustomer'],
+                                $row['idBook'],
+                                $row['customerPrice'],
+                                $row['feesPercentage'],
+                                $row['sellingPrice']
+                            );
+                            unset($stmt);
+
+                            return $user;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 }

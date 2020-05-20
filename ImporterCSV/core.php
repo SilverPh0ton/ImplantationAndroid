@@ -1,6 +1,8 @@
 <?php
 include_once 'BL/ExcelImporter.php';
 include_once 'BL/BookImporter.php';
+include_once 'BL/UserImporter.php';
+include_once 'BL/ConcessionImporter.php';
 include_once 'DBObject/OldDB.php';
 include_once 'DBObject/NewDB.php';
 
@@ -21,6 +23,8 @@ if (isset($_POST["submit"])) {
         //Objects init
         $excelImporter = new ExcelImporter();
         $bookImporter = new BookImporter();
+        $userImporter = new UserImporter();
+        $concessionImporter = new ConcessionImporter();
         $oldDB = new OldDB();
         $newDB = new NewDB();
 
@@ -31,21 +35,9 @@ if (isset($_POST["submit"])) {
         $extracts = $excelImporter->import($_FILES['file']['name']);
 
         $unfoundBooks = importBooks($excelImporter, $extracts, $oldDB, $bookImporter, $newDB, $useAPI, $apiKey);
+        importUsers($excelImporter, $extracts, $oldDB, $userImporter, $newDB);
+        importConcessions($excelImporter, $extracts, $oldDB, $concessionImporter, $newDB);
 
-        //GET USER INFO FROM OLD BD
-        $userIds = $excelImporter->extractUserIdsFromImport($extracts);
-
-        //VALIDATE INFO IS CORRECT
-        //SAVE USERS IN NEW BD
-        $users = $oldDB->getUsersFromIds($userIds);
-
-        $mappedEmails = $oldDB->getMappedEmails($users);
-
-        echo json_encode($mappedEmails);
-
-
-
-        //SAVE CONCESSION WITH OLD INFO + ID'S
         if ($unfoundBooks > 0) {
             ?>
             <h3>Livres importés utilisant les vieilles données</h3>
@@ -132,5 +124,48 @@ function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, Book
     $books = $oldDB->getBooksFromIds($bookIds);
     $newDB->createBooks($books);
     return $books;
+}
+
+/**
+ * @param ExcelImporter $excelImporter
+ * @param $extracts
+ * @param OldDB $oldDB
+ * @param UserImporter $userImporter
+ * @param NewDB $newDB
+ * @return array
+ * @throws Exception
+ */
+function importUsers(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, UserImporter $userImporter, NewDB $newDB)
+{
+    //Get unique userIds from extracts
+    $userIds = $excelImporter->extractUserIdsFromImport($extracts);
+
+    //Get Users Object from oldDB
+    $users = $oldDB->getUsersFromIds($userIds);
+
+    //Map of an email with each user associated with it
+    $mappedEmails = $oldDB->getMappedEmails($users);
+
+    //For emails with more than 1 user associated, generate temporary email
+    $userImporter->sanitizeEmails($mappedEmails, $users);
+
+    //TODO Create A Random ENCRYPTED PASSWORD FOR EACH USER
+    $newDB->createUsers($users);
+}
+
+/**
+ * @param ExcelImporter $excelImporter
+ * @param $extracts
+ * @param OldDB $oldDB
+ * @param ConcessionImporter $concessionImporter
+ * @param NewDB $newDB
+ * @throws Exception
+ */
+function importConcessions(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, ConcessionImporter $concessionImporter, NewDB $newDB)
+{
+    $concessionIds = $excelImporter->extractConcessionIdsFromImport($extracts);
+    $concessions = $oldDB->getConcessionByIds($concessionIds);
+    $concessionImporter->replaceConcessionBookIdsWithExtractBookIds($concessions, $extracts);
+    $newDB->createConcessions($concessions);
 }
 
