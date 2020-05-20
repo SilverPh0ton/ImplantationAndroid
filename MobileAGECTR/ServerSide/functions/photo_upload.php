@@ -4,8 +4,8 @@ include '../entity/ServerResponse.php';
 
 try {
     $response = new ServerResponse();
-    $file_path_concession = "../upload_photo_concession/";
-    $file_path_book = "../upload_photo_book/";
+    $file_path_concession = "../../../GlobalAGECTR/upload_photo_concession/";
+    $file_path_book = "../../../GlobalAGECTR/upload_photo_book/";
 
     $idConcession = $_POST['idConcession'];
 
@@ -17,6 +17,7 @@ try {
     file_put_contents('log.txt', "FICHIER_pathinfo_type ::: : " . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION) . "\n", FILE_APPEND);
     file_put_contents('log.txt', "Path IMG  :::  " . $idConcession . '-' . basename($_FILES['file']['name']) . "\n", FILE_APPEND);
     file_put_contents('log.txt', "iTEMiD  :::  " . $idConcession . "\n", FILE_APPEND);
+    $ext = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 
     $files = glob($file_path_concession . $idConcession . '-*.jpg');
     foreach ($files as $file) {
@@ -26,14 +27,24 @@ try {
     /*
             CONCESSION
     */
+    $sql = "insert into concession_image values (0,:nom,:taille,:extention)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(":nom",$_FILES["file"]["name"]);
+    $stmt->bindParam(":taille",$_FILES["file"]["size"]);
+    $stmt->bindParam(":extention",$ext);
+    $stmt->execute();
+  
+    $sql = "Select max(id) from concession_image";
+    $stmt=$pdo->prepare($sql);
+    $stmt->execute();
+    $idImg=$stmt->fetch();
 
-    $sql = "UPDATE concession SET urlPhoto =:path_img WHERE id=:itemId";
-    $concessionUid =  sprintf('%04X-%04X-%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+    $sql = "UPDATE reception SET urlPhoto =:path_img WHERE id=:itemId";
 
     if ($stmt = $pdo->prepare($sql)) {
-        $concessionphotoName = $idConcession . '-' . $concessionUid . '.jpg';
+        $concessionphotoName = $idImg[0] . '.png';
 
-        $stmt->bindParam(":path_img", $concessionphotoName);
+        $stmt->bindParam(":path_img", $idImg[0]);
         $stmt->bindParam(":itemId", $idConcession);
         // Attempt to execute the prepared statement
         if ($stmt->execute()) {

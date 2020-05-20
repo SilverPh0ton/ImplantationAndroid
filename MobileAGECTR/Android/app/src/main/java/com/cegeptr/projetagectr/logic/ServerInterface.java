@@ -133,7 +133,7 @@ public interface ServerInterface {
      */
     @FormUrlEncoded
     @POST("delete_concession.php")
-    Call<ServerResponse> delete_concession(@Field("idConcession") int idConcession);
+    Call<ServerResponse> delete_concession(@Field("idConcession") int idConcession,@Field("State")String state);
 
     /**
      * Donne une concession aprouvé
@@ -151,7 +151,7 @@ public interface ServerInterface {
      */
     @FormUrlEncoded
     @POST("remove_concession.php")
-    Call<ServerResponse> remove_concession(@Field("idConcession") int idConcession);
+    Call<ServerResponse> remove_concession(@Field("idConcession") int idConcession) ;
 
     /**
      * Renouvel une concession
