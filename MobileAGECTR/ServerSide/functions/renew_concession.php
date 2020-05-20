@@ -13,7 +13,25 @@ try {
     $response = new ServerResponse();
 
     $renew_state = CONST_ACCEPT_STATE;
-    $expireDate =  date('Y-m-d H-i-s', strtotime('+370 day'));
+
+    if ((date('m')<=4) || (date('m')>=9))
+    {
+    if(date('m')==12){ 
+
+        $expireDate =  date('Y-m-d H-i-s', strtotime('+420 day'));
+        echo $expireDate ." 2";
+    }else{
+     $expireDate =  date('Y-m-d H-i-s', strtotime('+370 day'));
+    echo $expireDate ." 1";
+}
+    }
+
+    else{
+        $expireDate =  date('Y-m-d H-i-s', strtotime('+490 day'));
+        echo $expireDate ." 3";
+    }
+
+   
 
     $renewConcession = 1;
     $renewConcessionDate = date('Y-m-d H-i-s');
