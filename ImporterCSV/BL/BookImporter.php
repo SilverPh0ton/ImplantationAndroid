@@ -83,18 +83,33 @@ class BookImporter
     private function JSONconverter($response, $idBook, $bookImporterResponses) {
 
         $responseBook = json_decode($response, true);
+        $publisher = null;
+        $image = null;
+        $author = null;
+
+        if (isset($responseBook["book"]["publisher"])) {
+            $publisher = $responseBook["book"]["publisher"];
+        }
+
+        if (isset($responseBook["book"]["image"])) {
+            $image = $responseBook["book"]["image"];
+        }
+
+        if (isset($responseBook["book"]["authors"])) {
+            $author = $this->concatAuthors($responseBook["book"]["authors"]);
+        }
 
         if (isset($responseBook["errorMessage"])) {
             $bookImporterResponses->addUnfoundId($idBook);
         } else {
             $book = new Book(
                 $idBook,
-                $this->concatAuthors($responseBook["book"]["authors"]),
-                $responseBook["book"]["isbn13"],
-                null,
-                $responseBook["book"]["publisher"],
                 $responseBook["book"]["title"],
-                $responseBook["book"]["image"]
+                $author,
+                $publisher,
+                null,
+                $responseBook["book"]["isbn13"],
+                $image
             );
 
             $bookImporterResponses->addBook($book);
