@@ -54,6 +54,8 @@ if (isset($_POST["submit"])) {
 
                 <?php
                 for ($i = 0; $i < count($unfoundBooks); $i++) {
+
+                    if (!is_null($unfoundBooks[$i])) {
                     ?>
                     <tr>
                         <td><?= $unfoundBooks[$i]->getIdBook() ?></td>
@@ -65,7 +67,7 @@ if (isset($_POST["submit"])) {
                         <td><?= $unfoundBooks[$i]->getUrlPhoto() ?></td>
                     </tr>
                     <?php
-
+                    }
                 }
                 ?>
             </table>
@@ -90,6 +92,7 @@ function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, Book
 {
     //List the bookIds from Extracts
     $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
+    array_pop($bookIds);
 
     //Map the duplicate ISBN id together (ex. ['9781923829' => [1,456,1235]])
     $mappedIdentifiers = $oldDB->getMappedIdentifiers($bookIds);
@@ -138,6 +141,7 @@ function importUsers(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, User
 {
     //Get unique userIds from extracts
     $userIds = $excelImporter->extractUserIdsFromImport($extracts);
+    array_pop($userIds);
 
     //Get Users Object from oldDB
     $users = $oldDB->getUsersFromIds($userIds);
@@ -162,6 +166,8 @@ function importUsers(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, User
 function importConcessions(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, ConcessionImporter $concessionImporter, NewDB $newDB)
 {
     $concessionIds = $excelImporter->extractConcessionIdsFromImport($extracts);
+    array_pop($concessionIds);
+
     $concessions = $oldDB->getConcessionByIds($concessionIds);
     $concessionImporter->replaceConcessionBookIdsWithExtractBookIds($concessions, $extracts);
     $newDB->createConcessions($concessions);

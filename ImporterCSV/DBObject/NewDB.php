@@ -137,7 +137,7 @@ class NewDB extends NewConfigDB
 
     private function createConcession($concession)
     {
-        if (isset($concession)) {
+        if (isset($concession) && !is_null($concession)) {
             $sql = "INSERT INTO concession (id,idCustomer,idBook,customerPrice,feesPercentage,sellingPrice,isAnnotated,expireDate,createdBy)
                                     VALUES(:id, :idCustomer, :idBook, :customerPrice, :feesPercentage, :sellingPrice, :isAnnotated, :expireDate, :createdBy)";
             if ($stmt = $this->conn->prepare($sql)) {
@@ -161,6 +161,7 @@ class NewDB extends NewConfigDB
                 $stmt->bindParam(":isAnnotated", $isAnnotated);
                 $stmt->bindParam(":expireDate", $expireDate);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
+
                 if ($stmt->execute()) {
                     return true;
                 }
