@@ -111,4 +111,41 @@ class OldDB extends OldConfigDB
         }
         return null;
     }
+
+    public function getUsersFromIds($userIds) {
+        $users = array();
+        foreach ($userIds as $userId) {
+            array_push($users, $this->getUserFromId($userId));
+        }
+        return $users;
+    }
+
+    private function getUserFromId($userId) {
+        if (isset($userId)) {
+            $sql = "SELECT * FROM customer WHERE id = :idUser";
+
+            if ($stmt = $this->conn->prepare($sql)) {
+                $stmt->bindParam(":idUser", $userId, PDO::PARAM_INT);
+
+                if ($stmt->execute()) {
+                    if ($stmt->rowCount() == 1) {
+                        if ($row = $stmt->fetch()) {
+                            $user = new User(
+                                $row['id'],
+                                $row['firstName'],
+                                $row['lastName'],
+                                $row['phoneNumber'],
+                                $row['email']
+                            );
+                            unset($stmt);
+
+                            return $user;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }

@@ -37,6 +37,9 @@ if (isset($_POST["submit"])) {
 
         //VALIDATE INFO IS CORRECT
         //SAVE USERS IN NEW BD
+        $users = $oldDB->getUsersFromIds($userIds);
+
+
 
         //SAVE CONCESSION WITH OLD INFO + ID'S
         if ($unfoundBooks > 0) {
