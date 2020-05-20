@@ -143,7 +143,7 @@ public class ReservationFragment extends Fragment implements NetworkStateReceive
 
         String img_url = ((concession.getUrlPhoto() == null) ?
                 Const.BOOK_IMG_ADDRESS + concession.getBook().getUrlPhoto() :
-                Const.CONCESSION_IMG_ADDRESS + concession.getUrlPhoto()
+                Const.CONCESSION_IMG_ADDRESS + concession.getUrlPhoto()+".png"
         );
         Picasso
                 .get()

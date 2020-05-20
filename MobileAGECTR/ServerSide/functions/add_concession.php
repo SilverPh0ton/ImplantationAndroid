@@ -86,6 +86,7 @@ try {
                 }
             }
             catch (Exception $e){
+                file_put_contents('log.txt', "erreur_add_book : " . $e . "\n", FILE_APPEND);
                 echo json_encode(null);
                 die();
             }

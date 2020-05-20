@@ -65,7 +65,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
         String img_url = ((concessions.get(position).getUrlPhoto() == null) ?
                 Const.BOOK_IMG_ADDRESS + concessions.get(position).getBook().getUrlPhoto() :
-                Const.CONCESSION_IMG_ADDRESS + concessions.get(position).getUrlPhoto()
+                Const.CONCESSION_IMG_ADDRESS + concessions.get(position).getUrlPhoto()+".png"
         );
         Picasso
                 .get()
