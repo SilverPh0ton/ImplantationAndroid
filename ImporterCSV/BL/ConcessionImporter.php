@@ -15,8 +15,7 @@ class ConcessionImporter
     {
         foreach ($concessions as $concession)
         {
-
-            print_r($concession);
+            
             $idConcession = $concession->getIdConcession();
             foreach ($extracts as $extract)
             {
