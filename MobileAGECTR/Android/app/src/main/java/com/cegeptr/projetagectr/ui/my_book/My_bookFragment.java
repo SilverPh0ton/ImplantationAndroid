@@ -226,7 +226,7 @@ public class My_bookFragment extends Fragment implements NetworkStateReceiver.Ne
                         .setMessage(R.string.alert_text_confirm_delete)
                         .setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                data.deleteConcession(concession.getIdConcession());
+                                data.deleteConcession(concession.getIdConcession(),concession.getState());
                                 actionDialog.dismiss();
                                 dialog.dismiss();
                             }

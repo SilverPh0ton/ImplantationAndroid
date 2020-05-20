@@ -800,8 +800,8 @@ public class DataSingleton {
      * Retire une concession qui n'a pas encore été validé
      * @param idConcession
      */
-    public void deleteConcession(int idConcession) {
-        Call<ServerResponse> call = serveur.delete_concession(idConcession);
+    public void deleteConcession(int idConcession,String state) {
+        Call<ServerResponse> call = serveur.delete_concession(idConcession,state);
         call.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {

@@ -486,3 +486,11 @@ erreur_photo_upload: exception 'PDOException' with message 'SQLSTATE[23000]: Int
 Stack trace:
 #0 C:\wamp\www\ImplantationAndroid\MobileAGECTR\ServerSide\functions\photo_upload.php(35): PDOStatement->execute()
 #1 {main}
+erreur_deleting_concession : exception 'PDOException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 La table 'test.reception' n'existe pas' in C:\wamp\www\ImplantationAndroid\MobileAGECTR\ServerSide\functions\delete_concession.php:25
+Stack trace:
+#0 C:\wamp\www\ImplantationAndroid\MobileAGECTR\ServerSide\functions\delete_concession.php(25): PDOStatement->execute()
+#1 {main}
+erreur_deleting_concession : exception 'PDOException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 La table 'test.reception' n'existe pas' in C:\wamp\www\ImplantationAndroid\MobileAGECTR\ServerSide\functions\delete_concession.php:25
+Stack trace:
+#0 C:\wamp\www\ImplantationAndroid\MobileAGECTR\ServerSide\functions\delete_concession.php(25): PDOStatement->execute()
+#1 {main}

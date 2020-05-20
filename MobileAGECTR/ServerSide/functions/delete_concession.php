@@ -13,6 +13,28 @@ try {
 
     if (isset($_POST['idConcession'])) {
 
+        if($_POST['State']=="validation")
+         {  $sql = "DELETE FROM reception WHERE id = :idConcession";
+
+            if ($stmt = $pdo->prepare($sql)) {
+                // Bind variables to the prepared statement as parameters
+                $stmt->bindParam(":idConcession", $_POST['idConcession']);
+    
+    
+                // Attempt to execute the prepared statement
+                if ($stmt->execute()) {
+                    $log .= "succes";
+                    // Records created successfully. Redirect to landing page
+                    $response->setSucces(true);
+                    $response->setMessage("Concession deleted");
+                } else {
+                    $response->setSucces(false);
+                    $response->setMessage("Error while deleting");
+                }
+                unset($stmt);
+            }
+             
+         }else{
         $sql = "DELETE FROM concession WHERE id = :idConcession";
 
         if ($stmt = $pdo->prepare($sql)) {
@@ -32,6 +54,7 @@ try {
             }
             unset($stmt);
         }
+    }
     } else {
         $log .= "Missing info";
 
