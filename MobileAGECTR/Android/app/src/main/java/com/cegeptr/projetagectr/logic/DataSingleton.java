@@ -16,7 +16,12 @@ import com.cegeptr.projetagectr.logic.Entity.History;
 import com.cegeptr.projetagectr.logic.Entity.ServerResponse;
 import com.cegeptr.projetagectr.logic.Entity.User;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -25,6 +30,7 @@ import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +54,8 @@ public class DataSingleton {
     private ArrayList<Concession> myReservation = new ArrayList<>();
     private ArrayList<History> myHistory = new ArrayList<>();
     private Book autoFillResult = null;
+    private ArrayList<GroupResult> lstBookPop = new ArrayList<>();
+    private ArrayList<GroupResult> lstBookRecent = new ArrayList<>();
 
     /**
      * Permet d'avoir un reference du singleton
@@ -990,6 +998,99 @@ public class DataSingleton {
         });
     }
 
+    public void refreshListPop()
+    {
+        lstBookPop.clear();
+
+        Call<ResponseBody> call = serveur.getBestSellers();
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String responseString = response.body().string();
+                    JSONArray json_arr = new JSONArray(responseString);
+
+                    for (int i=0; i < json_arr.length(); i++){
+                        JSONObject jsonObj = json_arr.getJSONObject(i);
+                        String id = jsonObj.getString("id");
+                        String title = jsonObj.getString("title");
+                        String author = jsonObj.getString("author");
+                        String publisher = jsonObj.getString("publisher");
+                        String edition = jsonObj.getString("edition");
+                        String isbn13 = jsonObj.getString("isbn13");
+                        int amount = Integer.parseInt(jsonObj.getString("amount"));
+                        String image = jsonObj.getString("image");
+
+                        lstBookPop.add(new GroupResult(new Book(Integer.parseInt(id) , title, author, publisher, edition, isbn13, image + ".png"), amount));
+                    }
+
+                    Intent intent = new Intent();
+                    intent.setAction(Const.broadcastLoadedBooks);
+                    mainContext.sendBroadcast(intent);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+
+        });
+    }
+
+    public void refreshListRecent()
+    {
+        lstBookRecent.clear();
+
+        Call<ResponseBody> call = serveur.getMostRecentlyAdded();
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String responseString = response.body().string();
+                    JSONArray json_arr = new JSONArray(responseString);
+
+                    for (int i=0; i < json_arr.length(); i++){
+                        JSONObject jsonObj = json_arr.getJSONObject(i);
+                        String id = jsonObj.getString("id");
+                        String title = jsonObj.getString("title");
+                        String author = jsonObj.getString("author");
+                        String publisher = jsonObj.getString("publisher");
+                        String edition = jsonObj.getString("edition");
+                        String isbn13 = jsonObj.getString("isbn13");
+                        int amount = Integer.parseInt(jsonObj.getString("amount"));
+                        String image = jsonObj.getString("image");
+
+                        lstBookRecent.add(new GroupResult(new Book(Integer.parseInt(id) , title, author, publisher, edition, isbn13,image + ".png"), amount));
+                    }
+
+                    Intent intent = new Intent();
+                    intent.setAction(Const.broadcastLoadedBooksRecent);
+                    mainContext.sendBroadcast(intent);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+
+
+        });
+    }
+
     /**********************SetterAndGetter**********************/
     public User getConnectedUser() {
         return connectedUser;
@@ -1041,5 +1142,13 @@ public class DataSingleton {
 
     public void setDetailsResultsGroupResult(GroupResult detailsResultsGroupResult) {
         this.detailsResultsGroupResult = detailsResultsGroupResult;
+    }
+
+    public ArrayList<GroupResult> getLstBookPop(){
+        return lstBookPop;
+    }
+
+    public ArrayList<GroupResult> getLstBookRecent(){
+        return lstBookRecent;
     }
 }

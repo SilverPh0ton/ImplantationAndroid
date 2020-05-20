@@ -30,6 +30,8 @@ public class Const {
     public final static String broadcastupdateAvatar = "com.cegeptr.projetagectr.broadcastupdateAvatar";
     public final static String broadcastResetPassword = "com.cegeptr.projetagectr.broadcastResetPassword";
     public final static String broadcastArchiveConcession = "com.cegeptr.projetagectr.broadcastArchiveConcession";
+    public final static String broadcastLoadedBooks = "com.cegeptr.projetagectr.broadcastLoadedBooks";
+    public final static String broadcastLoadedBooksRecent = "com.cegeptr.projetagectr.broadcastLoadedBooksRecent";
 
 
     /**

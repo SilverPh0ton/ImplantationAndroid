@@ -18,6 +18,8 @@ import com.cegeptr.projetagectr.ui.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.io.IOException;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService
 {
 
@@ -61,9 +63,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
 
-        data.catchUserToken(token);
-        if(data.getConnectedUser() != null){
-            data.updateUserToken();
+        try {
+            data.catchUserToken(token);
+            if (data.getConnectedUser() != null) {
+                data.updateUserToken();
+            }
+        }
+        catch (Exception e){
+
         }
     }
 
