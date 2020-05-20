@@ -149,7 +149,6 @@ function importUsers(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, User
     //For emails with more than 1 user associated, generate temporary email
     $userImporter->sanitizeEmails($mappedEmails, $users);
 
-    //TODO Create A Random ENCRYPTED PASSWORD FOR EACH USER
     $newDB->createUsers($users);
 }
 

@@ -101,7 +101,7 @@ class NewDB extends NewConfigDB
                 $lastName = $user->getLastName();
                 $phoneNumber = $user->getPhoneNumber();
                 $email = $user->getEmail();
-                $password = '123'; //$generatedPassword ???
+                $password = password_hash($this->generateRandomPassword(), PASSWORD_DEFAULT);
 
                 $stmt->bindParam(":id", $id, PDO::PARAM_INT);
                 $stmt->bindParam(":firstName", $firstName, PDO::PARAM_STR);
@@ -138,12 +138,13 @@ class NewDB extends NewConfigDB
     {
         if(isset($concession))
         {
-            $sql = "INSERT INTO concession (id,idCustomer,idBook,customerPrice,feesPercentage,sellingPrice,isAnnotated,createdBy)
-                                    VALUES(:id, :idCustomer, :idBook, :customerPrice, :feesPercentage, :sellingPrice, :isAnnotated, :createdBy)";
+            $sql = "INSERT INTO concession (id,idCustomer,idBook,customerPrice,feesPercentage,sellingPrice,isAnnotated,expireDate,createdBy)
+                                    VALUES(:id, :idCustomer, :idBook, :customerPrice, :feesPercentage, :sellingPrice, :isAnnotated, :expireDate, :createdBy)";
             if($stmt = $this->conn->prepare($sql))
             {
                 $createdBy = CONST_CREATEDBY_AUTOIMPORT;
                 $isAnnotated = CONST_FAKE_ANNOTATED;
+                $expireDate =  date('Y-m-d H-i-s', strtotime('+370 day'));
 
                 $idConcession = $concession->getIdConcession();
                 $idCustomer = $concession->getIdCustomer();
@@ -159,6 +160,7 @@ class NewDB extends NewConfigDB
                 $stmt->bindParam(":feesPercentage", $feesPercentage);
                 $stmt->bindParam(":sellingPrice", $sellingPrice);
                 $stmt->bindParam(":isAnnotated", $isAnnotated);
+                $stmt->bindParam(":expireDate", $expireDate);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
                 if($stmt->execute())
                 {
@@ -200,5 +202,17 @@ class NewDB extends NewConfigDB
         if ($stmt = $this->conn->prepare($sql)) {
             $stmt->execute();
         }
+    }
+
+    private function generateRandomPassword()
+    {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array();
+        $alphaLength = strlen($alphabet) - 1;
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass);
     }
 }
