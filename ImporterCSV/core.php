@@ -108,8 +108,7 @@ function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, Book
 
         //Get the old values of book If not found on the ISBN API
         $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());
-
-        //TODO Manage the url given to download it in our repository and database (with id)
+        
         //Save books in new Database
         $newDB->createBooks($bookImporterResponses->getBooks());
         $newDB->createBooks($unfoundBooks);
