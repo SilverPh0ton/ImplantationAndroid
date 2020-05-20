@@ -2,6 +2,7 @@
 include_once 'OldConfigDB.php';
 include_once 'Entities/BookIdentifier.php';
 include_once 'Entities/Book.php';
+include_once 'Entities/User.php';
 
 class OldDB extends OldConfigDB
 {
@@ -146,6 +147,29 @@ class OldDB extends OldConfigDB
             }
         }
         return null;
+    }
+
+    public function getMappedEmails($users)
+    {
+        $mappedEmails = array();
+        if (isset($users)) {
+            foreach ($users as $user) {
+                $email = $user->getEmail();
+                if (!array_key_exists($email, $mappedEmails))
+                {
+                    $mappedEmails[$email] = [$user->getId()];
+                }
+                else
+                {
+                    array_push(
+                        $mappedEmails[$email],
+                        $user->getId()
+                    );
+                }
+            }
+        }
+
+        return $mappedEmails;
     }
 
 }

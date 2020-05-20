@@ -39,6 +39,10 @@ if (isset($_POST["submit"])) {
         //SAVE USERS IN NEW BD
         $users = $oldDB->getUsersFromIds($userIds);
 
+        $mappedEmails = $oldDB->getMappedEmails($users);
+
+        echo json_encode($mappedEmails);
+
 
 
         //SAVE CONCESSION WITH OLD INFO + ID'S
