@@ -4,10 +4,10 @@ public class Const {
     /**
      * Information du serveur
      */
-    public static final String SERVER_ADDRESS = "http://206.167.140.56:8080/420617RI/Equipe_4/AGECTR/MobileAGECTR/ServerSide";
-    public static final String END_POINTS_ADDRESS = SERVER_ADDRESS + "/functions/";
-    public static final String BOOK_IMG_ADDRESS = SERVER_ADDRESS + "/upload_photo_book/";
-    public static final String CONCESSION_IMG_ADDRESS = SERVER_ADDRESS + "/upload_photo_concession/";
+    public static final String SERVER_ADDRESS = "http://206.167.140.56:8080/420617RI/Equipe_4/AGECTR";
+    public static final String END_POINTS_ADDRESS = SERVER_ADDRESS + "/MobileAGECTR/ServerSide/functions/";
+    public static final String BOOK_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_book/";
+    public static final String CONCESSION_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_concession/";
 
     /**
      * Code de broadcast pour le serveur

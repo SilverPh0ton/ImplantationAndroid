@@ -77,7 +77,7 @@ try {
                 $book = new Book();
 
                 try {
-                    $sqlBook = "SELECT * FROM book WHERE id = :idBook";
+                    $sqlBook = "SELECT * FROM book WHERE id = :idBook ORDER BY createdDate DESC";
                     $stmt = $pdo->prepare($sqlBook);
                     $stmt->bindParam(":idBook", $row['idBook'], PDO::PARAM_INT);
                     $stmt->execute();
