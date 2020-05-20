@@ -36,8 +36,8 @@ class NewDB extends NewConfigDB
     private function createBook($book)
     {
         if (isset($book)) {
-            $sql = "INSERT INTO book (id,title,author,publisher,barcode, section, createdBy, edition)
-                                VALUES(:id,:title,:author,:publisher,:barcode, :section, :createdBy, :edition)";
+            $sql = "INSERT INTO book (id,title,author,publisher,barcode, urlPhoto, section, createdBy, edition)
+                                VALUES(:id,:title,:author,:publisher,:barcode, :urlPhoto, :section, :createdBy, :edition)";
             if ($stmt = $this->conn->prepare($sql)) {
                 $extension = CONST_IMG_EXTENSION;
                 $idUrlPhoto = null;
@@ -54,9 +54,9 @@ class NewDB extends NewConfigDB
 
                 if (!is_null($urlPhoto)) {
                     $img = '../GlobalAGECTR/upload_photo_book/' . $idBook . $extension;
-                    file_put_contents($img, file_get_contents($urlPhoto));
+                    $fileSize = file_put_contents($img, file_get_contents($urlPhoto));
 
-                    $idUrlPhoto = $this->insertInBookImage($idBook, $extension);
+                    $idUrlPhoto = $this->insertInBookImage($idBook, $fileSize, $extension);
                 }
 
                 $stmt->bindParam(":id", $idBook, PDO::PARAM_INT);
@@ -64,7 +64,7 @@ class NewDB extends NewConfigDB
                 $stmt->bindParam(":author", $author, PDO::PARAM_STR);
                 $stmt->bindParam(":publisher", $publisher, PDO::PARAM_STR);
                 $stmt->bindParam(":barcode", $barcode, PDO::PARAM_STR);
-                $stmt->bindParam(":urlPhoto", $idUrlPhoto, PDO::PARAM_INT);
+                $stmt->bindParam(":urlPhoto", $idUrlPhoto);
                 $stmt->bindParam(":section", $section);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
                 $stmt->bindParam(":edition", $edition, PDO::PARAM_STR);
@@ -172,6 +172,7 @@ class NewDB extends NewConfigDB
         $this->deleteAllConcessions();
         $this->deleteAllUsers();
         $this->deleteAllBooks();
+        $this->deleteAllBookImages();
     }
 
     private function deleteAllBooks()
@@ -195,6 +196,14 @@ class NewDB extends NewConfigDB
     private function deleteAllUsers()
     {
         $sql = "DELETE FROM customer";
+
+        if ($stmt = $this->conn->prepare($sql)) {
+            $stmt->execute();
+        }
+    }
+
+    private function deleteAllBookImages () {
+        $sql = "DELETE FROM book_image";
 
         if ($stmt = $this->conn->prepare($sql)) {
             $stmt->execute();
