@@ -88,5 +88,21 @@ class ExcelImporter
     }
 
 
+    public function sanitized($extracts) {
+
+        $sanitizedExtracts = array();
+        foreach ($extracts as $extract) {
+
+            if (isset($extract->getIdConcession())) {
+                array_push($sanitizedExtracts, $extract);
+            }
+
+        }
+
+        return $sanitizedExtracts;
+
+    }
+
+
 
 }

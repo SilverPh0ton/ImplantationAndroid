@@ -33,10 +33,13 @@ if (isset($_POST["submit"])) {
 
         //Get ExcelExtracts Entities From Xlsx (idConcession aka ReferenceCode, idBook, idUser)
         $extracts = $excelImporter->import($_FILES['file']['name']);
+        $sanitizedExtract = $excelImporter->sanitized($extracts);
 
-        $unfoundBooks = importBooks($excelImporter, $extracts, $oldDB, $bookImporter, $newDB, $useAPI, $apiKey);
-        importUsers($excelImporter, $extracts, $oldDB, $userImporter, $newDB);
-        importConcessions($excelImporter, $extracts, $oldDB, $concessionImporter, $newDB);
+        $unfoundBooks = importBooks($excelImporter, $sanitizedExtract, $oldDB, $bookImporter, $newDB, $useAPI, $apiKey);
+        print_r($sanitizedExtract);
+
+        importUsers($excelImporter, $sanitizedExtract, $oldDB, $userImporter, $newDB);
+        importConcessions($excelImporter, $sanitizedExtract, $oldDB, $concessionImporter, $newDB);
 
         if ($unfoundBooks > 0) {
             ?>
