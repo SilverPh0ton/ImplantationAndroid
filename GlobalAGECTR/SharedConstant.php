@@ -23,3 +23,4 @@ define("CONST_DAYS_BEFORE_EXPIRED",'+370 day');
 define("CONST_FAKE_SECTION", "");
 define("CONST_FAKE_EMAIL", "@temporaire.com");
 define("CONST_FAKE_ANNOTATED", 2);
+define("CONST_IMG_EXTENSION", ".png");

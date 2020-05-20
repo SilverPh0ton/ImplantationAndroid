@@ -45,6 +45,8 @@ class NewDB extends NewConfigDB
                                 VALUES(:id,:title,:author,:publisher,:barcode, :section, :createdBy, :edition)";
             if($stmt = $this->conn->prepare($sql))
             {
+                $extension = CONST_IMG_EXTENSION;
+                $idUrlPhoto = null;
                 $createdBy = CONST_CREATEDBY_AUTOIMPORT;
                 $section = CONST_FAKE_SECTION;
 
@@ -56,12 +58,19 @@ class NewDB extends NewConfigDB
                 $urlPhoto = $book->getUrlPhoto();
                 $edition = $book->getEdition();
 
+                if (!is_null($urlPhoto)) {
+                    $img = '../GlobalAGECTR/upload_photo_book/'.$idBook.$extension;
+                    file_put_contents($img, file_get_contents($urlPhoto));
+
+                    $idUrlPhoto = $this->insertInBookImage($idBook ,$extension);
+                }
+
                 $stmt->bindParam(":id",$idBook , PDO::PARAM_INT);
                 $stmt->bindParam(":title", $title, PDO::PARAM_STR);
                 $stmt->bindParam(":author", $author, PDO::PARAM_STR);
                 $stmt->bindParam(":publisher", $publisher, PDO::PARAM_STR);
                 $stmt->bindParam(":barcode", $barcode, PDO::PARAM_STR);
-                //$stmt->bindParam(":urlPhoto", $urlPhoto, PDO::PARAM_INT); --> MUST BE AN INTEGER <---
+                $stmt->bindParam(":urlPhoto", $idUrlPhoto, PDO::PARAM_INT);
                 $stmt->bindParam(":section", $section);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
                 $stmt->bindParam(":edition", $edition, PDO::PARAM_STR);
@@ -219,4 +228,23 @@ class NewDB extends NewConfigDB
         }
         return implode($pass);
     }
+
+    private function insertInBookImage($idBook, $fileSize, $extension) {
+        $sql = "INSERT INTO book_image (fileName, fileSize, extension) VALUES (:fileName, :fileSize, :extension)";
+        if($stmt = $this->conn->prepare($sql))
+        {
+
+            $stmt->bindParam(":fileName", $idBook);
+            $stmt->bindParam(":fileSize", $fileSize);
+            $stmt->bindParam(":extension", $extension);
+
+            if($stmt->execute())
+            {
+                
+            }
+        }
+    }
+return false;
+    }
+
 }
