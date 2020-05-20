@@ -23,12 +23,9 @@ class NewDB extends NewConfigDB
      */
     public function createBooks($books)
     {
-        foreach($books as $book)
-        {
-            if(isset($book))
-            {
-                if(!$this->createBook($book))
-                {
+        foreach ($books as $book) {
+            if (isset($book)) {
+                if (!$this->createBook($book)) {
                     throw new Exception("Error while inserting books");
                 }
             }
@@ -38,13 +35,10 @@ class NewDB extends NewConfigDB
 
     private function createBook($book)
     {
-        if(isset($book))
-        {
-            //TODO Add the urlPhoto when we have the id (when we manage to download the picture from the url in our repo)
+        if (isset($book)) {
             $sql = "INSERT INTO book (id,title,author,publisher,barcode, section, createdBy, edition)
                                 VALUES(:id,:title,:author,:publisher,:barcode, :section, :createdBy, :edition)";
-            if($stmt = $this->conn->prepare($sql))
-            {
+            if ($stmt = $this->conn->prepare($sql)) {
                 $extension = CONST_IMG_EXTENSION;
                 $idUrlPhoto = null;
                 $createdBy = CONST_CREATEDBY_AUTOIMPORT;
@@ -59,13 +53,13 @@ class NewDB extends NewConfigDB
                 $edition = $book->getEdition();
 
                 if (!is_null($urlPhoto)) {
-                    $img = '../GlobalAGECTR/upload_photo_book/'.$idBook.$extension;
+                    $img = '../GlobalAGECTR/upload_photo_book/' . $idBook . $extension;
                     file_put_contents($img, file_get_contents($urlPhoto));
 
-                    $idUrlPhoto = $this->insertInBookImage($idBook ,$extension);
+                    $idUrlPhoto = $this->insertInBookImage($idBook, $extension);
                 }
 
-                $stmt->bindParam(":id",$idBook , PDO::PARAM_INT);
+                $stmt->bindParam(":id", $idBook, PDO::PARAM_INT);
                 $stmt->bindParam(":title", $title, PDO::PARAM_STR);
                 $stmt->bindParam(":author", $author, PDO::PARAM_STR);
                 $stmt->bindParam(":publisher", $publisher, PDO::PARAM_STR);
@@ -75,8 +69,7 @@ class NewDB extends NewConfigDB
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
                 $stmt->bindParam(":edition", $edition, PDO::PARAM_STR);
 
-                if($stmt->execute())
-                {
+                if ($stmt->execute()) {
                     return true;
                 }
             }
@@ -90,10 +83,8 @@ class NewDB extends NewConfigDB
      */
     public function createUsers($users)
     {
-        foreach ($users as $user)
-        {
-            if(!$this->createUser($user))
-            {
+        foreach ($users as $user) {
+            if (!$this->createUser($user)) {
                 throw new Exception("Inserting users failed");
             }
         }
@@ -101,12 +92,10 @@ class NewDB extends NewConfigDB
 
     private function createUser($user)
     {
-        if(isset($user))
-        {
+        if (isset($user)) {
             $sql = "INSERT INTO customer (id,firstName,lastName,phoneNumber,email, password, createdBy)
                                     VALUES(:id, :firstName, :lastName, :phoneNumber, :email, :password, :createdBy)";
-            if($stmt = $this->conn->prepare($sql))
-            {
+            if ($stmt = $this->conn->prepare($sql)) {
                 $createdBy = CONST_CREATEDBY_AUTOIMPORT;
 
                 $id = $user->getId();
@@ -123,8 +112,7 @@ class NewDB extends NewConfigDB
                 $stmt->bindParam(":email", $email, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $password, PDO::PARAM_STR);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
-                if($stmt->execute())
-                {
+                if ($stmt->execute()) {
                     return true;
                 }
             }
@@ -138,10 +126,8 @@ class NewDB extends NewConfigDB
      */
     public function createConcessions($concessions)
     {
-        foreach ($concessions as $concession)
-        {
-            if(!$this->createConcession($concession))
-            {
+        foreach ($concessions as $concession) {
+            if (!$this->createConcession($concession)) {
                 throw new Exception("Inserting concessions failed");
             }
         }
@@ -149,15 +135,13 @@ class NewDB extends NewConfigDB
 
     private function createConcession($concession)
     {
-        if(isset($concession))
-        {
+        if (isset($concession)) {
             $sql = "INSERT INTO concession (id,idCustomer,idBook,customerPrice,feesPercentage,sellingPrice,isAnnotated,expireDate,createdBy)
                                     VALUES(:id, :idCustomer, :idBook, :customerPrice, :feesPercentage, :sellingPrice, :isAnnotated, :expireDate, :createdBy)";
-            if($stmt = $this->conn->prepare($sql))
-            {
+            if ($stmt = $this->conn->prepare($sql)) {
                 $createdBy = CONST_CREATEDBY_AUTOIMPORT;
                 $isAnnotated = CONST_FAKE_ANNOTATED;
-                $expireDate =  date('Y-m-d H-i-s', strtotime('+370 day'));
+                $expireDate = date('Y-m-d H-i-s', strtotime('+370 day'));
 
                 $idConcession = $concession->getIdConcession();
                 $idCustomer = $concession->getIdCustomer();
@@ -175,8 +159,7 @@ class NewDB extends NewConfigDB
                 $stmt->bindParam(":isAnnotated", $isAnnotated);
                 $stmt->bindParam(":expireDate", $expireDate);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
-                if($stmt->execute())
-                {
+                if ($stmt->execute()) {
                     return true;
                 }
             }
@@ -184,7 +167,8 @@ class NewDB extends NewConfigDB
         return false;
     }
 
-    public function deleteAll() {
+    public function deleteAll()
+    {
         $this->deleteAllConcessions();
         $this->deleteAllUsers();
         $this->deleteAllBooks();
@@ -229,22 +213,20 @@ class NewDB extends NewConfigDB
         return implode($pass);
     }
 
-    private function insertInBookImage($idBook, $fileSize, $extension) {
+    private function insertInBookImage($idBook, $fileSize, $extension)
+    {
         $sql = "INSERT INTO book_image (fileName, fileSize, extension) VALUES (:fileName, :fileSize, :extension)";
-        if($stmt = $this->conn->prepare($sql))
-        {
+        if ($stmt = $this->conn->prepare($sql)) {
 
             $stmt->bindParam(":fileName", $idBook);
             $stmt->bindParam(":fileSize", $fileSize);
             $stmt->bindParam(":extension", $extension);
 
-            if($stmt->execute())
-            {
-                
+            if ($stmt->execute()) {
+                return $this->conn->lastInsertId();
             }
         }
-    }
-return false;
+        return null;
     }
 
 }
