@@ -34,7 +34,7 @@ class User
         $this->phoneNumber = str_replace('-', '', $this->phoneNumber);
         $this->phoneNumber = str_replace(' ', '', $this->phoneNumber);
 
-        if(!strlen($this->phoneNumber) == 10)
+        if(strlen($this->phoneNumber) != 10)
         {
           $this->phoneNumber = null;
         }
