@@ -20,6 +20,6 @@ define("CONST_GIVEN_STATE","dons");
 
 define("CONST_DAYS_BEFORE_EXPIRED",'+370 day');
 
-define("CONST_FAKE_SECTION", "N/A");
+define("CONST_FAKE_SECTION", "");
 define("CONST_FAKE_EMAIL", "@temporaire.com");
-define("CONST_FAKE_ANNOTATED", 0);
+define("CONST_FAKE_ANNOTATED", 2);
