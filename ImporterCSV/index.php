@@ -60,6 +60,7 @@
              <input id="option" type="checkbox" name="field" value="option">
              <label id="optionLabel" for="option">Import books from isbn API</label>
              <div id="apiKeySection">
+                 <p><b>*IMPORTANT :</b> Ajuster <b>« max_execution_time = 0 »</b> dans le <b>php.ini</b> pour un fichier excel volumineux.</p>
                  <label for="apiKey">API key</label>
                  <input type="input" id="apiKey" name="apiKey">
              </div>

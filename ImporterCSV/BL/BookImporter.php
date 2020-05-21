@@ -82,7 +82,8 @@ class BookImporter
     //Fonction convertisant le retour de l'API en JSON, en object de type livre.
     private function JSONconverter($response, $idBook, $bookImporterResponses) {
 
-        $responseBook = json_decode($response, true);
+        $responseBook = json_decode($response, true, 512, JSON_INVALID_UTF8_SUBSTITUTE);
+
         $publisher = null;
         $image = null;
         $author = null;
@@ -102,9 +103,10 @@ class BookImporter
         if (isset($responseBook["errorMessage"])) {
             $bookImporterResponses->addUnfoundId($idBook);
         } else {
+            $title = str_replace("ï¿½", "é", $responseBook["book"]["title"]);
             $book = new Book(
                 $idBook,
-                $responseBook["book"]["title"],
+                $title,
                 $author,
                 $publisher,
                 null,
