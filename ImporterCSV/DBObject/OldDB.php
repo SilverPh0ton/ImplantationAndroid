@@ -50,7 +50,7 @@ class OldDB extends OldConfigDB
         $booksIdentifiers = array();
         foreach ($bookIds as $bookId)
         {
-            array_push($booksIdentifiers, $this->getBookIdentifiers($bookId[0]));
+            array_push($booksIdentifiers, $this->getBookIdentifiers($bookId));
         }
         return $booksIdentifiers;
     }
