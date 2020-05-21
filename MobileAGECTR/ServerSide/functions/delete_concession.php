@@ -14,7 +14,19 @@ try {
     if (isset($_POST['idConcession'])) {
 
         if($_POST['State']=="validation")
-         {  $sql = "DELETE FROM reception WHERE id = :idConcession";
+         {  
+            $sql = "SELECT urlPhoto FROM reception WHERE id = :idConcession";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(":idConcession", $_POST['idConcession']);
+            $stmt->execute();
+            $urlPhoto = $stmt->fetch()[0];
+            
+            $file_path_concession = "../../../GlobalAGECTR/upload_photo_concession/";
+            if (!unlink($file_path_concession . $urlPhoto . '.png')){
+                error_log("Image introuvable", 0);
+            }
+            
+            $sql = "DELETE FROM reception WHERE id = :idConcession";
 
             if ($stmt = $pdo->prepare($sql)) {
                 // Bind variables to the prepared statement as parameters
