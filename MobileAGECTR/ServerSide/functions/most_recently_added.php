@@ -38,7 +38,7 @@ if($num > 0) {
                     "author" => $author,
                     "publisher" => $publisher,
                     "edition" => $edition,
-                    "isbn13" => $barcode,
+                    "barcode" => $barcode,
                     "amount" => $dispo,
                     "image" => $image
                 );

@@ -14,7 +14,11 @@ $book = new Book();
 $book_arr = array();
 $book_arr["book"] = array();
 
-$query = "SELECT history.idBook, count(history.id) as nbr, (SELECT count(idBook) from concession where concession.idBook = history.idBook and (state = 'disponible' or state = 'renouveler')) as dispo, (SELECT urlPhoto from book where id = history.idBook) as image FROM `history` WHERE history.idCustomer <> 0 AND (history.state = 'paye' or history.state = 'a_paye') AND TIMESTAMPDIFF(MONTH, history.soldDate, CURDATE()) <= 18 GROUP BY history.idBook ORDER BY nbr DESC LIMIT 9";
+$query = "SELECT history.idBook, count(history.id) as nbr,
+(SELECT count(idBook) from concession where concession.idBook = history.idBook and (state = 'disponible' or state = 'renouveler')) as dispo,
+(SELECT urlPhoto from book where id = history.idBook) as image FROM `history` WHERE history.idCustomer <> 0 AND (history.state = 'paye' or history.state = 'a_paye') AND
+(SELECT count(idBook) from concession where concession.idBook = history.idBook and (state = 'disponible' or state = 'renouveler')) > 0
+GROUP BY history.idBook ORDER BY nbr DESC, MAX(history.soldDate) DESC LIMIT 9";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $num = $stmt->rowCount();
@@ -38,7 +42,7 @@ if($num > 0) {
                     "author" => $author,
                     "publisher" => $publisher,
                     "edition" => $edition,
-                    "isbn13" => $barcode,
+                    "barcode" => $barcode,
                     "amount" => $dispo,
                     "image" => $image
                 );

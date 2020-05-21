@@ -51,7 +51,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, int position) {
         holder.tvTitle.setText(list.get(position).getBook().getTitle());
-        //holder.tvEdition.setText(list.get(position).getBook().getEdition());
         holder.tvCount.setText(String.valueOf(list.get(position).getAmount()));
         holder.groupResult = list.get(position);
         Picasso

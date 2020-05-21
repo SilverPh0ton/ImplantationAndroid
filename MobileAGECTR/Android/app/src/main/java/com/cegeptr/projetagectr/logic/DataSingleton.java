@@ -1018,15 +1018,15 @@ public class DataSingleton {
                         String author = jsonObj.getString("author");
                         String publisher = jsonObj.getString("publisher");
                         String edition = jsonObj.getString("edition");
-                        String isbn13 = jsonObj.getString("isbn13");
+                        String barcode = jsonObj.getString("barcode");
                         int amount = Integer.parseInt(jsonObj.getString("amount"));
                         String image = jsonObj.getString("image");
 
-                        lstBookPop.add(new GroupResult(new Book(Integer.parseInt(id) , title, author, publisher, edition, isbn13, image + ".png"), amount));
+                        lstBookPop.add(new GroupResult(new Book(Integer.parseInt(id) , title, author, publisher, edition, barcode, image + ".png"), amount));
                     }
 
                     Intent intent = new Intent();
-                    intent.setAction(Const.broadcastLoadedBooks);
+                    intent.setAction(Const.broadcastBooksPopular);
                     mainContext.sendBroadcast(intent);
                 }
                 catch (IOException e) {
@@ -1064,15 +1064,15 @@ public class DataSingleton {
                         String author = jsonObj.getString("author");
                         String publisher = jsonObj.getString("publisher");
                         String edition = jsonObj.getString("edition");
-                        String isbn13 = jsonObj.getString("isbn13");
+                        String barcode = jsonObj.getString("barcode");
                         int amount = Integer.parseInt(jsonObj.getString("amount"));
                         String image = jsonObj.getString("image");
 
-                        lstBookRecent.add(new GroupResult(new Book(Integer.parseInt(id) , title, author, publisher, edition, isbn13,image + ".png"), amount));
+                        lstBookRecent.add(new GroupResult(new Book(Integer.parseInt(id) , title, author, publisher, edition, barcode, image + ".png"), amount));
                     }
 
                     Intent intent = new Intent();
-                    intent.setAction(Const.broadcastLoadedBooksRecent);
+                    intent.setAction(Const.broadcastBooksRecent);
                     mainContext.sendBroadcast(intent);
                 }
                 catch (IOException e) {
