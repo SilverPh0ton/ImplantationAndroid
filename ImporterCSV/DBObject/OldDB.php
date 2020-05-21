@@ -206,9 +206,6 @@ class OldDB extends OldConfigDB
                                 $row['feesPercentage'],
                                 $row['sellingPrice']
                             );
-
-                            //Le echo json_encode marche pas, il faut mettre print_r, c'est pour ça que ça n'affiche pas l'object.
-                            //print_r($concession);
                             unset($stmt);
 
                             return $concession;

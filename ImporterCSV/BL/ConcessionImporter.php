@@ -22,6 +22,7 @@ class ConcessionImporter
                 if($extract->getIdConcession() == $idConcession)
                 {
                     $concession->setIdBook($extract->getIdBook());
+                    $concession->setIdCustomer($extract->getIdUser());
                 }
             }
         }

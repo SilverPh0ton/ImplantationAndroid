@@ -82,26 +82,22 @@ if (isset($_POST["submit"])) {
 
 /**
  * @param ExcelImporter $excelImporter
- * @param $extracts
+ * @param $$sanitizedExtract
  * @param OldDB $oldDB
  * @param BookImporter $bookImporter
  * @param NewDB $newDB
  * @return array
  * @throws Exception
  */
-function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, BookImporter $bookImporter, NewDB $newDB, $useAPI, $apiKey)
+function importBooks(ExcelImporter $excelImporter, $sanitizedExtract, OldDB $oldDB, BookImporter $bookImporter, NewDB $newDB, $useAPI, $apiKey)
 {
     //List the bookIds from Extracts
-    $bookIds = $excelImporter->extractBookIdsFromImport($extracts);
-    array_pop($bookIds);
-
+    $bookIds = $excelImporter->extractBookIdsFromImport($sanitizedExtract);
     //Map the duplicate ISBN id together (ex. ['9781923829' => [1,456,1235]])
     $mappedIdentifiers = $oldDB->getMappedIdentifiers($bookIds);
 
     //Replace duplicate values with only 1 instance in Extracts
-    $sanitizedBookIds = $bookImporter->sanitizeDuplicates($mappedIdentifiers, $extracts);
-
-
+    $sanitizedBookIds = $bookImporter->sanitizeDuplicates($mappedIdentifiers, $sanitizedExtract);
     if($useAPI)
     {
         //Get the ISBN of the bookIds (BookIdentifier Entity)
@@ -119,12 +115,7 @@ function importBooks(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, Book
         return $unfoundBooks;
     }
 
-    $bookIds = array();
-    foreach ($sanitizedBookIds as $id)
-    {
-        array_push($bookIds, $id[0]);
-    }
-    $books = $oldDB->getBooksFromIds($bookIds);
+    $books = $oldDB->getBooksFromIds($sanitizedBookIds);
     $newDB->createBooks($books);
     return $books;
 }
@@ -164,11 +155,11 @@ function importUsers(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, User
  * @param NewDB $newDB
  * @throws Exception
  */
-function importConcessions(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, ConcessionImporter $concessionImporter, NewDB $newDB)
+function importConcessions(ExcelImporter $excelImporter, $sanitizedExtract, OldDB $oldDB, ConcessionImporter $concessionImporter, NewDB $newDB)
 {
-    $concessionIds = $excelImporter->extractConcessionIdsFromImport($extracts);
+    $concessionIds = $excelImporter->extractConcessionIdsFromImport($sanitizedExtract);
     $concessions = $oldDB->getConcessionByIds($concessionIds);
-    $concessionImporter->replaceConcessionBookIdsWithExtractBookIds($concessions, $extracts);
+    $concessionImporter->replaceConcessionBookIdsWithExtractBookIds($concessions, $sanitizedExtract);
     $newDB->createConcessions($concessions);
 }
 

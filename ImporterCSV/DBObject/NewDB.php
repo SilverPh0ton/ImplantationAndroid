@@ -1,6 +1,7 @@
 <?php
 include_once 'NewConfigDB.php';
 include_once '../GlobalAGECTR/SharedConstant.php';
+include_once 'Entities/User.php';
 
 class NewDB extends NewConfigDB
 {
@@ -161,12 +162,6 @@ class NewDB extends NewConfigDB
                 $stmt->bindParam(":isAnnotated", $isAnnotated);
                 $stmt->bindParam(":expireDate", $expireDate);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
-
-                print_r($concession);
-                //PLANTE À LA DEUXIEME CONCESSION ET ÇA POINTE SUR UNE ERREUR DE FOREIGN KEY (idCustomer) = 0
-                //( [idConcession:Entities\Concession:private] => 25361 [idCustomer:Entities\Concession:private] => 0 [idBook:Entities\Concession:private] => 3111 [customerPrice:Entities\Concession:private] => 2.00 [feesPercentage:Entities\Concession:private] => 15 [sellingPrice:Entities\Concession:private] => 2.30 )
-
-
                 if ($stmt->execute()) {
                     return true;
                 }

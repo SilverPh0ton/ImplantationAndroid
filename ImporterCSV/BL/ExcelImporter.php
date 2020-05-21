@@ -60,10 +60,10 @@ class ExcelImporter
         return $userIds;
     }
 
-    public function extractBookIdsFromImport($extracts)
+    public function extractBookIdsFromImport($sanitizedExtract)
     {
         $bookIds = array();
-        foreach ($extracts as $extract)
+        foreach ($sanitizedExtract as $extract)
         {
             if(!in_array($extract->getIdBook(), $bookIds))
             {
@@ -74,10 +74,10 @@ class ExcelImporter
     }
 
 
-    public function extractConcessionIdsFromImport($extracts)
+    public function extractConcessionIdsFromImport($sanitizedExtract)
     {
         $concessionIds = array();
-        foreach ($extracts as $extract)
+        foreach ($sanitizedExtract as $extract)
         {
             if(!in_array($extract->getIdConcession(), $concessionIds))
             {

@@ -62,15 +62,15 @@ class BookImporter
             }
             else
             {
-                array_push($sanitizedBookIds, $identifiers);
+                array_push($sanitizedBookIds, $identifiers[0]);
             }
         }
-        return $sanitizedBookIds;
+        return$sanitizedBookIds;
     }
 
-    private function replaceInExtract($extracts, $identifier, $idKept)
+    private function replaceInExtract($sanitizedExtracts, $identifier, $idKept)
     {
-        foreach($extracts as $extract)
+        foreach($sanitizedExtracts as $extract)
         {
             if($extract->getIdBook() == $identifier)
             {
