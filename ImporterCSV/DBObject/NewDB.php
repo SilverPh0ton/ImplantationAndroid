@@ -96,6 +96,12 @@ class NewDB extends NewConfigDB
     private function createUser($user)
     {
         if (isset($user)) {
+            $acceptZeroSql = "SET SESSION sql_mode='NO_AUTO_VALUE_ON_ZERO'";
+            if($stmt = $this->conn->prepare($acceptZeroSql))
+            {
+                $stmt->execute();
+            }
+
             $sql = "INSERT INTO customer (id,firstName,lastName,phoneNumber,email, password, createdBy)
                                     VALUES(:id, :firstName, :lastName, :phoneNumber, :email, :password, :createdBy)";
             if ($stmt = $this->conn->prepare($sql)) {
@@ -108,13 +114,14 @@ class NewDB extends NewConfigDB
                 $email = $user->getEmail();
                 $password = password_hash($this->generateRandomPassword(), PASSWORD_DEFAULT);
 
-                $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+                $stmt->bindParam(":id", $id);
                 $stmt->bindParam(":firstName", $firstName, PDO::PARAM_STR);
                 $stmt->bindParam(":lastName", $lastName, PDO::PARAM_STR);
                 $stmt->bindParam(":phoneNumber", $phoneNumber, PDO::PARAM_STR);
                 $stmt->bindParam(":email", $email, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $password, PDO::PARAM_STR);
                 $stmt->bindParam(":createdBy", $createdBy, PDO::PARAM_STR);
+
                 if ($stmt->execute()) {
                     return true;
                 }
