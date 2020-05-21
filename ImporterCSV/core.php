@@ -39,41 +39,7 @@ if (isset($_POST["submit"])) {
         importUsers($excelImporter, $sanitizedExtract, $oldDB, $userImporter, $newDB);
         importConcessions($excelImporter, $sanitizedExtract, $oldDB, $concessionImporter, $newDB);
 
-        if ($unfoundBooks > 0) {
-            ?>
-            <h3>Livres importés utilisant les vieilles données</h3>
-            <table id="books">
-                <tr>
-                    <td>idBook</td>
-                    <td>title</td>
-                    <td>author</td>
-                    <td>publisher</td>
-                    <td>edition</td>
-                    <td>barcode</td>
-                    <td>urlPhoto</td>
-                </tr>
-
-                <?php
-                for ($i = 0; $i < count($unfoundBooks); $i++) {
-
-                    if (!is_null($unfoundBooks[$i])) {
-                    ?>
-                    <tr>
-                        <td><?= $unfoundBooks[$i]->getIdBook() ?></td>
-                        <td><?= $unfoundBooks[$i]->getTitle() ?></td>
-                        <td><?= $unfoundBooks[$i]->getAuthor() ?></td>
-                        <td><?= $unfoundBooks[$i]->getPublisher() ?></td>
-                        <td><?= $unfoundBooks[$i]->getEdition() ?></td>
-                        <td><?= $unfoundBooks[$i]->getBarcode() ?></td>
-                        <td><?= $unfoundBooks[$i]->getUrlPhoto() ?></td>
-                    </tr>
-                    <?php
-                    }
-                }
-                ?>
-            </table>
-            <?php
-        }
+        booksTableGenerator("Livres importés utilisant les vieilles données", $unfoundBooks);
     } catch
     (Exception $e) {
         die($e);
@@ -108,6 +74,9 @@ function importBooks(ExcelImporter $excelImporter, $sanitizedExtract, OldDB $old
 
         //Get the old values of book If not found on the ISBN API
         $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());
+
+        //Create data table
+        booksTableGenerator("Livres importés par l'API" ,$bookImporterResponses->getBooks());
         
         //Save books in new Database
         $newDB->createBooks($bookImporterResponses->getBooks());
@@ -160,5 +129,43 @@ function importConcessions(ExcelImporter $excelImporter, $sanitizedExtract, OldD
     $concessions = $oldDB->getConcessionByIds($concessionIds);
     $concessionImporter->replaceConcessionBookIdsWithExtractBookIds($concessions, $sanitizedExtract);
     $newDB->createConcessions($concessions);
+}
+
+function booksTableGenerator($title, $data) {
+    if ($data > 0) {
+        ?>
+        <h3><?=$title?></h3>
+        <table id="books">
+            <tr>
+                <td>idBook</td>
+                <td>title</td>
+                <td>author</td>
+                <td>publisher</td>
+                <td>edition</td>
+                <td>barcode</td>
+                <td>urlPhoto</td>
+            </tr>
+
+            <?php
+            for ($i = 0; $i < count($data); $i++) {
+
+                if (!is_null($data[$i])) {
+                    ?>
+                    <tr>
+                        <td><?= $data[$i]->getIdBook() ?></td>
+                        <td><?= $data[$i]->getTitle() ?></td>
+                        <td><?= $data[$i]->getAuthor() ?></td>
+                        <td><?= $data[$i]->getPublisher() ?></td>
+                        <td><?= $data[$i]->getEdition() ?></td>
+                        <td><?= $data[$i]->getBarcode() ?></td>
+                        <td><?= $data[$i]->getUrlPhoto() ?></td>
+                    </tr>
+                    <?php
+                }
+            }
+            ?>
+        </table>
+        <?php
+    }
 }
 
