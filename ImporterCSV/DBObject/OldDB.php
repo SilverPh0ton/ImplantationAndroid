@@ -198,7 +198,6 @@ class OldDB extends OldConfigDB
 
                 if ($stmt->execute()) {
                         if ($row = $stmt->fetch()) {
-                            echo json_encode($row);
                             $concession = new Concession(
                                 $row['id'],
                                 $row['idCustomer'],
@@ -208,10 +207,10 @@ class OldDB extends OldConfigDB
                                 $row['sellingPrice']
                             );
 
-                            $concession = new Concession(1,1,1,1,1,1);
-
+                            //Le echo json_encode marche pas, il faut mettre print_r, c'est pour ça que ça n'affiche pas l'object.
+                            //print_r($concession);
                             unset($stmt);
-                            echo json_encode($concession);
+
                             return $concession;
                         }
                 }
