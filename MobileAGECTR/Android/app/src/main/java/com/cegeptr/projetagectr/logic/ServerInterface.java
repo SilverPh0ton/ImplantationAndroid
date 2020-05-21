@@ -164,6 +164,16 @@ public interface ServerInterface {
     @POST("renew_concession.php")
     Call<ServerResponse> renew_concession(@Field("idConcession") int idConcession);
 
+
+    /**
+     * Renouvelle toutes les concessions d'un utilisateur
+     * @param idCustomer l'identifiant d'utilisateur pour lequel onva renouveler les livres
+     * @return une reponse de serveur générique
+     */
+    @FormUrlEncoded
+    @POST("renew_concession_all.php")
+    Call<ServerResponse> renew_concession_all(@Field("idCustomer") int idCustomer);
+
     /**
      * Obtient la liste de concession appartenant à un utilisateur
      * @param id_user l'identifiant de l'utilisateur

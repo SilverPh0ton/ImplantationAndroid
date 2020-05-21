@@ -933,6 +933,38 @@ public class DataSingleton {
     }
 
     /**
+     * Renouvèle toutes les concessions de l'utilisateur
+     * @param idCustomer
+     */
+    public void renewConcessionAll(int idCustomer) {
+        Call<ServerResponse> call = serveur.renew_concession_all(idCustomer);
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                try {
+                    Log.d("Data--renewConcession_s", "Photo upload");
+                    Intent intent = new Intent();
+                    intent.putExtra(Const.REQUEST_SUCCES, response.body().getSucces());
+                    intent.setAction(Const.broadcastChangeConcessionState);
+                    mainContext.sendBroadcast(intent);
+                } catch (Exception e) {
+                    Log.d("Data--renewConcession_s", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, java.lang.Throwable t) {
+                try {
+                    mainContext.startActivity(new Intent(mainContext, NoConnection.class));
+                    Log.d("Data--renewConcession_f", t.getMessage());
+                } catch (Exception e) {
+                    Log.d("Data--renewConcession_f", e.getMessage());
+                }
+            }
+        });
+    }
+
+    /**
      * Archive une concession selon l'ID
      * @param idConcession
      */

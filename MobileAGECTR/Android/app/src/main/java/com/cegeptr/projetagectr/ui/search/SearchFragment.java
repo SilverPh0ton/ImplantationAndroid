@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.cegeptr.projetagectr.R;
 import com.cegeptr.projetagectr.logic.Const;
@@ -28,6 +30,7 @@ public class SearchFragment extends Fragment {
     private RecyclerView rv_pop, rv_recent;
     private RecyclerView.Adapter adapter, adapterRecent;
     private Activity parentActivity = this.getActivity();
+    private SwipeRefreshLayout sw;
     View root;
 
     /**
@@ -40,6 +43,16 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         root = inflater.inflate(R.layout.fragment_research, container, false);
+
+        sw = root.findViewById(R.id.swipe_refresh_home);
+
+        sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                data.refreshListPop();
+                data.refreshListRecent();
+            }
+        });
 
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager horizontalLayoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -58,14 +71,16 @@ public class SearchFragment extends Fragment {
     /**
      * Rafraichie la liste du RecyclerView
      */
-    public void refreshList() {
+    public void refreshListPop() {
         adapter= new SearchAdapter(parentActivity, SearchFragment.this, true);
         rv_pop.setAdapter(adapter);
+        sw.setRefreshing(false);
     }
 
     public void refreshListRecent() {
         adapterRecent= new SearchAdapter(parentActivity, SearchFragment.this, false);
         rv_recent.setAdapter(adapterRecent);
+        sw.setRefreshing(false);
     }
 
     /*================================Broadcast================================*/
@@ -75,7 +90,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        refreshList();
+        refreshListPop();
         refreshListRecent();
         this.getContext().registerReceiver(broadcastReceiver,new IntentFilter(Const.broadcastBooksPopular));
         this.getContext().registerReceiver(broadcastReceiverRecent,new IntentFilter(Const.broadcastBooksRecent));
@@ -94,7 +109,7 @@ public class SearchFragment extends Fragment {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            refreshList();
+            refreshListPop();
         }
     };
 

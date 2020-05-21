@@ -142,7 +142,7 @@ public class ReservationFragment extends Fragment implements NetworkStateReceive
         tv_price.setText(twoDForm.format(concession.getSellingPrice()) + "$");
 
         String img_url = ((concession.getUrlPhoto() == null) ?
-                Const.BOOK_IMG_ADDRESS + concession.getBook().getUrlPhoto() :
+                Const.BOOK_IMG_ADDRESS + concession.getBook().getUrlPhoto()+".png" :
                 Const.CONCESSION_IMG_ADDRESS + concession.getUrlPhoto()+".png"
         );
         Picasso
