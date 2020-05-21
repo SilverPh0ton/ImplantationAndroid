@@ -186,7 +186,7 @@ public class ResultActivity extends AppCompatActivity implements NetworkStateRec
         tv_annotated.setText((concession.getAnnotated()) ? R.string.yes_display : R.string.no_display);
 
         String img_url = ((concession.getUrlPhoto() == null) ?
-                Const.BOOK_IMG_ADDRESS + concession.getBook().getUrlPhoto() :
+                Const.BOOK_IMG_ADDRESS + concession.getBook().getUrlPhoto()+".png" :
                 Const.CONCESSION_IMG_ADDRESS + concession.getUrlPhoto()+".png"
         );
 

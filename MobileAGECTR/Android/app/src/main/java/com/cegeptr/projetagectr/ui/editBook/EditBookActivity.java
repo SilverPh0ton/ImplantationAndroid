@@ -122,7 +122,7 @@ public class EditBookActivity extends AppCompatActivity {
         }
 
         String img_url =((editBookViewModel.getLoadedConcession().getUrlPhoto() == null) ?
-                Const.BOOK_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getBook().getUrlPhoto():
+                Const.BOOK_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getBook().getUrlPhoto()+".png":
                 Const.CONCESSION_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getUrlPhoto()+".png"
         );
         Picasso
