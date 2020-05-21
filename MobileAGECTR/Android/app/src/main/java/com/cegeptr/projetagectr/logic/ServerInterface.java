@@ -12,10 +12,12 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -233,4 +235,18 @@ public interface ServerInterface {
     @FormUrlEncoded
     @POST("archive_concession.php")
     Call<ServerResponse> archive_concession(@Field("idConcession") int idConcession);
+
+    /**
+     * Récupère la liste des livres les plus vendus
+     * @return une reponse de serveur générique
+     */
+    @GET("best_sellers.php")
+    Call<ResponseBody> getBestSellers();
+
+    /**
+     * Récupère la liste des livres récemment ajoutés
+     * @return une reponse de serveur générique
+     */
+    @GET("most_recently_added.php")
+    Call<ResponseBody> getMostRecentlyAdded();
 }

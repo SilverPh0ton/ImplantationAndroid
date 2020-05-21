@@ -9,7 +9,7 @@
     <string name="activity_title_result">Résultat de recherche</string>
 
     <string name="menu_group">Profil</string>
-    <string name="menu_research">Recherche</string>
+    <string name="menu_research">Accueil</string>
     <string name="menu_info">Mes informations</string>
     <string name="menu_reservation">Mes réservations</string>
     <string name="menu_my_book">Mes livres</string>
@@ -62,6 +62,8 @@
     <string name="label_no_result_my_books">Aucun livre à vendre</string>
     <string name="label_no_result_group_result">Aucun résultat de recherche</string>
     <string name="label_no_connection">Problème de connexion</string>
+    <string name="label_popular_books">Livres populaires</string>
+    <string name="label_recent_books">Récemment ajoutés</string>
 
 
     <string name="About_title_service">Les services de l\'AGECTR</string>
