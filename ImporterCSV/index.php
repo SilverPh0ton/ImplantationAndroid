@@ -1,9 +1,6 @@
-<?php
-include_once 'core.php';
-?>
 <html>
  <head>
-  <title>Importer CSV AGECTR</title>
+  <title>AGECTR | XSLX Importer</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
      <style>
@@ -45,19 +42,23 @@ include_once 'core.php';
              display: block;
          }
 
+         #optionLabel {
+             margin-bottom: 10px;
+         }
+
 
      </style>
  </head>
  <body>
  <div id="importer">
-     <h3 align="center">Import CSV</h3><br />
+     <h3 align="center">Import XSLX</h3><br />
      <form method="post" enctype="multipart/form-data">
          <div align="center">
-             <label>Sélectionner le fichier csv:</label>
+             <label>Sélectionner le fichier xslx:</label>
              <input type="file" name="file" />
              <br />
              <input id="option" type="checkbox" name="field" value="option">
-             <label for="option">Import books from isbn API</label>
+             <label id="optionLabel" for="option">Import books from isbn API</label>
              <div id="apiKeySection">
                  <label for="apiKey">API key</label>
                  <input type="input" id="apiKey" name="apiKey">
@@ -73,3 +74,7 @@ include_once 'core.php';
  <script src="js/index.js"></script>
  </body>
 </html>
+
+<?php
+include_once 'core.php';
+?>
