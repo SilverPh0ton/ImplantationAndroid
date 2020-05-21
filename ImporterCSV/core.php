@@ -137,7 +137,6 @@ function importUsers(ExcelImporter $excelImporter, $extracts, OldDB $oldDB, User
     //Get Users Object from oldDB
     $users = $oldDB->getUsersFromIds($userIds);
 
-
     //Map of an email with each user associated with it
     $mappedEmails = $oldDB->getMappedEmails($users);
 
