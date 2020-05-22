@@ -55,10 +55,12 @@ class NewDB extends NewConfigDB
 
 
                 if (!is_null($urlPhoto)) {
-                    $path = '../GlobalAGECTR/upload_photo_book/' . $idBook . $extension;
+                    $file =  file_get_contents($urlPhoto);
+                    $fileSize = $file["size"];
+                    $idUrlPhoto = $this->insertInBookImage($urlPhoto, $fileSize, $extension);
 
-                    $fileSize = file_put_contents($path, file_get_contents($urlPhoto));
-                    $idUrlPhoto = $this->insertInBookImage($idBook, $fileSize, $extension);
+                    $path = '../GlobalAGECTR/upload_photo_book/' . $idUrlPhoto . $extension;
+                    file_put_contents($path, $file);
                 }
 
                 $stmt->bindParam(":id", $idBook, PDO::PARAM_INT);
