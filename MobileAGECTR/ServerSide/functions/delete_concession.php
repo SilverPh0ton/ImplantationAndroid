@@ -21,7 +21,7 @@ try {
             $stmt->execute();
             $urlPhoto = $stmt->fetch()[0];
             
-            $file_path_concession = "../../../GlobalAGECTR/upload_photo_concession/";
+            $file_path_concession = "../../../GlobalAGECTR/upload_photo_reception/";
             if (!unlink($file_path_concession . $urlPhoto . '.png')){
                 error_log("Image introuvable", 0);
             }

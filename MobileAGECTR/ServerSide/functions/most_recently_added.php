@@ -14,7 +14,7 @@ $book = new Book();
 $book_arr = array();
 $book_arr["book"] = array();
 
-$query = "SELECT distinct idBook, count(id) as dispo, (SELECT urlPhoto from book where id = concession.idBook) as image FROM concession WHERE state = 'disponible' group by idBook order by MAX(createdDate) desc limit 9";
+$query = "SELECT distinct idBook, count(id) as dispo, (SELECT urlPhoto from book where id = concession.idBook) as image FROM concession WHERE state = 'disponible' or state = 'renouveler' group by idBook order by MAX(createdDate) desc limit 9";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $num = $stmt->rowCount();
