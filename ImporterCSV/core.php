@@ -29,7 +29,7 @@ if (isset($_POST["submit"])) {
         $newDB = new NewDB();
 
         //Remove Data from new DB
-        $newDB->deleteAll();
+        //$newDB->deleteAll();
 
         //Get ExcelExtracts Entities From Xlsx (idConcession aka ReferenceCode, idBook, idUser)
         $extracts = $excelImporter->import($_FILES['file']['name']);
