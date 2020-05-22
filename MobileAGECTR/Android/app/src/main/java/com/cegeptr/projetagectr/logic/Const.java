@@ -8,6 +8,7 @@ public class Const {
     public static final String END_POINTS_ADDRESS = SERVER_ADDRESS + "/MobileAGECTR/ServerSide/functions/";
     public static final String BOOK_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_book/";
     public static final String CONCESSION_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_concession/";
+    public static final String RECEPTION_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_reception/";
 
     /**
      * Code de broadcast pour le serveur

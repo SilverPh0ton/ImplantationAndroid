@@ -27,7 +27,7 @@ try {
     /*
             CONCESSION
     */
-    $sql = "insert into concession_image values (0,:nom,:taille,:extention)";
+    $sql = "insert into reception_image values (0,:nom,:taille,:extention)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":nom",$_FILES["file"]["name"]);
     $stmt->bindParam(":taille",$_FILES["file"]["size"]);
