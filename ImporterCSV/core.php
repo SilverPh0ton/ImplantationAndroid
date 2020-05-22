@@ -153,10 +153,10 @@ function booksTableGenerator($title, $data) {
                     ?>
                     <tr>
                         <td><?= $data[$i]->getIdBook() ?></td>
-                        <td><?= utf8_decode($data[$i]->getTitle()) ?></td>
-                        <td><?= utf8_decode($data[$i]->getAuthor()) ?></td>
-                        <td><?= utf8_decode($data[$i]->getPublisher()) ?></td>
-                        <td><?= utf8_decode($data[$i]->getEdition()) ?></td>
+                        <td><?= $data[$i]->getTitle() ?></td>
+                        <td><?= $data[$i]->getAuthor() ?></td>
+                        <td><?= $data[$i]->getPublisher() ?></td>
+                        <td><?= $data[$i]->getEdition() ?></td>
                         <td><?= $data[$i]->getBarcode() ?></td>
                         <td><?= $data[$i]->getUrlPhoto() ?></td>
                     </tr>
