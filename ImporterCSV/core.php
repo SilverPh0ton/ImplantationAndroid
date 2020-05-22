@@ -10,6 +10,7 @@ if (isset($_POST["submit"])) {
     try {
         $useAPI = false;
         $apiKeysStr = "";
+        $apiKeys = array();
         if(!empty($_POST['apiKey']))
         {
             $useAPI = $_POST['field'];
@@ -19,7 +20,6 @@ if (isset($_POST["submit"])) {
             }
 
             $apiKeysStr = $_POST['apiKey'];
-            $apiKeysStr = array();
             $apiKeys = explode("/",$apiKeysStr);
         }
         //Objects init
