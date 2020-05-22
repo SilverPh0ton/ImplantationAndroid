@@ -45,17 +45,19 @@ public class Const {
     /**
      * État
      */
-    public final static String STATE_ACCEPT = "disponible";
     public final static String STATE_DENIED = "refuser";
     public final static String STATE_PENDING = "validation";
-    public final static String STATE_REMOVED = "retirer";
-    public final static String STATE_PAYED = "paye";
-    public final static String STATE_GIVEN = "dons";
+
+    public final static String STATE_ACCEPT = "disponible";
     public final static String STATE_TO_RENEW = "renouveler";
     public final static String STATE_UPDATE = "modification";
     public final static String STATE_TO_REMOVE = "a_retirer";
     public final static String STATE_TO_PAY = "a_paye";
-    public final static String STATE_TO_GIVE = "a_dons";
+
+    public final static String STATE_REMOVED = "retirer";
+    public final static String STATE_PAYED = "paye";
+    public final static String STATE_GIVEN = "dons";
+    public final static String STATE_UNPAYED = "nonpaye";
 
     /**
      * Extra
