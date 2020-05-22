@@ -26,18 +26,13 @@ class BookImporter
         $bookImporterResponses = new BookImporterResponses();
 
         foreach ($booksIdentifiers as $bookIdentifier) {
-            $url = "https://api2.isbndb.com/book/" . $bookIdentifier->getIsbn();
+            $url = "https://www.googleapis.com/books/v1/volumes?q=isbn:".$bookIdentifier->getIsbn()."&key=".$apiKey."&orderBy=newest" ;
 
-            $headers = array(
-                "Content-Type: application/json",
-                "Authorization: " . $apiKey
-            );
+            $page = file_get_contents($url);
 
-            curl_setopt($this->rest,CURLOPT_URL,$url);
-            curl_setopt($this->rest,CURLOPT_HTTPHEADER,$headers);
-            curl_setopt($this->rest,CURLOPT_RETURNTRANSFER, true);
+            $response = json_decode($page, true);
 
-            $this->JSONconverter(curl_exec($this->rest), $bookIdentifier->getIdBook(), $bookImporterResponses);
+            $this->convertApiResponseToBooks($response, $bookIdentifier, $bookImporterResponses);
         }
 
         return $bookImporterResponses;
@@ -97,7 +92,7 @@ class BookImporter
         }
 
         if (isset($responseBook["book"]["authors"])) {
-            $author = $this->concatAuthors($responseBook["book"]["authors"]);
+            $author = $this->concatInfos($responseBook["book"]["authors"]);
         }
 
         if (isset($responseBook["errorMessage"])) {
@@ -119,30 +114,98 @@ class BookImporter
     }
 
     //Fonction servant à concaténer les auteurs en un string.
-    private function concatAuthors($authors) {
-        if (!is_null($authors)) {
-            if (sizeof($authors) > 1) {
-                $concatAuthors = "";
+    private function concatInfos($infos) {
+        if (!is_null($infos)) {
+            if (sizeof($infos) > 1) {
+                $concatInfo = "";
                 $ctr = 0;
 
-                foreach ($authors as $author) {
+                foreach ($infos as $info) {
                     if ($ctr > 0) {
-                        $concatAuthors .= ", " . $author;
+                        $concatInfo .= ", " . $info;
                     } else {
-                        $concatAuthors .= $author;
+                        $concatInfo .= $info;
                     }
 
                     $ctr++;
                 }
 
-                return $concatAuthors;
+                return $concatInfo;
             }
         }
 
-        return $authors[0];
+        return $infos[0];
     }
 
+    private function convertApiResponseToBooks($response, $bookIdentifier, $bookImporterResponses)
+    {
+        if($response['totalItems'] != 0)
+        {
+            $volumeInfos = $response['items'][0]['volumeInfo'];
+            if(isset($volumeInfos))
+            {
+                $title = utf8_decode($volumeInfos['title']);
+                $authors = null;
+                $publisher = null;
+                $urlPhoto = null;
 
+                $authors = $volumeInfos['authors'];
+                if(isset($volumeInfos['publisher']))
+                {
+                    $publisher = $volumeInfos['publisher'];
+                }
+
+                if(isset($volumeInfos['imageLinks']))
+                {
+                    if(isset($volumeInfos['imageLinks']['small']))
+                    {
+                        $urlPhoto = $volumeInfos['imageLinks']['small'];
+                    }
+                    else if(isset($volumeInfos['imageLinks']['thumbnail']))
+                    {
+                        $urlPhoto = $volumeInfos['imageLinks']['thumbnail'];
+                    }
+                    else if(isset($volumeInfos['imageLinks']['smallThumbnail']))
+                    {
+                        $urlPhoto = $volumeInfos['imageLinks']['smallThumbnail'];
+                    }
+                    else if(isset($volumeInfos['imageLinks']['medium']))
+                    {
+                        $urlPhoto = $volumeInfos['imageLinks']['medium'];
+                    }
+                    else if(isset($volumeInfos['imageLinks']['large']))
+                    {
+                        $urlPhoto = $volumeInfos['imageLinks']['large'];
+                    }
+                    else if(isset($volumeInfos['imageLinks']['extraLarge']))
+                    {
+                        $urlPhoto = $volumeInfos['imageLinks']['extraLarge'];
+                    }
+                }
+
+
+                $book = new Book(
+                    $bookIdentifier->getIdBook(),
+                    $title,
+                    $this->concatInfos($authors),
+                    $publisher,
+                    null,
+                    $bookIdentifier->getIsbn(),
+                    $urlPhoto
+                );
+
+                $bookImporterResponses->addBook($book);
+            }
+            else
+            {
+                $bookImporterResponses->addUnfoundId($bookIdentifier->getIdBook());
+            }
+        }
+        else
+        {
+            $bookImporterResponses->addUnfoundId($bookIdentifier->getIdBook());
+        }
+    }
 
 
 }
