@@ -56,7 +56,7 @@ class NewDB extends NewConfigDB
 
                 if (!is_null($urlPhoto)) {
                     $file =  file_get_contents($urlPhoto);
-                    $fileSize = $file["size"];
+                    $fileSize = strlen($file);
                     $idUrlPhoto = $this->insertInBookImage($urlPhoto, $fileSize, $extension);
 
                     $path = '../GlobalAGECTR/upload_photo_book/' . $idUrlPhoto . $extension;
