@@ -74,44 +74,6 @@ class BookImporter
         }
     }
 
-    //Fonction convertisant le retour de l'API en JSON, en object de type livre.
-    private function JSONconverter($response, $idBook, $bookImporterResponses) {
-
-        $responseBook = json_decode($response, true, 512, JSON_INVALID_UTF8_SUBSTITUTE);
-
-        $publisher = null;
-        $image = null;
-        $author = null;
-
-        if (isset($responseBook["book"]["publisher"])) {
-            $publisher = $responseBook["book"]["publisher"];
-        }
-
-        if (isset($responseBook["book"]["image"])) {
-            $image = $responseBook["book"]["image"];
-        }
-
-        if (isset($responseBook["book"]["authors"])) {
-            $author = $this->concatInfos($responseBook["book"]["authors"]);
-        }
-
-        if (isset($responseBook["errorMessage"])) {
-            $bookImporterResponses->addUnfoundId($idBook);
-        } else {
-            $title = str_replace("ï¿½", "é", $responseBook["book"]["title"]);
-            $book = new Book(
-                $idBook,
-                $title,
-                $author,
-                $publisher,
-                null,
-                $responseBook["book"]["isbn13"],
-                $image
-            );
-
-            $bookImporterResponses->addBook($book);
-        }
-    }
 
     //Fonction servant à concaténer les auteurs en un string.
     private function concatInfos($infos) {
@@ -134,7 +96,7 @@ class BookImporter
             }
         }
 
-        return $infos[0];
+        return null;
     }
 
     private function convertApiResponseToBooks($response, $bookIdentifier, $bookImporterResponses)
@@ -149,7 +111,12 @@ class BookImporter
                 $publisher = null;
                 $urlPhoto = null;
 
-                $authors = $volumeInfos['authors'];
+
+                if(isset($volumeInfos['authors']))
+                {
+                    $authors = $volumeInfos['authors'];
+                }
+
                 if(isset($volumeInfos['publisher']))
                 {
                     $publisher = utf8_decode($volumeInfos['publisher']);
