@@ -9,7 +9,7 @@ include_once 'DBObject/NewDB.php';
 if (isset($_POST["submit"])) {
     try {
         $useAPI = false;
-        $apiKey = "";
+        $apiKeysStr = "";
         if(!empty($_POST['apiKey']))
         {
             $useAPI = $_POST['field'];
@@ -18,7 +18,9 @@ if (isset($_POST["submit"])) {
                 $useAPI = true;
             }
 
-            $apiKey = $_POST['apiKey'];
+            $apiKeysStr = $_POST['apiKey'];
+            $apiKeysStr = array();
+            $apiKeys = explode("/",$apiKeysStr);
         }
         //Objects init
         $excelImporter = new ExcelImporter();
@@ -29,13 +31,13 @@ if (isset($_POST["submit"])) {
         $newDB = new NewDB();
 
         //Remove Data from new DB
-        //$newDB->deleteAll();
+        $newDB->deleteAll();
 
         //Get ExcelExtracts Entities From Xlsx (idConcession aka ReferenceCode, idBook, idUser)
         $extracts = $excelImporter->import($_FILES['file']['name']);
         $sanitizedExtract = $excelImporter->sanitized($extracts);
 
-        $unfoundBooks = importBooks($excelImporter, $sanitizedExtract, $oldDB, $bookImporter, $newDB, $useAPI, $apiKey);
+        $unfoundBooks = importBooks($excelImporter, $sanitizedExtract, $oldDB, $bookImporter, $newDB, $useAPI, $apiKeys);
         importUsers($excelImporter, $sanitizedExtract, $oldDB, $userImporter, $newDB);
         importConcessions($excelImporter, $sanitizedExtract, $oldDB, $concessionImporter, $newDB);
 
@@ -55,7 +57,7 @@ if (isset($_POST["submit"])) {
  * @return array
  * @throws Exception
  */
-function importBooks(ExcelImporter $excelImporter, $sanitizedExtract, OldDB $oldDB, BookImporter $bookImporter, NewDB $newDB, $useAPI, $apiKey)
+function importBooks(ExcelImporter $excelImporter, $sanitizedExtract, OldDB $oldDB, BookImporter $bookImporter, NewDB $newDB, $useAPI, $apiKeys)
 {
     //List the bookIds from Extracts
     $bookIds = $excelImporter->extractBookIdsFromImport($sanitizedExtract);
@@ -70,7 +72,7 @@ function importBooks(ExcelImporter $excelImporter, $sanitizedExtract, OldDB $old
         $booksIdentifiers = $oldDB->getBooksIdentifiers($sanitizedBookIds);
 
         //Import From Api the info of the books
-        $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers, $apiKey);
+        $bookImporterResponses = $bookImporter->importBooks($booksIdentifiers, $apiKeys);
 
         //Get the old values of book If not found on the ISBN API
         $unfoundBooks = $oldDB->getBooksFromIds($bookImporterResponses->getUnfoundIds());

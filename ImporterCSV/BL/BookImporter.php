@@ -22,10 +22,18 @@ class BookImporter
     }
 
     //Fonction récupérant les informations d'un livre.
-    public function importBooks ($booksIdentifiers, $apiKey) {
+    public function importBooks ($booksIdentifiers, $apiKeys) {
         $bookImporterResponses = new BookImporterResponses();
-
+        $apiCalls = 0;
+        $noKey = 0;
+        $apiKey = $apiKeys[$noKey];
         foreach ($booksIdentifiers as $bookIdentifier) {
+            if($apiCalls > 900)
+            {
+                $noKey++;
+                $apiKey = $apiKeys[$noKey];
+                $apiCalls = 0;
+            }
             $url = "https://www.googleapis.com/books/v1/volumes?q=isbn:".$bookIdentifier->getIsbn()."&key=".$apiKey."&orderBy=newest" ;
 
             $page = file_get_contents($url);
