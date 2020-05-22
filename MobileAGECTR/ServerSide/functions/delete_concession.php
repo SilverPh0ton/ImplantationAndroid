@@ -13,7 +13,7 @@ try {
 
     if (isset($_POST['idConcession'])) {
 
-        if($_POST['State']=="validation")
+        if($_POST['State']=="validation" || $_POST['State']=='refuser')
          {  
             $sql = "SELECT urlPhoto FROM reception WHERE id = :idConcession";
             $stmt = $pdo->prepare($sql);
