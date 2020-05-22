@@ -122,9 +122,9 @@ class BookImporter
 
                 foreach ($infos as $info) {
                     if ($ctr > 0) {
-                        $concatInfo .= ", " . $info;
+                        $concatInfo .= ", " . utf8_decode($info);
                     } else {
-                        $concatInfo .= $info;
+                        $concatInfo .= utf8_decode($info);
                     }
 
                     $ctr++;
@@ -152,7 +152,7 @@ class BookImporter
                 $authors = $volumeInfos['authors'];
                 if(isset($volumeInfos['publisher']))
                 {
-                    $publisher = $volumeInfos['publisher'];
+                    $publisher = utf8_decode($volumeInfos['publisher']);
                 }
 
                 if(isset($volumeInfos['imageLinks']))
