@@ -58,9 +58,10 @@
              <input type="file" name="file" />
              <br />
              <input id="option" type="checkbox" name="field" value="option">
-             <label id="optionLabel" for="option">Import books from google books API (max requests : 1000/day)</label>
+             <label id="optionLabel" for="option">Import books from google books API (max requests : 900/day)</label>
              <div id="apiKeySection">
                  <p><b>*IMPORTANT :</b> Ajuster <b>« max_execution_time = 0 »</b> dans le <b>php.ini</b> pour un fichier excel volumineux.</p>
+                 <p>Pour une importation avec <b>PLUS</b> que 900 requêtes, mettre des <b>« / »</b> entre les clés (ex : foo/bar/foo/bar).</p>
                  <label for="apiKey">API key</label>
                  <input type="input" id="apiKey" name="apiKey">
              </div>
