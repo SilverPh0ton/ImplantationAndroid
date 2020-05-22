@@ -4,7 +4,7 @@ include '../entity/ServerResponse.php';
 
 try {
     $response = new ServerResponse();
-    $file_path_concession = "../../../GlobalAGECTR/upload_photo_concession/";
+    $file_path_concession = "../../../GlobalAGECTR/upload_photo_reception/";
     $file_path_book = "../../../GlobalAGECTR/upload_photo_book/";
 
     $idConcession = $_POST['idConcession'];
@@ -27,14 +27,14 @@ try {
     /*
             CONCESSION
     */
-    $sql = "insert into concession_image values (0,:nom,:taille,:extention)";
+    $sql = "INSERT into reception_image values (0,:nom,:taille,:extention)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":nom",$_FILES["file"]["name"]);
     $stmt->bindParam(":taille",$_FILES["file"]["size"]);
     $stmt->bindParam(":extention",$ext);
     $stmt->execute();
   
-    $sql = "Select max(id) from concession_image";
+    $sql = "SELECT max(id) from reception_image";
     $stmt=$pdo->prepare($sql);
     $stmt->execute();
     $idImg=$stmt->fetch();

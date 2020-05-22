@@ -121,10 +121,19 @@ public class EditBookActivity extends AppCompatActivity {
             et_price.setEnabled(false);
         }
 
-        String img_url =((editBookViewModel.getLoadedConcession().getUrlPhoto() == null) ?
-                Const.BOOK_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getBook().getUrlPhoto()+".png":
-                Const.CONCESSION_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getUrlPhoto()+".png"
-        );
+        String img_url;
+        if(editBookViewModel.getLoadedConcession().getState().equals(Const.STATE_PENDING)){
+            img_url =((editBookViewModel.getLoadedConcession().getUrlPhoto() == null) ?
+                    Const.BOOK_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getBook().getUrlPhoto()+".png":
+                    Const.RECEPTION_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getUrlPhoto()+".png"
+            );
+        }else{
+            img_url =((editBookViewModel.getLoadedConcession().getUrlPhoto() == null) ?
+                    Const.BOOK_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getBook().getUrlPhoto()+".png":
+                    Const.CONCESSION_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getUrlPhoto()+".png"
+            );
+        }
+
         Picasso
                 .get()
                 .load(img_url)
