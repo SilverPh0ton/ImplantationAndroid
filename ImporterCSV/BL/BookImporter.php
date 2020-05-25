@@ -5,20 +5,14 @@ include_once 'Entities/BookImporterResponses.php';
 
 class BookImporter
 {
-    //Déclaration des variables.
-    //44069_1e599bc965ce65638d7bb55bba332462
-    private $rest;
-
     //Constructeur
     public function __construct()
     {
-        $this->rest = curl_init();
     }
 
     //Destructeur
     public function __destruct()
     {
-        curl_close($this->rest);
     }
 
     //Fonction récupérant les informations d'un livre.
@@ -92,9 +86,9 @@ class BookImporter
 
                 foreach ($infos as $info) {
                     if ($ctr > 0) {
-                        $concatInfo .= ", " . utf8_decode($info);
+                        $concatInfo .= ", " . $info;
                     } else {
-                        $concatInfo .= utf8_decode($info);
+                        $concatInfo .= $info;
                     }
 
                     $ctr++;
@@ -114,7 +108,7 @@ class BookImporter
             $volumeInfos = $response['items'][0]['volumeInfo'];
             if(isset($volumeInfos))
             {
-                $title = utf8_decode($volumeInfos['title']);
+                $title = $volumeInfos['title'];
                 $authors = null;
                 $publisher = null;
                 $urlPhoto = null;
@@ -127,7 +121,7 @@ class BookImporter
 
                 if(isset($volumeInfos['publisher']))
                 {
-                    $publisher = utf8_decode($volumeInfos['publisher']);
+                    $publisher = $volumeInfos['publisher'];
                 }
 
                 if(isset($volumeInfos['imageLinks']))
