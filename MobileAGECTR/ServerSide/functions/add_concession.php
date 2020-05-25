@@ -2,8 +2,7 @@
 require_once "config_bd.php";
 include '../entity/Concession.php';
 include '../entity/Book.php';
-include 'const.php';
-
+include '../../../GlobalAGECTR/SharedConstant.php';
 
 try {
 
@@ -52,10 +51,11 @@ try {
         else
         {
             try{
-                $sql = "INSERT INTO book(title, author, publisher, edition, barcode, urlPhoto, newBook, createdBy) VALUES (:title, :author, :publisher, :edition, :barcode, :urlPhoto, :newBook, :createdBy)";
+                $sql = "INSERT INTO book(title, author, publisher, edition, barcode, urlPhoto, section, newBook, createdBy) VALUES (:title, :author, :publisher, :edition, :barcode, :urlPhoto, :section, :newBook, :createdBy)";
 
                 if ($stmt = $pdo->prepare($sql)) {
                     $newBook = 1;
+                    $section = CONST_FAKE_SECTION;
                     // Bind variables to the prepared statement as parameters
                     $stmt->bindParam(":title", $arr['book']['title']);
                     $stmt->bindParam(":author", $arr['book']['author']);
@@ -63,6 +63,7 @@ try {
                     $stmt->bindParam(":edition", $arr['book']['edition']);
                     $stmt->bindParam(":barcode", $arr['book']['barcode']);
                     $stmt->bindParam(":urlPhoto", $arr['book']['urlPhoto']);
+                    $stmt->bindParam(":section", $section);
                     $stmt->bindParam(":newBook", $newBook, PDO::PARAM_INT);
                     $stmt->bindParam(":createdBy", $createdBy);
 
