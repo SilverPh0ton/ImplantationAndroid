@@ -2,13 +2,13 @@
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', '1750944');
-define('DB_PASSWORD', '1750944');
-define('DB_NAME', '420617ri_equipe-4');
+define('DB_USERNAME', 'silverph_base');
+define('DB_PASSWORD', '175094417509441750944');
+define('DB_NAME', 'silverph_agectr');
 
 /* Attempt to connect to MySQL database */
 try{
-    $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
+    $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME . ";charset=utf8" , DB_USERNAME, DB_PASSWORD);
     // Set the PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e){
