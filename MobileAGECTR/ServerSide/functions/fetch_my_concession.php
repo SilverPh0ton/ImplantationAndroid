@@ -1,15 +1,14 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once "config_bd.php";
 include '../entity/Concession.php';
 include '../entity/Book.php';
 include '../../../GlobalAGECTR/SharedConstant.php';
-
+$concessions = array();
 try {
-    $concessions = array();
-
     if (isset($_POST['id_user'])) {
-
         $sql = "SELECT * FROM concession WHERE idCustomer = :idCustomer AND manageByAGECTR = 0";
 
         if ($stmt = $pdo->prepare($sql)) {
@@ -23,7 +22,6 @@ try {
             foreach ($concessionBD as $row) {
 
                 $book = new Book();
-
                 try {
                     $sqlBook = "SELECT * FROM book WHERE id = :idBook";
                     $stmt = $pdo->prepare($sqlBook);
@@ -43,6 +41,7 @@ try {
                 }
                 catch (Exception $e)
                 {
+                    file_put_contents('log.txt', "erreur_fetch_my_concession: SELECT BOOK FAILED : "  . "\n", FILE_APPEND);
                     echo json_encode(null);
                 }
 
@@ -61,6 +60,7 @@ try {
 
                 array_push($concessions, $concession);
             }
+
         }
 
         $sqlReception = "SELECT * FROM reception WHERE idCustomer = :idCustomer";
@@ -96,6 +96,7 @@ try {
                 }
                 catch (Exception $e)
                 {
+                    file_put_contents('log.txt', "erreur_fetch_my_concession: SELECT BOOK FAILED : "  . "\n", FILE_APPEND);
                     echo json_encode(null);
                 }
 
@@ -109,7 +110,6 @@ try {
                 $concession->setState($row['state']);
                 $concession->setUrlPhoto($row['urlPhoto']);
                 $concession->setRefuseReason($row['refuseReason']);
-
                 array_push($concessions, $concession);
             }
         }
@@ -135,7 +135,7 @@ try {
                     $stmt = $pdo->prepare($sqlBook);
                     $stmt->bindParam(":idBook", $row['idBook'], PDO::PARAM_INT);
                     $stmt->execute();
-                    $rowBook = $stmt->fetch();
+                    $rowBook = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
                     $book->setIdBook($rowBook['id']);
@@ -149,11 +149,11 @@ try {
                 }
                 catch (Exception $e)
                 {
+                    file_put_contents('log.txt', "erreur_fetch_my_concession: SELECT BOOK FAILED : "  . "\n", FILE_APPEND);
                     echo json_encode(null);
                 }
 
                 $concession = new Concession();
-
                 $concession->setIdConcession($row['id']);
                 $concession->setIdCustomer($_POST['id_user']);
                 $concession->setIsAnnotated(($row['isAnnotated']==1)?true:false);
@@ -171,6 +171,7 @@ try {
         unset($stmt);
 
     } else {
+        file_put_contents('log.txt', "erreur_fetch_my_concession: NO POST : " . "\n", FILE_APPEND);
         echo json_encode(null);
     }
 
