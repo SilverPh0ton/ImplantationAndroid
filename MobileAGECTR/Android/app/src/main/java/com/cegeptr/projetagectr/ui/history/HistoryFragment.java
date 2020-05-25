@@ -93,8 +93,8 @@ public class HistoryFragment extends Fragment implements NetworkStateReceiver.Ne
             case Const.STATE_REMOVED:
                 tvState.setText(R.string.state_removed);
                 break;
-            case Const.STATE_DENIED:
-                tvState.setText(R.string.state_denied);
+            case Const.STATE_UNPAYED:
+                tvState.setText(R.string.state_unpayed);
                 break;
         }
         tvState.setTextSize(14);
