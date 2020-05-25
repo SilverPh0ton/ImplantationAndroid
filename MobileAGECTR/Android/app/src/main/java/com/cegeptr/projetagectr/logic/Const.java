@@ -4,7 +4,7 @@ public class Const {
     /**
      * Information du serveur
      */
-    public static final String SERVER_ADDRESS = "https://ogy.fr/AGECTR";
+    public static final String SERVER_ADDRESS = "http://agectr.silverph0ton.com";
     public static final String END_POINTS_ADDRESS = SERVER_ADDRESS + "/MobileAGECTR/ServerSide/functions/";
     public static final String BOOK_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_book/";
     public static final String CONCESSION_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_concession/";
