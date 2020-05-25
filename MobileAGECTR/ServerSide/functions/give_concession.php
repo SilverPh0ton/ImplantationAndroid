@@ -2,7 +2,7 @@
 
 require_once "config_bd.php";
 include '../entity/ServerResponse.php';
-include 'const.php';
+include '../../../GlobalAGECTR/SharedConstant.php';
 
 try {
     $post = file_get_contents('php://input');
@@ -12,16 +12,22 @@ try {
     file_put_contents('log.txt', $post, FILE_APPEND);
     $response = new ServerResponse();
 
-    $given_state = CONST_TO_GIVE_STATE;
-
     if (isset($_POST['idConcession'])) {
 
-        $sql = "UPDATE concession SET state = :state WHERE id = :idConcession";
+        $sql = "UPDATE concession SET state = :state, donationDate = :donationDate, manageByAGECTR = :manageByAGECTR, expireDate = :expireDate WHERE id = :idConcession";
 
         if ($stmt = $pdo->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":state", $given_state);
-            $stmt->bindParam(":idConcession", $_POST['idConcession']);
+            $idConcession = $_POST['idConcession'];
+            $state = CONST_ACCEPT_STATE;
+            $donationDate = date('Y-m-d H-i-s');
+            $manageByAGECTR = 1;
+            $expireDate = null;
+
+            $stmt->bindParam(":state", $state, PDO::PARAM_STR);
+            $stmt->bindParam(":donationDate", $donationDate);
+            $stmt->bindParam(":manageByAGECTR", $manageByAGECTR);
+            $stmt->bindParam(":expireDate", $expireDate);
+            $stmt->bindParam(":idConcession", $idConcession, PDO::PARAM_INT);
 
 
             // Attempt to execute the prepared statement

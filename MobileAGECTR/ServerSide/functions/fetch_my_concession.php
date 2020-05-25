@@ -10,7 +10,7 @@ try {
 
     if (isset($_POST['id_user'])) {
 
-        $sql = "SELECT * FROM concession WHERE idCustomer = :idCustomer";
+        $sql = "SELECT * FROM concession WHERE idCustomer = :idCustomer AND manageByAGECTR = 0";
 
         if ($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
