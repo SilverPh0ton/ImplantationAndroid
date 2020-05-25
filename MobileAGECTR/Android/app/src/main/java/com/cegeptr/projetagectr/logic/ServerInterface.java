@@ -12,10 +12,12 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -133,7 +135,7 @@ public interface ServerInterface {
      */
     @FormUrlEncoded
     @POST("delete_concession.php")
-    Call<ServerResponse> delete_concession(@Field("idConcession") int idConcession);
+    Call<ServerResponse> delete_concession(@Field("idConcession") int idConcession,@Field("State")String state);
 
     /**
      * Donne une concession aprouvé
@@ -151,7 +153,7 @@ public interface ServerInterface {
      */
     @FormUrlEncoded
     @POST("remove_concession.php")
-    Call<ServerResponse> remove_concession(@Field("idConcession") int idConcession);
+    Call<ServerResponse> remove_concession(@Field("idConcession") int idConcession) ;
 
     /**
      * Renouvel une concession
@@ -161,6 +163,16 @@ public interface ServerInterface {
     @FormUrlEncoded
     @POST("renew_concession.php")
     Call<ServerResponse> renew_concession(@Field("idConcession") int idConcession);
+
+
+    /**
+     * Renouvelle toutes les concessions d'un utilisateur
+     * @param idCustomer l'identifiant d'utilisateur pour lequel onva renouveler les livres
+     * @return une reponse de serveur générique
+     */
+    @FormUrlEncoded
+    @POST("renew_concession_all.php")
+    Call<ServerResponse> renew_concession_all(@Field("idCustomer") int idCustomer);
 
     /**
      * Obtient la liste de concession appartenant à un utilisateur
@@ -233,4 +245,18 @@ public interface ServerInterface {
     @FormUrlEncoded
     @POST("archive_concession.php")
     Call<ServerResponse> archive_concession(@Field("idConcession") int idConcession);
+
+    /**
+     * Récupère la liste des livres les plus vendus
+     * @return une reponse de serveur générique
+     */
+    @GET("best_sellers.php")
+    Call<ResponseBody> getBestSellers();
+
+    /**
+     * Récupère la liste des livres récemment ajoutés
+     * @return une reponse de serveur générique
+     */
+    @GET("most_recently_added.php")
+    Call<ResponseBody> getMostRecentlyAdded();
 }

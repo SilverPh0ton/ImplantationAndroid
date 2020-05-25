@@ -66,17 +66,24 @@ public class My_bookAdapter extends RecyclerView.Adapter<My_bookAdapter.My_bookV
         } else if (concessions.get(position).getState().equals(Const.STATE_TO_RENEW)) {
             holder.tvState.setText(R.string.state_to_renew);
             holder.tvState.setBackgroundResource(R.drawable.border_top_to_renew);
-        } else if (concessions.get(position).getState().equals(Const.STATE_TO_GIVE)) {
-            holder.tvState.setText(R.string.state_given);
-            holder.tvState.setBackgroundResource(R.drawable.border_top_given);
         } else if (concessions.get(position).getState().equals(Const.STATE_UPDATE)) {
             holder.tvState.setText(R.string.state_update);
             holder.tvState.setBackgroundResource(R.drawable.border_top_update);
         }
-        String img_url = ((concessions.get(position).getUrlPhoto() == null) ?
-                Const.BOOK_IMG_ADDRESS + concessions.get(position).getBook().getUrlPhoto() :
-                Const.CONCESSION_IMG_ADDRESS + concessions.get(position).getUrlPhoto()
-        );
+
+        String img_url;
+        if(concessions.get(position).getState().equals(Const.STATE_PENDING)){
+            img_url = ((concessions.get(position).getUrlPhoto() == null) ?
+                    Const.BOOK_IMG_ADDRESS + concessions.get(position).getBook().getUrlPhoto()+".png" :
+                    Const.RECEPTION_IMG_ADDRESS + concessions.get(position).getUrlPhoto()+".png"
+            );
+        }else{
+            img_url = ((concessions.get(position).getUrlPhoto() == null) ?
+                    Const.BOOK_IMG_ADDRESS + concessions.get(position).getBook().getUrlPhoto()+".png" :
+                    Const.CONCESSION_IMG_ADDRESS + concessions.get(position).getUrlPhoto()+".png"
+            );
+        }
+
         Picasso
                 .get()
                 .load(img_url)

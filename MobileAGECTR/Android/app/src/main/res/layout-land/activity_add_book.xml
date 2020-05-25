@@ -222,7 +222,8 @@
                 <CheckBox
                     android:id="@+id/activity_add_book_cb_annotated"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Cocher si vous avez écrit dans ce livre" />
 
                 <TextView
                     android:id="@+id/activity_add_book_label6"

@@ -121,10 +121,19 @@ public class EditBookActivity extends AppCompatActivity {
             et_price.setEnabled(false);
         }
 
-        String img_url =((editBookViewModel.getLoadedConcession().getUrlPhoto() == null) ?
-                Const.BOOK_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getBook().getUrlPhoto():
-                Const.CONCESSION_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getUrlPhoto()
-        );
+        String img_url;
+        if(editBookViewModel.getLoadedConcession().getState().equals(Const.STATE_PENDING)){
+            img_url =((editBookViewModel.getLoadedConcession().getUrlPhoto() == null) ?
+                    Const.BOOK_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getBook().getUrlPhoto()+".png":
+                    Const.RECEPTION_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getUrlPhoto()+".png"
+            );
+        }else{
+            img_url =((editBookViewModel.getLoadedConcession().getUrlPhoto() == null) ?
+                    Const.BOOK_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getBook().getUrlPhoto()+".png":
+                    Const.CONCESSION_IMG_ADDRESS+editBookViewModel.getLoadedConcession().getUrlPhoto()+".png"
+            );
+        }
+
         Picasso
                 .get()
                 .load(img_url)
@@ -177,7 +186,7 @@ public class EditBookActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ProgressBar progressBar = findViewById(R.id.activity_edit_book_progressBar);
                 progressBar.setVisibility(View.VISIBLE);
-                data.archiveConcession(editBookViewModel.getLoadedConcession().getIdConcession());
+                data.deleteConcession(editBookViewModel.getLoadedConcession().getIdConcession(), editBookViewModel.getLoadedConcession().getState());
             }
         });
     }
@@ -263,7 +272,7 @@ public class EditBookActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         this.registerReceiver(broadcastReceiverSave, new IntentFilter(Const.broadcastupdateConcession));
-        this.registerReceiver(broadcastReceiverArchive, new IntentFilter(Const.broadcastArchiveConcession));
+        this.registerReceiver(broadcastReceiverDelete, new IntentFilter(Const.broadcastChangeConcessionState));
     }
 
     /**
@@ -273,7 +282,7 @@ public class EditBookActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         this.unregisterReceiver(broadcastReceiverSave);
-        this.unregisterReceiver(broadcastReceiverArchive);
+        this.unregisterReceiver(broadcastReceiverDelete);
     }
 
     /**
@@ -293,7 +302,7 @@ public class EditBookActivity extends AppCompatActivity {
     /**
      * Broadcast Receiver de l'archivage
      */
-    private BroadcastReceiver broadcastReceiverArchive = new BroadcastReceiver() {
+    private BroadcastReceiver broadcastReceiverDelete = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             Toast.makeText(getApplicationContext(), R.string.toast_msg_archive_concession_successful, Toast.LENGTH_SHORT).show();

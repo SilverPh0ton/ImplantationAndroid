@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once "config_bd.php";
 include '../entity/ServerResponse.php';
 include 'const.php';
@@ -13,9 +15,27 @@ try {
     $response = new ServerResponse();
 
     $renew_state = CONST_ACCEPT_STATE;
-    $expireDate =  date('Y-m-d H-i-s', strtotime('+370 day'));
 
-    $renewConcession = 1;
+    if ((date('m')<=4) || (date('m')>=9))
+    {
+        if(date('m')==12){ 
+            
+            $expireDate =  date('Y-m-d H-i-s', strtotime('+420 day'));
+        }else{
+            $expireDate =  date('Y-m-d H-i-s', strtotime('+370 day'));
+        }
+    }
+    
+    else{
+        if (date('m') == 8){
+            $expireDate =  date('Y-m-d H-i-s', strtotime('+400 day'));
+        }else{
+            $expireDate =  date('Y-m-d H-i-s', strtotime('+490 day'));
+        }
+    }
+
+   
+
     $renewConcessionDate = date('Y-m-d H-i-s');
     $renewConcessionBy = CONST_CREATEDBY;
 
@@ -24,7 +44,6 @@ try {
         $sql = "UPDATE concession 
                 SET state = :state, 
                 expireDate = :expireDate,
-                renewConcession = :renewConcession,
                 renewConcessionDate = :renewConcessionDate,
                 renewConcessionBy = :renewConcessionBy
                 WHERE id = :idConcession";
@@ -33,7 +52,6 @@ try {
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":state", $renew_state);
             $stmt->bindParam(":expireDate", $expireDate);
-            $stmt->bindParam(":renewConcession", $renewConcession);
             $stmt->bindParam(":renewConcessionDate", $renewConcessionDate);
             $stmt->bindParam(":renewConcessionBy", $renewConcessionBy);
             $stmt->bindParam(":idConcession", $_POST['idConcession']);

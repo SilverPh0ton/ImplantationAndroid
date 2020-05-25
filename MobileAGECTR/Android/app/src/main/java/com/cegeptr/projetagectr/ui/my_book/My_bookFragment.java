@@ -51,6 +51,7 @@ public class My_bookFragment extends Fragment implements NetworkStateReceiver.Ne
     private Dialog scanerDialog, actionDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
     private NetworkStateReceiver networkStateReceiver;
+    private Button renew_all;
 
     /**
      * Initialise le layout du fragment
@@ -93,6 +94,15 @@ public class My_bookFragment extends Fragment implements NetworkStateReceiver.Ne
             }
         });
 
+        renew_all = root.findViewById(R.id.fragment_my_book_bt_renew_all);
+        renew_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                data.renewConcessionAll(data.getConnectedUser().getIdUser());
+                Toast.makeText(v.getContext(), R.string.toast_msg_renew_successful_all, Toast.LENGTH_LONG).show();
+            }
+        });
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -121,6 +131,15 @@ public class My_bookFragment extends Fragment implements NetworkStateReceiver.Ne
             tv_no_book_result.setVisibility(View.VISIBLE);
         }else {
             tv_no_book_result.setVisibility(View.GONE);
+            renew_all.setVisibility(View.GONE);
+
+            for (Concession item:data.getMyConcessions()) {
+                if (item.getState().equals(Const.STATE_ACCEPT) || item.getState().equals(Const.STATE_TO_RENEW)) {
+                    renew_all.setVisibility(View.VISIBLE);
+                    break;
+                }
+            }
+
         }
         recyclerView.setAdapter(adapter);
     }
@@ -226,7 +245,7 @@ public class My_bookFragment extends Fragment implements NetworkStateReceiver.Ne
                         .setMessage(R.string.alert_text_confirm_delete)
                         .setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                data.deleteConcession(concession.getIdConcession());
+                                data.deleteConcession(concession.getIdConcession(),concession.getState());
                                 actionDialog.dismiss();
                                 dialog.dismiss();
                             }

@@ -4,10 +4,11 @@ public class Const {
     /**
      * Information du serveur
      */
-    public static final String SERVER_ADDRESS = "http://206.167.140.56:8080/420617RI/Equipe_4/AGECTR/MobileAGECTR/ServerSide";
-    public static final String END_POINTS_ADDRESS = SERVER_ADDRESS + "/functions/";
-    public static final String BOOK_IMG_ADDRESS = SERVER_ADDRESS + "/upload_photo_book/";
-    public static final String CONCESSION_IMG_ADDRESS = SERVER_ADDRESS + "/upload_photo_concession/";
+    public static final String SERVER_ADDRESS = "https://agectr.silverph0ton.com";
+    public static final String END_POINTS_ADDRESS = SERVER_ADDRESS + "/MobileAGECTR/ServerSide/functions/";
+    public static final String BOOK_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_book/";
+    public static final String CONCESSION_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_concession/";
+    public static final String RECEPTION_IMG_ADDRESS = SERVER_ADDRESS + "/GlobalAGECTR/upload_photo_reception/";
 
     /**
      * Code de broadcast pour le serveur
@@ -30,6 +31,8 @@ public class Const {
     public final static String broadcastupdateAvatar = "com.cegeptr.projetagectr.broadcastupdateAvatar";
     public final static String broadcastResetPassword = "com.cegeptr.projetagectr.broadcastResetPassword";
     public final static String broadcastArchiveConcession = "com.cegeptr.projetagectr.broadcastArchiveConcession";
+    public final static String broadcastBooksPopular = "com.cegeptr.projetagectr.broadcastBooksPopular";
+    public final static String broadcastBooksRecent = "com.cegeptr.projetagectr.broadcastBooksRecent";
 
 
     /**
@@ -42,17 +45,19 @@ public class Const {
     /**
      * État
      */
-    public final static String STATE_ACCEPT = "disponible";
     public final static String STATE_DENIED = "refuser";
     public final static String STATE_PENDING = "validation";
-    public final static String STATE_REMOVED = "retirer";
-    public final static String STATE_PAYED = "paye";
-    public final static String STATE_GIVEN = "dons";
+
+    public final static String STATE_ACCEPT = "disponible";
     public final static String STATE_TO_RENEW = "renouveler";
     public final static String STATE_UPDATE = "modification";
     public final static String STATE_TO_REMOVE = "a_retirer";
     public final static String STATE_TO_PAY = "a_paye";
-    public final static String STATE_TO_GIVE = "a_dons";
+
+    public final static String STATE_REMOVED = "retirer";
+    public final static String STATE_PAYED = "paye";
+    public final static String STATE_GIVEN = "dons";
+    public final static String STATE_UNPAYED = "nonpaye";
 
     /**
      * Extra

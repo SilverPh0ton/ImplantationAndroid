@@ -9,7 +9,7 @@
     <string name="activity_title_result">Résultat de recherche</string>
 
     <string name="menu_group">Profil</string>
-    <string name="menu_research">Recherche</string>
+    <string name="menu_research">Accueil</string>
     <string name="menu_info">Mes informations</string>
     <string name="menu_reservation">Mes réservations</string>
     <string name="menu_my_book">Mes livres</string>
@@ -62,6 +62,8 @@
     <string name="label_no_result_my_books">Aucun livre à vendre</string>
     <string name="label_no_result_group_result">Aucun résultat de recherche</string>
     <string name="label_no_connection">Problème de connexion</string>
+    <string name="label_popular_books">Livres populaires</string>
+    <string name="label_recent_books">Récemment ajoutés</string>
 
 
     <string name="About_title_service">Les services de l\'AGECTR</string>
@@ -130,6 +132,7 @@
     <string name="alert_button_delete">Supprimer</string>
     <string name="alert_button_reset_password"><u>Réinitialiser mon mot de passe</u></string>
     <string name="alert_button_reset">Réinitialiser</string>
+    <string name="alert_button_renew_all">Tout renouveler</string>
 
     <string name="error_invalid_login">Adresse courriel ou mot de passe invalide</string>
 
@@ -163,11 +166,12 @@
     <string name="toast_msg_max_reservation">Vous avez atteint le nombre maximum de réservations</string>
     <string name="toast_msg_price_to_high">Le prix est trop élevé</string>
     <string name="toast_msg_price_to_low">Le prix est trop bas</string>
-    <string name="toast_msg_renew_successful">Concession renouvelé avec succès</string>
+    <string name="toast_msg_renew_successful">Concession renouvelée avec succès</string>
+    <string name="toast_msg_renew_successful_all">Concessions renouvelées avec succès</string>
     <string name="toast_msg_password_reset_successful">Un courrier vous sera envoyé avec un mot de passe temporaire</string>
     <string name="toast_msg_password_reset_failed">Un problème est survenue à l\'envoie du courrier de recuperation</string>
     <string name="toast_msg_query_to_short">Vous devez enter au moins deux caractères</string>
-    <string name="toast_msg_archive_concession_successful">Cette concession a été archivé avec succès</string>
+    <string name="toast_msg_archive_concession_successful">Cette concession a été supprimée avec succès</string>
 
     <string name="state_accept">Disponible</string>
     <string name="state_denied">Refuser</string>
@@ -177,6 +181,7 @@
     <string name="state_given">Dons</string>
     <string name="state_to_renew">Renouveler</string>
     <string name="state_update">Modification</string>
+    <string name="state_unpayed">Impayer</string>
 
     <string name="phone_hint">(###)-### ####</string>
     <string name="yes_display">Oui</string>
