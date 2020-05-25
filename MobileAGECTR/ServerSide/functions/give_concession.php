@@ -16,7 +16,7 @@ try {
 
     if (isset($_POST['idConcession'])) {
 
-        $sql = "UPDATE concession SET state = :state WHERE id = :idConcession";
+        $sql = "UPDATE concession SET state = :state, manageByAGECTR = 1 WHERE id = :idConcession";
 
         if ($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
