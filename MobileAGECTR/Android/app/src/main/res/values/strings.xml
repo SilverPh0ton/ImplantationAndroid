@@ -181,6 +181,7 @@
     <string name="state_given">Dons</string>
     <string name="state_to_renew">Renouveler</string>
     <string name="state_update">Modification</string>
+    <string name="state_unpayed">À payer</string>
 
     <string name="phone_hint">(###)-### ####</string>
     <string name="yes_display">Oui</string>
