@@ -145,6 +145,14 @@ public interface ServerInterface {
     @FormUrlEncoded
     @POST("give_concession.php")
     Call<ServerResponse> give_concession(@Field("idConcession") int idConcession);
+    /**
+     * Donne une concession vendu
+     * @param idHistory l'identifiant de concession à donné
+     * @return une reponse de serveur générique
+     */
+    @FormUrlEncoded
+    @POST("unpay_concession.php")
+    Call<ServerResponse> unpay_concession(@Field("idHistory") int idHistory);
 
     /**
      * Retire une concession aprouvé
