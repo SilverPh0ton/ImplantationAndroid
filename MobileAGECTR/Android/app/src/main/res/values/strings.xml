@@ -22,7 +22,7 @@
     <string name="action_save">Sauvegarder</string>
     <string name="action_disconnect">Déconnexion</string>
     <string name="action_connect">Connexion</string>
-    <string name="action_change_info">Modifier des informations</string>
+    <string name="action_change_info">Modifier les informations</string>
     <string name="action_change_password">Modifier le mot de passe</string>
     <string name="action_back_to_search">◄-- Retour à la recherche</string>
     <string name="action_back">◄-- Retour</string>
@@ -60,6 +60,8 @@
     <string name="label_no_result_history">Aucun élément à afficher dans l\'historique</string>
     <string name="label_no_result_reservation">Aucun livre réservé</string>
     <string name="label_no_result_my_books">Aucun livre à vendre</string>
+    <string name="label_no_pop">Aucun livre populaire à afficher</string>
+    <string name="label_no_recent">Aucun livre recent à afficher</string>
     <string name="label_no_result_group_result">Aucun résultat de recherche</string>
     <string name="label_no_connection">Problème de connexion</string>
     <string name="label_popular_books">Livres populaires</string>
@@ -97,10 +99,12 @@
     <string name="alert_title_confirm_give">Confirmer le don</string>
     <string name="alert_title_confirm_remove">Confirmer le retrait</string>
     <string name="alert_title_confirm_delete">Confirmer la suppression</string>
+    <string name="alert_title_confirm_unpay">Confirmer le don</string>
 
     <string name="alert_text_confirm_give">Êtes-vous sûr de vouloir donner ce livre à l\'AGECTR?</string>
     <string name="alert_text_confirm_remove">Êtes-vous sûr de vouloir retirer ce livre de la vente?</string>
     <string name="alert_text_confirm_delete">Êtes-vous sûr de vouloir supprimer?</string>
+    <string name="alert_text_confirm_unpaye">Êtes-vous sûr de ne pas vouloir réclamer l\'argent pour ce livre?</string>
     <string name="alert_text_terms_and_conditions">
         Par le présent contrat, je m’engage à respecter les règlements de la consigne de livres usagés.
         \n Ainsi :
@@ -132,6 +136,7 @@
     <string name="alert_button_delete">Supprimer</string>
     <string name="alert_button_reset_password"><u>Réinitialiser mon mot de passe</u></string>
     <string name="alert_button_reset">Réinitialiser</string>
+    <string name="alert_button_unpayed">Offrir l\'argent à l\'AGECTR</string>
     <string name="alert_button_renew_all">Tout renouveler</string>
 
     <string name="error_invalid_login">Adresse courriel ou mot de passe invalide</string>
@@ -154,7 +159,7 @@
     <string name="toast_msg_add_failed">La concession n\'a pas pu être ajouté</string>
     <string name="toast_msg_reserve_successful">Réservation effectuée avec succès</string>
     <string name="toast_msg_reserve_failed">Un problème est survenu lors de la réservation</string>
-    <string name="toast_msg_change_info_successful">Information personnelle modifiée avec succès</string>
+    <string name="toast_msg_change_info_successful">Informations personnelles modifiée avec succès</string>
     <string name="toast_msg_change_info_failed">Un problème est survenu lors de la modification de vos informations personnelles</string>
     <string name="toast_msg_change_password_successful">Mot de passe modifié avec succès</string>
     <string name="toast_msg_unreserve_successful">Réservation annulée avec succès!</string>

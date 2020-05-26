@@ -168,14 +168,29 @@ public class My_bookFragment extends Fragment implements NetworkStateReceiver.Ne
         Button bt_give = actionCustomLayout.findViewById(R.id.dialog_concess_action_give);
         Button bt_remove = actionCustomLayout.findViewById(R.id.dialog_concess_action_remove);
         Button bt_delete = actionCustomLayout.findViewById(R.id.dialog_concess_action_delete);
+        Button bt_unpay = actionCustomLayout.findViewById(R.id.dialog_concess_action_unpay);
         Button bt_cancel = actionCustomLayout.findViewById(R.id.dialog_concess_action_cancel);
 
-        if (concession.getState().equals(Const.STATE_ACCEPT) || concession.getState().equals(Const.STATE_TO_RENEW)) {
-            bt_delete.setVisibility(View.GONE);
-        } else if (concession.getState().equals(Const.STATE_PENDING)) {
+        if (!concession.getState().equals(Const.STATE_ACCEPT) && !concession.getState().equals(Const.STATE_TO_RENEW)) {
             bt_renew.setVisibility(View.GONE);
+        }
+
+        if (!concession.getState().equals(Const.STATE_ACCEPT) && !concession.getState().equals(Const.STATE_TO_RENEW) &&
+                !concession.getState().equals(Const.STATE_UPDATE) && !concession.getState().equals(Const.STATE_TO_REMOVE)) {
             bt_give.setVisibility(View.GONE);
+        }
+
+        if (!concession.getState().equals(Const.STATE_ACCEPT) && !concession.getState().equals(Const.STATE_TO_RENEW) &&
+                !concession.getState().equals(Const.STATE_UPDATE)) {
             bt_remove.setVisibility(View.GONE);
+        }
+
+        if (!concession.getState().equals(Const.STATE_DENIED) && !concession.getState().equals(Const.STATE_PENDING)) {
+            bt_delete.setVisibility(View.GONE);
+        }
+
+        if (!concession.getState().equals(Const.STATE_TO_PAY)) {
+            bt_unpay.setVisibility(View.GONE);
         }
 
         bt_edit_view.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +261,27 @@ public class My_bookFragment extends Fragment implements NetworkStateReceiver.Ne
                         .setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 data.deleteConcession(concession.getIdConcession(),concession.getState());
+                                actionDialog.dismiss();
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.show();
+            }
+        });
+        bt_unpay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new AlertDialog.Builder(view.getContext())
+                        .setTitle(R.string.alert_title_confirm_unpay)
+                        .setMessage(R.string.alert_text_confirm_unpaye)
+                        .setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                data.leaveUnpayed(concession.getIdConcession());
                                 actionDialog.dismiss();
                                 dialog.dismiss();
                             }

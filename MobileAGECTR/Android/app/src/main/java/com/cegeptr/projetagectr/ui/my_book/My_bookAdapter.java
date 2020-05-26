@@ -115,17 +115,9 @@ public class My_bookAdapter extends RecyclerView.Adapter<My_bookAdapter.My_bookV
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(concession.getState().equals(Const.STATE_ACCEPT) || concession.getState().equals(Const.STATE_TO_RENEW) || concession.getState().equals(Const.STATE_PENDING))
-                    {
-                        ((My_bookFragment) parentFragment).inflateActionDialog(concession);
-                        myBookViewModel.setConcessionConcerned(concession);
-                        myBookViewModel.setActionDialogDisplayed(true);
-                    }
-                    else{
-                        Intent intent = new Intent(view.getContext(), EditBookActivity.class);
-                        intent.putExtra(Const.CONCESSION_TO_DISPLAY, concession.getIdConcession());
-                        view.getContext().startActivity(intent);
-                    }
+                    ((My_bookFragment) parentFragment).inflateActionDialog(concession);
+                    myBookViewModel.setConcessionConcerned(concession);
+                    myBookViewModel.setActionDialogDisplayed(true);
                 }
             });
         }
