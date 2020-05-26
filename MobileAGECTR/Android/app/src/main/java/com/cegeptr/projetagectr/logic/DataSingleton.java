@@ -856,6 +856,7 @@ public class DataSingleton {
                 }
             }
 
+
             @Override
             public void onFailure(Call<ServerResponse> call, java.lang.Throwable t) {
                 try {
@@ -863,6 +864,38 @@ public class DataSingleton {
                     Log.d("Data--giveConcession_f", t.getMessage());
                 } catch (Exception e) {
                     Log.d("Data--giveConcession_f", e.getMessage());
+                }
+            }
+        });
+    }
+    /**
+     * Marque une historique comme étant "unpayed"
+     * @param idHistory
+     */
+    public void leaveUnpayed(int idHistory) {
+        Call<ServerResponse> call = serveur.unpay_concession(idHistory);
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                try {
+                    Log.d("Data--leaveUnpay", "Photo upload");
+                    Intent intent = new Intent();
+                    intent.putExtra(Const.REQUEST_SUCCES, response.body().getSucces());
+                    intent.setAction(Const.broadcastChangeConcessionState);
+                    mainContext.sendBroadcast(intent);
+                } catch (Exception e) {
+                    Log.d("Data--leaveUnpayed", e.getMessage());
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, java.lang.Throwable t) {
+                try {
+                    mainContext.startActivity(new Intent(mainContext, NoConnection.class));
+                    Log.d("Data--leaveUnpayed", t.getMessage());
+                } catch (Exception e) {
+                    Log.d("Data--leaveUnpayed", e.getMessage());
                 }
             }
         });
