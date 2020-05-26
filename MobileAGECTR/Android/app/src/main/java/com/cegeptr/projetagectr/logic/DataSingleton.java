@@ -997,37 +997,6 @@ public class DataSingleton {
         });
     }
 
-    /**
-     * Archive une concession selon l'ID
-     * @param idConcession
-     */
-    public void archiveConcession(int idConcession) {
-        Call<ServerResponse> call = serveur.archive_concession(idConcession);
-        call.enqueue(new Callback<ServerResponse>() {
-            @Override
-            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                try {
-                    Log.d("Data--archiveConcessi_s", "Photo upload");
-                    Intent intent = new Intent();
-                    intent.setAction(Const.broadcastArchiveConcession);
-                    mainContext.sendBroadcast(intent);
-                } catch (Exception e) {
-                    Log.d("Data--archiveConcessi_s", e.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ServerResponse> call, java.lang.Throwable t) {
-                try {
-                    mainContext.startActivity(new Intent(mainContext, NoConnection.class));
-                    Log.d("Data--archiveConcessi_f", t.getMessage());
-                } catch (Exception e) {
-                    Log.d("Data--archiveConcessi_f", e.getMessage());
-                }
-            }
-        });
-    }
-
     /**********************History**********************/
     /**
      * Obtient tout mon historiques
@@ -1073,6 +1042,7 @@ public class DataSingleton {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
+                    Log.d("Data--refreshListPop_s", (response.body() != null) ? "Liste refresh:" + response.body().string():"");
                     String responseString = response.body().string();
                     JSONArray json_arr = new JSONArray(responseString);
 
@@ -1093,17 +1063,18 @@ public class DataSingleton {
                     Intent intent = new Intent();
                     intent.setAction(Const.broadcastBooksPopular);
                     mainContext.sendBroadcast(intent);
+                } catch (Exception e) {
+                    Log.d("Data--refreshListPop_s", e.getMessage());
                 }
-                catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException ex) {
-                    ex.printStackTrace();
-                }
-
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                try {
+                    mainContext.startActivity(new Intent(mainContext, NoConnection.class));
+                    Log.d("Data--refreshListPop_f", t.getMessage());
+                } catch (Exception e) {
+                    Log.d("Data--refreshListPop_f", e.getMessage());
+                }
             }
 
         });
@@ -1119,6 +1090,7 @@ public class DataSingleton {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
+                    Log.d("Data--refreshListRece_s", (response.body() != null) ? "Liste refresh:" + response.body().string():"");
                     String responseString = response.body().string();
                     JSONArray json_arr = new JSONArray(responseString);
 
@@ -1139,17 +1111,19 @@ public class DataSingleton {
                     Intent intent = new Intent();
                     intent.setAction(Const.broadcastBooksRecent);
                     mainContext.sendBroadcast(intent);
+                } catch (Exception e) {
+                    Log.d("Data--refreshListRece_s", e.getMessage());
                 }
-                catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException ex) {
-                    ex.printStackTrace();
-                }
-
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                try {
+                    mainContext.startActivity(new Intent(mainContext, NoConnection.class));
+                    Log.d("Data--refreshListRece_f", t.getMessage());
+                } catch (Exception e) {
+                    Log.d("Data--refreshListRece_f", e.getMessage());
+                }
             }
 
 
