@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once "config_bd.php";
 include '../entity/ServerResponse.php';
-include 'const.php';
+include '../../../GlobalAGECTR/SharedConstant.php';
 
 try {
     $post = file_get_contents('php://input');

@@ -2,7 +2,7 @@
 
 require_once "config_bd.php";
 include '../entity/User.php';
-include 'const.php';
+include '../../../GlobalAGECTR/SharedConstant.php';
 
 try {
     $post = file_get_contents('php://input');
