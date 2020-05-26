@@ -1,8 +1,8 @@
-package com.cegeptr.projetagectr.ui.search;
+package com.cegeptr.projetagectr.ui.home;
 
 import androidx.lifecycle.ViewModel;
 
-public class SearchViewModel extends ViewModel {
+public class HomeViewModel extends ViewModel {
 
     private String query;
 

@@ -31,6 +31,16 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/fragment_home_no_pop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/label_no_pop"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:visibility="gone" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_popular"
                 android:layout_width="match_parent"
@@ -59,6 +69,16 @@
                 android:textColor="@color/colorTextDark"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fragment_home_no_recent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/label_no_recent"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_most_recent"

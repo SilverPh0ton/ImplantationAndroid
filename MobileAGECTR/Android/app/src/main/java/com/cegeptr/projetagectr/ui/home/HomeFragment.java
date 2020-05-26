@@ -1,4 +1,4 @@
-package com.cegeptr.projetagectr.ui.search;
+package com.cegeptr.projetagectr.ui.home;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,11 +22,13 @@ import com.cegeptr.projetagectr.R;
 import com.cegeptr.projetagectr.logic.Const;
 import com.cegeptr.projetagectr.logic.DataSingleton;
 
-public class SearchFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
-    private SearchViewModel searchViewModel;
+    private HomeViewModel searchViewModel;
     private DataSingleton data = DataSingleton.getInstance();
 
+    private TextView tv_no_pop;
+    private TextView tv_no_recent;
     private RecyclerView rv_pop, rv_recent;
     private RecyclerView.Adapter adapter, adapterRecent;
     private Activity parentActivity = this.getActivity();
@@ -40,12 +43,14 @@ public class SearchFragment extends Fragment {
      */
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-        root = inflater.inflate(R.layout.fragment_research, container, false);
+        searchViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        root = inflater.inflate(R.layout.fragment_home, container, false);
 
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager horizontalLayoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
+        tv_no_pop = root.findViewById(R.id.fragment_home_no_pop);
+        tv_no_recent = root.findViewById(R.id.fragment_home_no_recent);
         rv_pop = root.findViewById(R.id.recyclerview_popular);
         rv_recent = root.findViewById(R.id.recyclerview_most_recent);
 
@@ -62,13 +67,23 @@ public class SearchFragment extends Fragment {
      * Rafraichie la liste du RecyclerView
      */
     public void refreshListPop() {
-        adapter= new SearchAdapter(parentActivity, SearchFragment.this, true);
+        adapter= new HomeAdapter(parentActivity, HomeFragment.this, true);
         rv_pop.setAdapter(adapter);
+        if(data.getLstBookPop().size()==0){
+            tv_no_pop.setVisibility(View.VISIBLE);
+        }else{
+            tv_no_pop.setVisibility(View.GONE);
+        }
     }
 
     public void refreshListRecent() {
-        adapterRecent= new SearchAdapter(parentActivity, SearchFragment.this, false);
+        adapterRecent= new HomeAdapter(parentActivity, HomeFragment.this, false);
         rv_recent.setAdapter(adapterRecent);
+        if(data.getLstBookRecent().size()==0){
+            tv_no_recent.setVisibility(View.VISIBLE);
+        }else{
+            tv_no_pop.setVisibility(View.GONE);
+        }
     }
 
     /*================================Broadcast================================*/

@@ -1,4 +1,4 @@
-package com.cegeptr.projetagectr.ui.search;
+package com.cegeptr.projetagectr.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,12 +21,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>{
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.SearchViewHolder>{
     private DataSingleton data;
     private ArrayList<GroupResult> list;
     private Fragment parentFragment;
 
-    public SearchAdapter(Context context, Fragment parentFragment, boolean popular) {
+    public HomeAdapter(Context context, Fragment parentFragment, boolean popular) {
         this.parentFragment = parentFragment;
         data = DataSingleton.getInstance();
         if (popular)
@@ -37,10 +37,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @NonNull
     @Override
-    public SearchAdapter.SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HomeAdapter.SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.recycler_item_group_result_min, parent, false);
-        return new SearchAdapter.SearchViewHolder(view);
+        return new HomeAdapter.SearchViewHolder(view);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeAdapter.SearchViewHolder holder, int position) {
         holder.tvTitle.setText(list.get(position).getBook().getTitle());
         holder.tvCount.setText(String.valueOf(list.get(position).getAmount()));
         holder.groupResult = list.get(position);
