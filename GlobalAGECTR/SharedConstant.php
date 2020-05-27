@@ -1,4 +1,6 @@
 <?php
+define("CONST_ID_USER_AGECTR", 0);
+
 define("CONST_CREATEDBY_WEB", "siteweb");
 define("CONST_CREATEDBY_MOBILE", "mobile");
 define("CONST_CREATEDBY_AUTOIMPORT", "autoimport");
@@ -10,7 +12,6 @@ define("CONST_ACCEPT_STATE","disponible");
 define("CONST_DENIED_STATE","refuser");
 define("CONST_TO_REMOVE_STATE","a_retirer");
 define("CONST_TO_PAY_STATE","a_paye");
-define("CONST_TO_GIVE_STATE","a_dons");
 define("CONST_TO_RENEW_STATE","renouveler");
 
 define("CONST_REMOVED_STATE","retirer");
