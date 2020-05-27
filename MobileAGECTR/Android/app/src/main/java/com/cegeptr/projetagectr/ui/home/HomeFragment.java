@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
         if(data.getLstBookRecent().size()==0){
             tv_no_recent.setVisibility(View.VISIBLE);
         }else{
-            tv_no_pop.setVisibility(View.GONE);
+            tv_no_recent.setVisibility(View.GONE);
         }
     }
 

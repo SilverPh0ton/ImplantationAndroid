@@ -259,12 +259,12 @@ public interface ServerInterface {
      * @return une reponse de serveur générique
      */
     @GET("best_sellers.php")
-    Call<ResponseBody> getBestSellers();
+    Call<List<GroupResult>> getBestSellers();
 
     /**
      * Récupère la liste des livres récemment ajoutés
      * @return une reponse de serveur générique
      */
     @GET("most_recently_added.php")
-    Call<ResponseBody> getMostRecentlyAdded();
+    Call<List<GroupResult>> getMostRecentlyAdded();
 }

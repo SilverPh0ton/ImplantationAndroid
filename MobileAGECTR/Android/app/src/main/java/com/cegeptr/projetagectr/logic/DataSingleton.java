@@ -1036,30 +1036,17 @@ public class DataSingleton {
     {
         lstBookPop.clear();
 
-        Call<ResponseBody> call = serveur.getBestSellers();
+        Call<List<GroupResult>> call = serveur.getBestSellers();
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<List<GroupResult>>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<List<GroupResult>> call, Response<List<GroupResult>> response) {
                 try {
-                    Log.d("Data--refreshListPop_s", (response.body() != null) ? "Liste refresh:" + response.body().string():"");
-                    String responseString = response.body().string();
-                    JSONArray json_arr = new JSONArray(responseString);
-
-                    for (int i=0; i < json_arr.length(); i++){
-                        JSONObject jsonObj = json_arr.getJSONObject(i);
-                        String id = jsonObj.getString("id");
-                        String title = jsonObj.getString("title");
-                        String author = jsonObj.getString("author");
-                        String publisher = jsonObj.getString("publisher");
-                        String edition = jsonObj.getString("edition");
-                        String barcode = jsonObj.getString("barcode");
-                        int amount = Integer.parseInt(jsonObj.getString("amount"));
-                        String image = jsonObj.getString("image");
-
-                        lstBookPop.add(new GroupResult(new Book(Integer.parseInt(id) , title, author, publisher, edition, barcode, image + ".png"), amount));
+                    Log.d("Data--refreshListPop_s", (response.body() == null) ? "Liste reçu vide" : "Liste reçu de taille: " + response.body().size());
+                    lstBookPop = (ArrayList<GroupResult>) response.body();
+                    if (lstBookPop == null) {
+                        lstBookPop = new ArrayList<>();
                     }
-
                     Intent intent = new Intent();
                     intent.setAction(Const.broadcastBooksPopular);
                     mainContext.sendBroadcast(intent);
@@ -1068,7 +1055,7 @@ public class DataSingleton {
                 }
             }
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<List<GroupResult>> call, Throwable t) {
                 try {
                     mainContext.startActivity(new Intent(mainContext, NoConnection.class));
                     Log.d("Data--refreshListPop_f", t.getMessage());
@@ -1084,28 +1071,16 @@ public class DataSingleton {
     {
         lstBookRecent.clear();
 
-        Call<ResponseBody> call = serveur.getMostRecentlyAdded();
+        Call<List<GroupResult>> call = serveur.getMostRecentlyAdded();
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<List<GroupResult>>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<List<GroupResult>> call, Response<List<GroupResult>> response) {
                 try {
-                    Log.d("Data--refreshListRece_s", (response.body() != null) ? "Liste refresh:" + response.body().string():"");
-                    String responseString = response.body().string();
-                    JSONArray json_arr = new JSONArray(responseString);
-
-                    for (int i=0; i < json_arr.length(); i++){
-                        JSONObject jsonObj = json_arr.getJSONObject(i);
-                        String id = jsonObj.getString("id");
-                        String title = jsonObj.getString("title");
-                        String author = jsonObj.getString("author");
-                        String publisher = jsonObj.getString("publisher");
-                        String edition = jsonObj.getString("edition");
-                        String barcode = jsonObj.getString("barcode");
-                        int amount = Integer.parseInt(jsonObj.getString("amount"));
-                        String image = jsonObj.getString("image");
-
-                        lstBookRecent.add(new GroupResult(new Book(Integer.parseInt(id) , title, author, publisher, edition, barcode, image + ".png"), amount));
+                    Log.d("Data--refreshListRece_s", (response.body() == null) ? "Liste reçu vide" : "Liste reçu de taille: " + response.body().size());
+                    lstBookRecent = (ArrayList<GroupResult>) response.body();
+                    if (lstBookRecent == null) {
+                        lstBookRecent = new ArrayList<>();
                     }
 
                     Intent intent = new Intent();
@@ -1117,7 +1092,7 @@ public class DataSingleton {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<List<GroupResult>> call, Throwable t) {
                 try {
                     mainContext.startActivity(new Intent(mainContext, NoConnection.class));
                     Log.d("Data--refreshListRece_f", t.getMessage());

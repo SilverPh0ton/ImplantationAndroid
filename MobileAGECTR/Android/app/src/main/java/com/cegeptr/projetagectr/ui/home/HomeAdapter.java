@@ -55,7 +55,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.SearchViewHold
         holder.groupResult = list.get(position);
         Picasso
                 .get()
-                .load(Const.BOOK_IMG_ADDRESS + list.get(position).getBook().getUrlPhoto())
+                .load(Const.BOOK_IMG_ADDRESS + list.get(position).getBook().getUrlPhoto() + ".png")
                 .placeholder(R.drawable.book_default)
                 .error(R.drawable.book_default)
                 .into(holder.imageView);

@@ -84,6 +84,8 @@ public class HistoryFragment extends Fragment implements NetworkStateReceiver.Ne
 
         TextView tvState = new TextView(getContext());
         switch(history.getState()) {
+            case Const.STATE_ACCEPT:
+            case Const.STATE_UNPAYED:
             case Const.STATE_GIVEN:
                 tvState.setText(R.string.state_given);
                 break;
@@ -92,9 +94,6 @@ public class HistoryFragment extends Fragment implements NetworkStateReceiver.Ne
                 break;
             case Const.STATE_REMOVED:
                 tvState.setText(R.string.state_removed);
-                break;
-            case Const.STATE_UNPAYED:
-                tvState.setText(R.string.state_unpayed);
                 break;
         }
         tvState.setTextSize(14);
