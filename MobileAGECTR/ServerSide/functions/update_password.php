@@ -2,7 +2,7 @@
 
 require_once "config_bd.php";
 include '../entity/ServerResponse.php';
-include 'const.php';
+include '../../../GlobalAGECTR/SharedConstant.php';
 
 try {
 
