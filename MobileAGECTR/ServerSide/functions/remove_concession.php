@@ -17,7 +17,7 @@ try {
     if (isset($_POST['idConcession'])) {
         $idConcession = $_POST['idConcession'];
         $modifiedState = CONST_UPDATE_STATE;
-        $sqlRevertPriceModif = "UPDATE concession SET customerPrice = sellingPrice/((100+feesPercentage)/100) WHERE id =  :idConcession AND state = :modifiedState";
+        $sqlRevertPriceModif = "UPDATE concession SET customerPrice = sellingPrice/((100+feesPercentage)/100) WHERE id =  :idConcession AND state = :state";
 
         if($stmt = $pdo->prepare($sqlRevertPriceModif)) {
             $stmt->bindParam(":idConcession", $idConcession, PDO::PARAM_INT);
